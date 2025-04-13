@@ -25,13 +25,9 @@ $routes->post('/register/store', 'Register::store');
 //Página de dados
 $routes->get('/dataClient', 'DataClient::index');
 
-
-//Página de consultas
-$routes->get('/consulta', "Consultas::Index");
-
-//Página de agendamentos
-$routes->get('/agendar', 'Agendamento::index');
-$routes->post('/agendar', 'Agendamento::agendar');
+//Página de cadastro de imóveis
+$routes->get('/cadastrarImovel', 'CadastraImovel::index');
+$routes->post('/cadastrarImovel/validateField', 'CadastraImovel::validateField');
 
 
 //Página de teste com o banco.
