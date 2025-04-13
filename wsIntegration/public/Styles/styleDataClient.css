@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo h1 {
+    color: #ecf0f1;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar .menu-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .menu-list .menu-item {
+    text-decoration: none;
+    color: white;
+    padding: 12px;
+    display: block;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.sidebar .menu-list .menu-item:hover {
+    background: #34495e;
+}
+
+.content {
+    margin-left: 250px;
+    padding: 30px;
+    background: #ecf0f1;
+    overflow-y: auto;
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.value {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.bottom-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-btn {
+    background: #2980b9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.save-btn:hover {
+    background: #1c638d;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #2980b9;
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: static;
+        height: auto;
+        box-shadow: none;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
