@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\ImovelModel;
 
 class DashBoard extends BaseController
 {
@@ -16,13 +17,18 @@ class DashBoard extends BaseController
         }
 
         $infoClients = $this->getInfoClients();
-
+        $realtyCount = $this->getRealty();
+        $realtyValue = $this->getRealtyValue();
 
         if (!$infoClients) {
             return redirect()->to('/login')->with('erro', 'Usuário não encontrado.');
         }
 
-        return view('dashboard', ['infoClients' => $infoClients]);
+        return view('dashboard', [
+            'infoClients' => $infoClients,
+            'realtyCount' => $realtyCount,
+            'realtyValue' => $realtyValue
+        ]);
     }
 
     private function getInfoClients()
@@ -33,9 +39,49 @@ class DashBoard extends BaseController
         if (!$userId) {
             return null;
         }
-        
+
         $userModel = new UserModel();
 
         return $userModel->find($userId);
+    }
+
+    public function getRealty()
+    {
+        $session = session();
+
+        $userId = $session->get('usuario')['id'];
+
+        if (!$userId) {
+            return null;
+        }
+
+        $imovelModel = new ImovelModel();
+        $realtyCount = $imovelModel->getRealtyUserId($userId);
+
+        if ($realtyCount) {
+            return $realtyCount;
+        } else {
+            return null;
+        }
+    }
+
+    public function getRealtyValue()
+    {
+        $session = session();
+
+        $userId = $session->get('usuario')['id'];
+
+        if (!$userId) {
+            return null;
+        }
+
+        $imovelModel = new ImovelModel();
+        $realtyValue = $imovelModel->getRealtyValue($userId);
+
+        if ($realtyValue) {
+            return $realtyValue;
+        } else {
+            return null;
+        }
     }
 }

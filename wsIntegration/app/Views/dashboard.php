@@ -32,12 +32,12 @@
             <div class="card">
                 <i class="fas fa-calendar-check"></i>
                 <h3>Total de Imóveis</h3>
-                <p>Colocar total imoveis...</p>
+                <p>Quantidade: <?= $realtyCount->total_imoveis ?: "Nenhum Imóvel cadastrado" ?></p>
             </div>
             <div class="card">
                 <i class="fas fa-chart-line"></i>
-                <h3>Últimos Dados</h3>
-                <p>Não sei como vai ser ainda</p>
+                <h3>Valor total em Imóveis</h3>
+                <p>R$ <?= $realtyValue->total_valor ?: "Nenhum valor encontrado!" ?></p>
             </div>
         </div>
     </div>
