@@ -20,6 +20,7 @@
             <ul class="menu-list">
                 <li><a href="<?= site_url('/dataClient') ?>" class="menu-item"><i class="fas fa-database"></i> Dados</a></li>
                 <li><a href="<?= site_url('/cadastrarImovel') ?>" class="menu-item"><i class="fas fa-stethoscope"></i>Cadastrar Imoveis</a></li>
+                <li><a href="<?= site_url('/generateLinkXml') ?>" class="menu-item"><i class="fas fa-stethoscope"></i>Gerar XML</a></li>
                 <li><a href="<?= site_url('/') ?>" class="menu-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </nav>

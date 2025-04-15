@@ -1,5 +1,8 @@
 <?php
 
+/* ALTER TABLE `users`.`imoveis` 
+ADD COLUMN `imagens` JSON NULL AFTER `garagem`;
+ */
 namespace App\Models;
 
 use CodeIgniter\Model;
@@ -25,6 +28,7 @@ class ImovelModel extends Model
         'titulo',
         'descricao',
         'imagem',
+        'imagens',
         'garagem'
     ];
 
@@ -46,6 +50,15 @@ class ImovelModel extends Model
         $builder->where("u.id", $user_id);
 
         return $builder->get()->getRow();
+    }
+
+    public function generateLinkXml($user_id) {
+        $builder = $this->db->table($this->table . " i");
+        $builder->select("i.*, lm.id_usuario_gerou as usuario_gerou_xml");
+        $builder->join("link_xml lm", "lm.id_usuario_gerou = i.usuario_id", "left");
+        $builder->where("i.usuario_id", $user_id);
+
+        return $builder->get()->getResult();
     }
 
 }
