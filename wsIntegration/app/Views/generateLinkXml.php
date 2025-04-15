@@ -1,19 +1,21 @@
-<link rel="stylesheet" href="<?= base_url('Styles/styleDashboard.css'); ?>">
+<link rel="stylesheet" href="<?= base_url('Styles/styleGenerateLinkXml.css'); ?>">
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="sidebar">
         <div class="logo">
             <h1>Ws Integrações</h1>
         </div>
         <div class="greeting">
-            Olá, <?php print_r($infoClients[0]["nome"]) ?>
+            Olá, nome
         </div>
         <nav class="menu">
             <h2>Menu</h2>
@@ -25,22 +27,15 @@
             </ul>
         </nav>
     </div>
-    <div class="content">
-        <div class="header-content">
-            <h1>Bem-vindo ao Dashboard</h1>
-        </div>
-        <div class="dashboard-stats">
-            <div class="card">
-                <i class="fas fa-calendar-check"></i>
-                <h3>Total de Imóveis</h3>
-                <p>Quantidade: <?= $realtyCount->total_imoveis ?: "Nenhum Imóvel cadastrado" ?></p>
-            </div>
-            <div class="card">
-                <i class="fas fa-chart-line"></i>
-                <h3>Valor total em Imóveis</h3>
-                <p>R$ <?= $realtyValue->total_valor ?: "Nenhum valor encontrado!" ?></p>
-            </div>
-        </div>
+
+    <div class="generate-xml-container">
+        <span>Clique para gerar o seu XML</span>
+
+        <form method="post" action="<?= base_url('generateLinkXml'); ?>">
+            <button type="submit" id="generate-btn">Gerar XML</button>
+        </form>
     </div>
+
 </body>
+
 </html>

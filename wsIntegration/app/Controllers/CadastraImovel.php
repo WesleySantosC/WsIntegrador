@@ -20,7 +20,7 @@ class CadastraImovel extends BaseController
 {
     $data = $this->request->getPost();
 
-    if (!$data['title']) {
+    if (empty($data['title'] ?? null)) {
         session()->setFlashdata('error', 'O campo título é obrigatório!');
         return redirect()->back()->withInput();
     }
@@ -58,7 +58,7 @@ class CadastraImovel extends BaseController
 
                 $imagePath = 'uploads/' . $file->getName();
                 // Move o arquivo para o diretório desejado
-                $file->move(WRITEPATH . 'public/uploads/', $file->getName());
+                $file->move(ROOTPATH . 'public/uploads/', $file->getName());
                 $imagePaths[] = $imagePath;
             }
         }
@@ -74,10 +74,11 @@ class CadastraImovel extends BaseController
         'estado'               => $data['state'],
         'cidade'               => $data['city'],
         'endereco'             => $data['address'],
-        'titulo'               => $data['title'],
+        'titulo'               => $data['title'] ?: "Propriedade a venda",
         'descricao'            => $data['description'],
         'garagem'              => $data['garage'],
-        'imagem'               => implode(',', $imagePaths)
+        //'imagem'               => implode(',', $imagePaths),
+        'imagens'               => json_encode($imagePaths),
     ];
 
     try {
