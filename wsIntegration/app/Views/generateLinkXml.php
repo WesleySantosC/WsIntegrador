@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<?= base_url('Styles/styleGenerateLinkXml.css'); ?>">
+<script src="<?= base_url('scripts/xmlLink.js'); ?>"></script>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -34,6 +35,12 @@
         <form method="post" action="<?= base_url('generateLinkXml'); ?>">
             <button type="submit" id="generate-btn">Gerar XML</button>
         </form>
+
+        <?php if (isset($link)): ?>
+            <div class="xml-link">
+                <a href="<?= $link ?>" target="_blank"> 📄 Baixar XML</a>
+            </div>
+        <?php endif; ?>
     </div>
 
 </body>
