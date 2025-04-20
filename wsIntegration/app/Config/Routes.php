@@ -33,5 +33,8 @@ $routes->post('/cadastrarImovel/validateField', 'CadastraImovel::validateField')
 $routes->get('/generateLinkXml', 'GenerateLinkXml::index');
 $routes->post('/generateLinkXml', 'GenerateLinkXml::index');
 
+//pagina de planos
+$routes->get('/plans', 'Plans::index');
+
 //Página de teste com o banco.
 $routes->get('testeconexao', 'TesteConexao::index');

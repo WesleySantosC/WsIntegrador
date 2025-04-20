@@ -7,6 +7,7 @@
         <div class="logo">Ws Integrações</div>
         <ul class="menu">
         <li><a href="/">Home</a></li>
+        <li><a href="/plans">Planos</a></li>
         <li><a href="<?= base_url('contact'); ?>">Contato</a></li>
         <li><a href="<?= base_url('login'); ?>">Entrar</a></li>
 
