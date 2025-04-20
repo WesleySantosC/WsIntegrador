@@ -38,7 +38,7 @@
             <div class="card">
                 <i class="fas fa-chart-line"></i>
                 <h3>Valor total em Imóveis</h3>
-                <p>R$ <?= $realtyValue->total_valor ?: "Nenhum valor encontrado!" ?></p>
+                <p>R$ <?= number_format($realtyValue->total_valor, 2, ",", ".") ?: "Nenhum valor encontrado!" ?></p>
             </div>
         </div>
     </div>
