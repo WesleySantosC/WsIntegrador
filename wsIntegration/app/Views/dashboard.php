@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="<?= base_url('scripts/dasboard.js') ?>"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -41,6 +42,43 @@
                 <p>R$ <?= number_format($realtyValue->total_valor, 2, ",", ".") ?: "Nenhum valor encontrado!" ?></p>
             </div>
         </div>
+    </div>
+
+    <?php foreach ($realtyClient as $realty): ?>
+        <div class="realty-list">
+            <div class="cardRealty">
+                <h3><?= $realty->tipo_venda . " " . $realty->tipo . " com " . $realty->quantidade_quartos . " quartos " . " em " . $realty->cidade ?></h3>
+                <p><?= $realty->descricao ?></p>
+                <p>R$ <?= number_format($realty->valor, 2, ',', '.') ?></p>
+
+                <?php
+                $imagens = json_decode($realty->imagens, true);
+
+                if (is_array($imagens) && !empty($imagens)):
+                    foreach ($imagens as $imagem):
+
+                        if (strpos($imagem, 'uploads/') === false) {
+                            $imagem = 'uploads/' . $imagem;
+                        }
+
+                        $imagemUrl = base_url($imagem);
+                ?>
+
+                        <img src="<?= $imagemUrl ?>" alt="Imagem do imóvel">
+
+                <?php endforeach;
+                endif; ?>
+
+        <div class="action-buttons">
+            <a href="#" class="btn edit" data-id="<?= $realty->id_imovel ?>">Editar</a>
+            <a href="#" class="btn deactivate" data-id="<?= $realty->id_imovel ?>">Desativar</a>
+            <a href="#" class="btn delete" data-id="<?= $realty->id_imovel ?>">Excluir</a>
+        </div>
+
+            </div>
+        </div>
+    <?php endforeach; ?>
+
     </div>
 </body>
 </html>

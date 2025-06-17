@@ -29,11 +29,34 @@ class ImovelModel extends Model
         'descricao',
         'imagem',
         'imagens',
-        'garagem'
+        'garagem',
+        'tipo',
+        'tipo_venda'
     ];
 
     protected $createdField = 'criado_em';
 
+    public function getRealtyClient($user_id) {
+        $builder = $this->db->table($this->table . " i");
+        $builder->select("u.id, i.*, i.id as id_imovel");
+        $builder->join("usuarios u", "u.id = i.usuario_id", "left");
+        $builder->where("u.id", $user_id);
+
+        return $builder->get()->getResult();
+    }
+
+    public function deleteRealty($realtyId) {
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $realtyId);
+        return $builder->update(['deletado' => 1]);
+    }
+
+    public function disableRealty($realtyId) {
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $realtyId);
+        return $builder->update(['desativado' => 1]);
+    }
+    
     public function getRealtyUserId($user_id) {
         $builder = $this->db->table($this->table . " i");
         $builder->select('count(*) as total_imoveis');
