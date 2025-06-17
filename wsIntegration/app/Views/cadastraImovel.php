@@ -133,12 +133,20 @@
         <h3>Informações do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="type">Tipo</label>
-            <select id="type" name="type">
+            <label for="type">Tipo Imovel</label>
+            <select id="type_imovel" name="type_imovel">
               <option value="">Selecione</option>
               <option value="casa" <?= old('type') == 'casa' ? 'selected' : '' ?>>Casa</option>
               <option value="apartamento" <?= old('type') == 'apartamento' ? 'selected' : '' ?>>Apartamento</option>
               <option value="terreno" <?= old('type') == 'terreno' ? 'selected' : '' ?>>Terreno</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tipo_venda">Tipo Venda</label>
+            <select name="tipo_venda" id="tipo_venda">
+              <option value="">Selecione</option>
+              <option value="vende-se">Venda</option>
+              <option value="aluga-se">Alugar</option>
             </select>
           </div>
           <div class="form-group">

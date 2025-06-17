@@ -17,6 +17,8 @@ $routes->post('/contact/submit', 'Contact::submit');
 $routes->get('/login', 'Login::index');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/login/verifyUsers', 'Login::verifyUsers');
+$routes->post('/dashboard/deletaImovel', 'Dashboard::deleteRealty');
+$routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 
 //Página de registros
 $routes->get('/register', 'Register::index');
@@ -35,6 +37,10 @@ $routes->post('/generateLinkXml', 'GenerateLinkXml::index');
 
 //pagina de planos
 $routes->get('/plans', 'Plans::index');
+
+//Pagamentos
+$routes->match(['get', 'post'], '/payment/createClientAsaas', 'PaymentController::createClientAsaas');
+$routes->get('/payment/(:num)', 'PaymentController::choose/$1');
 
 //Página de teste com o banco.
 $routes->get('testeconexao', 'TesteConexao::index');
