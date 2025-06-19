@@ -1,0 +1,214 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\PlansModel;
+use App\Models\PagamentosModel;
+use App\Models\TiposPagamentosModel;
+use CodeIgniter\Controller;
+
+class CreateLeanPaymentDTO {
+    public string $customer;
+    public string $billingType;
+    public string $value;
+    public string $dueDate;
+
+    public function __construct($customerId, $billingType, $value, $dueDate) {
+        $this->customer = $customerId;
+        $this->billingType = $billingType;
+        $this->value = $value;
+        $this->dueDate = $dueDate;
+    }
+    
+}
+
+
+
+class PaymentController extends Controller
+{
+
+    public function choose($id)
+    {
+        print_r($this->wwwroot);
+        die();
+
+        $plansModel = new PlansModel();
+        $typePayments = new TiposPagamentosModel();
+        $plan = $plansModel->find($id);
+        $payments = $typePayments->findAll(); 
+        
+        if (!$plan) {
+            return "Plano não encontrado.";
+        }
+        
+        return view('payment', ['plan' => $plan,  'payments' => $payments]);
+    }
+
+    public function createClientAsaas()
+    {
+
+        $getInfo = $this->request->getPost();
+
+        $planId = $getInfo["plano_id"];
+        $value  =  $getInfo["valor"];
+        $nameCustomer = $getInfo["nome"];
+        $emailCustomer  = $getInfo["email"];
+        $phoneCustomer = $getInfo["telefone"];
+        $cpfCnpj = $getInfo["cpfCnpj"];
+        $cep = $getInfo["cep"];
+        $typePayment = $getInfo["tipo_pagamento"];
+
+
+        if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
+            return "Está faltando alguma informação! Por gentileza revise os dados";
+        }
+
+        $data = [
+            "name" => $nameCustomer,
+            "cpfCnpj" => $cpfCnpj,
+            "email" => $emailCustomer,
+            "mobilePhone" => $phoneCustomer,
+            "postalCode" => $cep
+        ];
+
+        $this->requestCreateClientAsaas($data, $typePayment, $value);
+    }
+
+    public function createMonthly($infoClient, $typePayment, $planValue) {
+
+
+        $infoClient = json_decode($infoClient);
+
+        $idCustomer = $infoClient->id;
+
+        $dates = date('Y-m-d'); 
+
+        $date = $this->nextDueDate($dates);
+
+        if($typePayment == 'cartao credito') {
+            $typePayment = 'CREDIT_CARD';
+        } else {
+            $typePayment = 'PIX';
+        }
+
+        $data = [
+            "customer_id"  => $idCustomer,
+            "billing_type" => $typePayment,
+            "valuePlan"    => $planValue,
+            "created_at"   => $date
+        ];
+
+        $leanPayment = new CreateLeanPaymentDTO(
+            $idCustomer, 
+            $typePayment, 
+            $planValue, 
+            $date
+        );
+
+
+        $this->requestCreateMonthly($leanPayment);
+
+        $paymentModel = new PagamentosModel();
+
+        $paymentModel->insert($data);
+
+    }
+
+    public function requestCreateClientAsaas($infoClient, $typePayment, $planValue)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/customers",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($infoClient),
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjE3MDk5MjIzLTJmYTEtNDE3OS05ODczLWRlZWRhNDY1ZmNjYjo6JGFhY2hfMWUyMjRhY2ItNzc2Mi00NDBhLThkODMtNzYxNGQ5ZjJhYTYy',
+                'User-Agent: WsIntegracoes/1.0'
+
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+
+
+        
+        $err = curl_error($curl);
+        
+        curl_close($curl);
+
+        if ($err) {
+            return "cURL Error #: " . $err;
+        }
+
+        if($response) {
+            $this->createMonthly($response, $typePayment, $planValue);
+        }
+    }
+
+    public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient) {
+
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/lean/payments",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($infoClient),
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjE3MDk5MjIzLTJmYTEtNDE3OS05ODczLWRlZWRhNDY1ZmNjYjo6JGFhY2hfMWUyMjRhY2ItNzc2Mi00NDBhLThkODMtNzYxNGQ5ZjJhYTYy',
+                'User-Agent: WsIntegracoes/1.0'
+
+            ],
+        ]);
+
+        $response = curl_exec($curl);
+
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return "cURL Error #: " . $err;
+        }
+    }
+
+    function nextDueDate($dateEntry) {
+        $daysRule = [5, 10, 15, 20, 25, 28];
+
+        $date = new \DateTime($dateEntry);
+        $day = (int)$date->format('d');
+        $month = (int)$date->format('m');
+        $year = (int)$date->format('Y');
+
+        foreach ($daysRule as $dayRule) {
+            if ($day <= $dayRule) {
+                return \DateTime::createFromFormat('Y-n-j', "$year-$month-$dayRule")->format('Y-m-d');
+            }
+        }
+
+        $month++;
+        if ($month > 12) {
+            $month = 1;
+            $year++;
+        }
+
+        $dayFormatted = sprintf('%02d', $daysRule[0]);
+        $monthFormatted = sprintf('%02d', $month);
+        return \DateTime::createFromFormat('Y-m-d', "$year-$monthFormatted-$dayFormatted")->format('Y-m-d');
+    }
+
+}
