@@ -19,8 +19,8 @@
                 <p><strong>Anúncios:</strong> <?= $plan->qtd_anuncio ?></p>
                 <p><strong>Destaques:</strong> <?= $plan->qtd_destaque ?></p>
                 <p><strong>Destaque permitido?</strong> <?= $plan->is_featured ? 'Sim' : 'Não' ?></p>
-                <button class="btn-escolher">Escolher</button>
-            </div>
+                <button class="btn-escolher" onclick="location.href='<?= base_url('payment/' . $plan->id) ?>'">Escolher</button>
+                </div>
         <?php endforeach; ?>
     </div>
 </main>

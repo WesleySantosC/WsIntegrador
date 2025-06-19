@@ -12,8 +12,9 @@ class PlansModel extends Model
     protected $allowedFields = ['id', 'name', 'price', 'duration_days', 'max_properties', 'qtd_anuncio', 'qtd_destaque', 'is_featured', 'created_at'];
 
     public function getPlans() {
-        $builder = $this->db->table($this->table);
+        $builder = $this->db->table($this->table . " p");
         $builder->select("*");
+        $builder->where("p.visible_plan", 1);
 
         return $builder->get()->getResult();
     }
