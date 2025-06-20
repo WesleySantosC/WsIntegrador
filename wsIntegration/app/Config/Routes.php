@@ -34,6 +34,7 @@ $routes->post('/cadastrarImovel/validateField', 'CadastraImovel::validateField')
 //Página de gerar xml
 $routes->get('/generateLinkXml', 'GenerateLinkXml::index');
 $routes->post('/generateLinkXml', 'GenerateLinkXml::index');
+$routes->post('generateLinkXml/generate', 'GenerateLinkXml::generate');
 
 //pagina de planos
 $routes->get('/plans', 'Plans::index');

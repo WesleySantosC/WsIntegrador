@@ -2,27 +2,44 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
+use CodeIgniter\Controller;
 use SimpleXMLElement;
 use App\Models\ImovelModel;
 use App\Models\GenerateLinkXmlModel;
-class GenerateLinkXml extends BaseController
+
+class GenerateLinkXml extends Controller
 {
     public function index()
     {
-        $userId = session('usuario')['id'];
-        $link = $this->GenerateLink($userId);
-    
-        return view('generateLinkXml', ['link' => $link]);
+        return view('generateLinkXml');
     }
-    
 
-    public function GenerateLink($userId) {
+    public function generate()
+    {
+        $result = [];
+
+        try {
+            $userId = session('usuario')['id'];
+            $link = $this->GenerateLink($userId);
+
+            $result = [
+                'status' => 'success',
+                'link' => $link
+            ];
+        } catch (\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        }
+
+        return $this->response->setJSON($result);
+    }
+
+    public function GenerateLink($userId)
+    {
         $imovelModel = new ImovelModel();
         $linkModel   = new GenerateLinkXmlModel();
-        $imoveis = $imovelModel->generateLinkXml($userId);
-        
-        // Criar o XML
+        $imoveis     = $imovelModel->generateLinkXml($userId);
+
+        // Gera o XML sempre
         $xml = new SimpleXMLElement('<imoveis/>');
         foreach ($imoveis as $anuncio) {
             $imovel = $xml->addChild('imovel');
@@ -46,19 +63,26 @@ class GenerateLinkXml extends BaseController
 
         $fileName = FCPATH . "xml/user_{$userId}.xml";
         if (!is_dir(FCPATH . 'xml')) {
-            mkdir(FCPATH . 'xml', 0777, true); 
+            mkdir(FCPATH . 'xml', 0777, true);
         }
         $xml->asXML($fileName);
 
-        $link = base_url("xml/user_{$userId}.xml"); 
-        
+        $link = $this->wwwroot . "xml/user_{$userId}.xml";
+
         $data = [
             'link' => $link,
             'id_usuario_gerou' => $userId,
+            'created_at' => date('Y-m-d H:i:s'),
             'update_at' => date('Y-m-d H:i:s')
         ];
-        
-        $linkModel->generateXmlClient($data);
+
+        $existRealty = $linkModel->existXml($userId);
+
+        if ($existRealty) {
+            $linkModel->update($existRealty->id, $data);
+        } else {
+            $linkModel->generateXmlClient($data);
+        }
 
         return $link;
     }
