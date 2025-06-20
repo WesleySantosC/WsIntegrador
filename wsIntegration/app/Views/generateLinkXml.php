@@ -1,4 +1,6 @@
 <link rel="stylesheet" href="<?= base_url('Styles/styleGenerateLinkXml.css'); ?>">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= base_url('scripts/xmlLink.js'); ?>"></script>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -32,15 +34,9 @@
     <div class="generate-xml-container">
         <span>Clique para gerar o seu XML</span>
 
-        <form method="post" action="<?= base_url('generateLinkXml'); ?>">
+        <form id="generateXMLClient">
             <button type="submit" id="generate-btn">Gerar XML</button>
         </form>
-
-        <?php if (isset($link)): ?>
-            <div class="xml-link">
-                <a href="<?= $link ?>" target="_blank"> 📄 Baixar XML</a>
-            </div>
-        <?php endif; ?>
     </div>
 
 </body>

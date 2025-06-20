@@ -16,12 +16,20 @@ class GenerateLinkXmlModel extends Model
         'update_at'
     ];
 
-    protected $useTimestamps = true;
+    protected $useTimestamps = false;
 
 
     public function generateXmlClient($data) {
         $builder = $this->db->table($this->table);    
         $builder->insert($data);
+    }
+
+    public function existXml($idUser) {
+        $builder = $this->db->table($this->table);
+        $builder->select("*");
+        $builder->where("id_usuario_gerou", $idUser);
+
+        return $builder->get()->getRow();
     }
 
 }
