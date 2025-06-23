@@ -18,7 +18,7 @@ class CadastraImovel extends BaseController
 
     public function validateField()
     {
-        $data = $this->request->getPost();
+        $data = $this->post;
 
         if (empty($data['title'] ?? null)) {
             session()->setFlashdata('error', 'O campo título é obrigatório!');
