@@ -27,6 +27,7 @@ abstract class BaseController extends Controller
      * @var CLIRequest|IncomingRequest
      */
     protected $request;
+    protected $post;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -47,10 +48,12 @@ abstract class BaseController extends Controller
      * @return void
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
+    {        
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
-
+        
+        $this->wwwroot = base_url();
+        $this->post    = $this->request->getPost();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');
