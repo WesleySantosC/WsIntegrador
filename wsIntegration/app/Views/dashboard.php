@@ -72,7 +72,6 @@
         <div class="action-buttons">
             <a href="#" class="btn edit" data-id="<?= $realty->id_imovel ?>">Editar</a>
             <a href="#" class="btn deactivate" data-id="<?= $realty->id_imovel ?>">Desativar</a>
-            <a href="#" class="btn delete" data-id="<?= $realty->id_imovel ?>">Excluir</a>
         </div>
 
             </div>
