@@ -17,7 +17,6 @@ $routes->post('/contact/submit', 'Contact::submit');
 $routes->get('/login', 'Login::index');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/login/verifyUsers', 'Login::verifyUsers');
-$routes->post('/dashboard/deletaImovel', 'Dashboard::deleteRealty');
 $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 
 //Página de registros
