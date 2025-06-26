@@ -41,6 +41,7 @@ class ImovelModel extends Model
         $builder->select("u.id, i.*, i.id as id_imovel");
         $builder->join("usuarios u", "u.id = i.usuario_id", "left");
         $builder->where("u.id", $user_id);
+        $builder->where("i.desativado", 0);
 
         return $builder->get()->getResult();
     }
