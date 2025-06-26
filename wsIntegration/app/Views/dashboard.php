@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="<?= base_url('scripts/dasboard.js') ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url('scripts/dashboard.js') ?>"></script>
 </head>
 <body>
     <div class="sidebar">
@@ -68,12 +70,10 @@
 
                 <?php endforeach;
                 endif; ?>
-
-        <div class="action-buttons">
-            <a href="#" class="btn edit" data-id="<?= $realty->id_imovel ?>">Editar</a>
-            <a href="#" class="btn deactivate" data-id="<?= $realty->id_imovel ?>">Desativar</a>
-        </div>
-
+                <div class="action-buttons">
+                    <a href="#" class="btn edit" data-id="<?= $realty->id_imovel ?>">Editar</a>
+                    <input type="button" class="btn deactive" data-id="<?= $realty->id_imovel ?>" value="Desativar">
+                </div>
             </div>
         </div>
     <?php endforeach; ?>

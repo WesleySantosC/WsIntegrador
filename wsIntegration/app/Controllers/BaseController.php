@@ -28,6 +28,7 @@ abstract class BaseController extends Controller
      */
     protected $request;
     protected $post;
+    protected $verifyAjax;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -52,8 +53,9 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
         
-        $this->wwwroot = base_url();
-        $this->post    = $this->request->getPost();
+        $this->wwwroot      = base_url();
+        $this->post         = $this->request->getPost();
+        $this->verifyAjax   = $this->request->isAJAX();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');

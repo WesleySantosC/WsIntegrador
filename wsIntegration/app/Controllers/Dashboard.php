@@ -20,8 +20,6 @@ class DashBoard extends BaseController
         $realtyCount  = $this->getRealty();
         $realtyValue  = $this->getRealtyValue();
         $realtyClient = $this->displayPropertiesDashboard();
-        $realtyDeleteClient = $this->deleteRealty();
-
 
         if (!$infoClients) {
             return redirect()->to('/login')->with('erro', 'Usuário não encontrado.');
@@ -32,7 +30,6 @@ class DashBoard extends BaseController
             'realtyCount'  => $realtyCount,
             'realtyValue'  => $realtyValue,
             'realtyClient' => $realtyClient,
-            'deleteRealty' => $realtyDeleteClient
         ]);
     }
 
@@ -102,31 +99,21 @@ class DashBoard extends BaseController
 
     }
 
-    public function deleteRealty() {
-        $session = session();
+public function disableRealty() {
+    $result = [];
 
-        $userId = $session->get('usuario')['id'];
-
-        $getRealty = new ImovelModel();
-
-        $realtyId = $getRealty->getRealtyClient($userId);
-
-        foreach ($realtyId as $realty) {
-            $getRealty->deleteRealty($realty->id_imovel);
+    try {
+        if ($this->verifyAjax) {
+            $realty = new ImovelModel();
+            $id = $this->request->getPost('id');
+            $realty->disableRealty($id);
+            $result = ['status' => 'success'];
         }
+    } catch (\Throwable $e) {
+        $result['error'] = $e->getMessage();
     }
 
-    public function disableRealty() {
-        $session = session();
+    return $this->response->setJSON($result); // importante!
+}
 
-        $userId = $session->get('usuario')['id'];
-
-        $getRealty = new ImovelModel();
-
-        $realtyId = $getRealty->getRealtyClient($userId);
-        
-        foreach ($realtyId as $realty) {
-            $getRealty->disableRealty($realty->id_imovel);
-        }
-    }
 }
