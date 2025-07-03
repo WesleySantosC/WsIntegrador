@@ -3,7 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
+use DateTime;
+use App\Models\ContactModel;
 
 class Contact extends BaseController
 {
@@ -12,13 +13,41 @@ class Contact extends BaseController
         return view('contact');
     }
 
-    public function submit()
+    public function registerContact()
     {
-        $nome = $this->request->getPost('nome');
-        $email = $this->request->getPost('email');
-        $phone = $this->request->getPost('phone');
-        $question = $this->request->getPost('question');
+        $objContact = new ContactModel();
+        $date = (new DateTime())->format('Y-m-d H:i:s');
+        $result = [];
 
-        return view('contact');
+        try {
+            $request = $this->request;
+            $data = $request->getPost();
+
+            $name      = $data['nome'];
+            $email     = $data['email'];
+            $phone     = $data['phone'];
+            $question  = $data['question'];
+
+
+            if (!$name || !$email || !$phone || !$question) {
+                die("Revise as informações!");
+            }
+
+            $insertData = [
+                'nome' => $name,
+                'telefone' => $phone,
+                'email' => $email,
+                'solicitacao' => $question,
+                'criado_em' => $date
+            ];
+
+            $objContact->insert($insertData);
+
+            $result = ['status' => 'success'];
+        } catch (\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        }
+
+        return $this->response->setJSON($result);
     }
 }

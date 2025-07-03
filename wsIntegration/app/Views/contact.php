@@ -1,4 +1,8 @@
 <title>Ws Integrações</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= base_url('scripts/contact.js'); ?>"></script>
+
 <link rel="stylesheet" href="<?= base_url('Styles/styleContact.css'); ?>">
 <body>
     <nav class="navbar">
@@ -16,7 +20,7 @@
     </div>
 
     <main>
-    <form method="post" action="<?= base_url('contact/submit'); ?>">
+    <form id="frm_registerContact">
             <div class="form-group">
                 <label for="nome">Digite seu nome: </label>
                 <input type="text" name="nome" id="nome" required>
@@ -34,7 +38,7 @@
                 <textarea name="question" id="question"></textarea>
             </div>
             <div>
-                <input type="submit" value="Enviar">
+                <input type="submit" value="Enviar" id="send">
             </div>
         </form>
     </main>
