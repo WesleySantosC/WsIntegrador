@@ -9,6 +9,8 @@ $(document).ready(function () {
 
         $.post(
             WWWROOT + ROUTE, formData, function (response) {
+                            console.log(response);
+
                 if(response.status == 'success') {
                     Swal.fire({
                         title: 'Solicitação encaminhada!',
@@ -20,7 +22,7 @@ $(document).ready(function () {
                 } else{
                     Swal.fire({
                         title: 'Erro ao enviar solicitação!',
-                        text: 'Ocorreu um erro inesperado! Tente novamente mais tarde!',
+                        text: response.error,
                         icon: 'error'
                     })
                 }
