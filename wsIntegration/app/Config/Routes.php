@@ -11,7 +11,7 @@ $routes->get('/', 'Home::index');
 
 //Página de contatos
 $routes->get('/contact', 'Contact::index');
-$routes->post('/contact/submit', 'Contact::submit');
+$routes->post('/contact/registerContact', 'Contact::registerContact');
 
 //Páginas de login
 $routes->get('/login', 'Login::index');
