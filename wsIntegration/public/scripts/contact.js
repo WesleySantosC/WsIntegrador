@@ -9,8 +9,6 @@ $(document).ready(function () {
 
         $.post(
             WWWROOT + ROUTE, formData, function (response) {
-                            console.log(response);
-
                 if(response.status == 'success') {
                     Swal.fire({
                         title: 'Solicitação encaminhada!',
