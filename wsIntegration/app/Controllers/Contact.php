@@ -30,7 +30,8 @@ class Contact extends BaseController
 
 
             if (!$name || !$email || !$phone || !$question) {
-                die("Revise as informações!");
+                throw new \Exception("Revise as informações inseridas, por gentileza!");
+                
             }
 
             $insertData = [
