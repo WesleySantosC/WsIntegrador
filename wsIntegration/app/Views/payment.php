@@ -1,3 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= base_url("scripts/payment.js"); ?>"></script>
 <link rel="stylesheet" href="<?= base_url("Styles/stylePayment.css"); ?>">
 
 <div class="card">
@@ -8,7 +11,7 @@
     <p>Qtd Destaques: <?= $plan['qtd_destaque'] ?> </p>
 </div>
 
-<form action="<?= base_url('payment/createClientAsaas') ?>" method="post">
+<form id="frm_payment">
     <input type="hidden" name="plano_id" value="<?= $plan['id'] ?>">
     <input type="hidden" name="valor" value="<?= $plan['price'] ?>">
 
@@ -49,5 +52,5 @@
         <input type="number" name="cep" id="cep" class="form-control" required>
     </div>
 
-    <button type="submit" class="btn btn-primary">Pagar</button>
+    <button type="submit" class="btn btn-primary" id="submitPlanClient">Pagar</button>
 </form>
