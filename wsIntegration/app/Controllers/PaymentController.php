@@ -29,7 +29,6 @@ class PaymentController extends Controller
 
     public function choose($id)
     {
-
         $plansModel = new PlansModel();
         $typePayments = new TiposPagamentosModel();
         $plan = $plansModel->find($id);
@@ -42,9 +41,22 @@ class PaymentController extends Controller
         return view('payment', ['plan' => $plan,  'payments' => $payments]);
     }
 
+    public function returnStatus() {
+        // TO DO: ENTENDER O PORQUE NÃO ESTA INSERINDO OS CLIENTES NO ASAAS...
+        $result = [];
+
+        try {
+            $this->createClientAsaas();
+            $result = ['status' => 'success'];
+        } catch (\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        }
+
+        return $this->response->setJSON($result);
+    }
+
     public function createClientAsaas()
     {
-
         $getInfo = $this->request->getPost();
 
         $planId = $getInfo["plano_id"];
