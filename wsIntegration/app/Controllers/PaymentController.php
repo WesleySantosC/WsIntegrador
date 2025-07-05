@@ -29,8 +29,6 @@ class PaymentController extends Controller
 
     public function choose($id)
     {
-        print_r($this->wwwroot);
-        die();
 
         $plansModel = new PlansModel();
         $typePayments = new TiposPagamentosModel();
