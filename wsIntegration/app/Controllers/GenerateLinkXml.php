@@ -6,12 +6,18 @@ use CodeIgniter\Controller;
 use SimpleXMLElement;
 use App\Models\ImovelModel;
 use App\Models\GenerateLinkXmlModel;
+use App\Models\UserModel;
 
 class GenerateLinkXml extends Controller
 {
     public function index()
-    {
-        return view('generateLinkXml');
+    {   
+        $objUser = new UserModel();
+        $userId = session('usuario')['id'];
+
+        $userInfo = $objUser->getInfoUsers($userId);
+
+        return view('generateLinkXml', ['userInfo' => $userInfo]);
     }
 
     public function generate()
