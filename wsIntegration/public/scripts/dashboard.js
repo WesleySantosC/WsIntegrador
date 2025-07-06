@@ -28,4 +28,13 @@ $(document).ready(function() {
             'json'
         );
     });
+
+    $("#logout").on("click", function() {
+        $.post(
+            WWWROOT + 'login/logout', {}, function() {
+                console.log("Sessão Destruida");
+            }
+        )
+    });
+
 });

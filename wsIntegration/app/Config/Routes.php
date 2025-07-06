@@ -15,8 +15,11 @@ $routes->post('/contact/registerContact', 'Contact::registerContact');
 
 //Páginas de login
 $routes->get('/login', 'Login::index');
-$routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/login/verifyUsers', 'Login::verifyUsers');
+$routes->post('/login/logout', 'Login::logout');
+
+//Páginas do dashBoard
+$routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 
 //Página de registros
