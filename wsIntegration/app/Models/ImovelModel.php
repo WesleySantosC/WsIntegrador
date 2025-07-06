@@ -63,6 +63,13 @@ class ImovelModel extends Model
         $builder->select('count(*) as total_imoveis');
         $builder->join("usuarios u", "u.id = i.usuario_id", "left");
         $builder->where("u.id", $user_id);
+        $builder->where("i.desativado", 0);
+
+        /*
+            USAR PARA PRINTAR A QUERY:
+            echo $builder->getCompiledSelect();
+            die;
+        */
 
         return $builder->get()->getRow();
     }
@@ -72,6 +79,7 @@ class ImovelModel extends Model
         $builder->select('sum(i.valor) as total_valor');
         $builder->join("usuarios u", "u.id = i.usuario_id", "left");
         $builder->where("u.id", $user_id);
+        $builder->where("i.desativado", 0);
 
         return $builder->get()->getRow();
     }
