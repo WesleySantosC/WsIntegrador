@@ -18,7 +18,7 @@
             <h1>Ws Integrações</h1>
         </div>
         <div class="greeting">
-            Olá, nome
+            Olá, <?= $userInfo->nome ?>
         </div>
         <nav class="menu">
             <h2>Menu</h2>
