@@ -1,48 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
     line-height: 1.6;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2e8b57;
-    padding: 15px 20px;
-}
-
-.logo {
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.menu li {
-    display: inline;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    transition: background 0.3s;
-}
-
-.menu a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
 }
 
 .intro {
@@ -112,14 +69,6 @@ textarea {
 
 input[type="submit"]:hover {
     background-color: #45a49b;
-}
-
-.footer {
-    text-align: center;
-    background-color: #2e8b57;
-    color: white;
-    padding: 15px;
-    margin-top: 41px;
 }
 
 @media (max-width: 768px) {
