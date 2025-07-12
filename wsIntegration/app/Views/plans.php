@@ -1,13 +1,6 @@
+<?= view('header'); ?>
 <link rel="stylesheet" href="<?= base_url('Styles/stylePlans.css') ?>">
-<nav class="navbar">
-    <div class="logo">Ws Integrações</div>
-    <ul class="menu">
-        <li><a href="/">Home</a></li>
-        <li><a href="/plans">Planos</a></li>
-        <li><a href="<?= base_url('contact'); ?>">Contato</a></li>
-        <li><a href="<?= base_url('login'); ?>">Entrar</a></li>
-    </ul>
-</nav>
+
 
 <main>
     <div class="plans-container">
@@ -25,6 +18,4 @@
     </div>
 </main>
 
-<footer class="footer">
-    <p>&copy; 2025 Ws Integrações - Todos os direitos reservados.</p>
-</footer>
+<?= view('footer'); ?>
