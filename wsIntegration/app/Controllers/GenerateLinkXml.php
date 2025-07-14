@@ -15,9 +15,8 @@ class GenerateLinkXml extends Controller
         $objUser = new UserModel();
         $userId = session('usuario')['id'];
 
-        $userInfo = $objUser->getInfoUsers($userId);
-
-        return view('generateLinkXml', ['userInfo' => $userInfo]);
+        $infoClients = (array) $objUser->getInfoUsers($userId);
+        return view('generateLinkXml', ['infoClients' => $infoClients]);
     }
 
     public function generate()
@@ -56,6 +55,7 @@ class GenerateLinkXml extends Controller
             $imovel->addChild('referencia', $anuncio->referencia);
             $imovel->addChild('valor', $anuncio->valor);
             $imovel->addChild('areraUtil', $anuncio->areaUtil);
+            $imovel->addChild('desativado', $anuncio->desativado);
             $imovel->addChild('cep', $anuncio->cep);
             $imovel->addChild('bairro', $anuncio->bairro);
             $imovel->addChild('estado', $anuncio->estado);
