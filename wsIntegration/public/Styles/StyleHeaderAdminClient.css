@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sidebar .logo h1 {
+    color: #ecf0f1;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sidebar .greeting {
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar nav h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.sidebar .menu-list {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .menu-list .menu-item {
+    text-decoration: none;
+    color: white;
+    padding: 12px;
+    display: block;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.sidebar .menu-list .menu-item:hover {
+    background: #34495e;
+}
