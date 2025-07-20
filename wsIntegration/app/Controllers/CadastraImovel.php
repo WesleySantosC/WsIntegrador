@@ -83,6 +83,8 @@ class CadastraImovel extends BaseController
             'garagem'              => $data['garage'],
             'imagens'              => json_encode($imagePaths),
             'tipo'                 => $data['type_imovel'],
+            'desativado'           => 0,
+            'deletado'             => 0,
             'tipo_venda'           => $data['tipo_venda']
         ];
 
