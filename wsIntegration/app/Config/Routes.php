@@ -21,6 +21,7 @@ $routes->post('/login/logout', 'Login::logout');
 //Páginas do dashBoard
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
+$routes->post('/dashboard/activeRealty', 'Dashboard::activeRealty');
 
 //Página de registros
 $routes->get('/register', 'Register::index');

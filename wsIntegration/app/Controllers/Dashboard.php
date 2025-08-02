@@ -16,20 +16,22 @@ class DashBoard extends BaseController
             return redirect()->to('/login')->with('erro', 'Você precisa estar logado para acessar o Dashboard.');
         }
 
-        $infoClients  = $this->getInfoClients();
-        $realtyCount  = $this->getRealty();
-        $realtyValue  = $this->getRealtyValue();
-        $realtyClient = $this->displayPropertiesDashboard();
-
+        $infoClients    = $this->getInfoClients();
+        $realtyCount    = $this->getRealty();
+        $realtyValue    = $this->getRealtyValue();
+        $realtyClient   = $this->displayPropertiesDashboard();
+        $realtyDisabled = $this->viewRealtyDisable();
+        
         if (!$infoClients) {
             return redirect()->to('/login')->with('erro', 'Usuário não encontrado.');
         }
 
         return view('dashboard', [
-            'infoClients'  => $infoClients,
-            'realtyCount'  => $realtyCount,
-            'realtyValue'  => $realtyValue,
-            'realtyClient' => $realtyClient,
+            'infoClients'    => $infoClients,
+            'realtyCount'    => $realtyCount,
+            'realtyValue'    => $realtyValue,
+            'realtyClient'   => $realtyClient,
+            'realtyDisabled' => $realtyDisabled
         ]);
     }
 
@@ -87,8 +89,8 @@ class DashBoard extends BaseController
         }
     }
 
-    public function displayPropertiesDashboard() {
-
+    public function displayPropertiesDashboard()
+    {
         $session = session();
 
         $userId = $session->get('usuario')['id'];
@@ -96,24 +98,59 @@ class DashBoard extends BaseController
         $getRealty = new ImovelModel();
 
         return $getRealty->getRealtyClient($userId);
-
     }
 
-public function disableRealty() {
-    $result = [];
+    public function disableRealty() {
+        $result = [];
 
-    try {
-        if ($this->verifyAjax) {
-            $realty = new ImovelModel();
-            $id = $this->request->getPost('id');
-            $realty->disableRealty($id);
-            $result = ['status' => 'success'];
+        try {
+            if ($this->verifyAjax) {
+                $realty = new ImovelModel();
+                $id = $this->request->getPost('id');
+                $realty->disableRealty($id);
+                $result = ['status' => 'success'];
+            }
+        } catch (\Throwable $e) {
+            $result['error'] = $e->getMessage();
         }
-    } catch (\Throwable $e) {
-        $result['error'] = $e->getMessage();
+
+        return $this->response->setJSON($result);
     }
 
-    return $this->response->setJSON($result); // importante!
-}
+    public function viewRealtyDisable() {
+        $getRealty = new ImovelModel();
+        $session = session();
+        $userId = $session->get('usuario')['id'];
 
+        $realt = $getRealty->listRealtyDisabledByClientId($userId);
+
+        if($realt) {
+            return $realt;
+        } else {
+            return null;
+        }
+    }
+
+    public function activeRealty() {
+        $result = [];
+
+        try {
+            $objRealty = new ImovelModel();
+    
+            $realtyActiveId =  $this->post["id"];
+    
+            if($realtyActiveId) {
+                $objRealty->activeRealty($realtyActiveId);
+            } else {
+                return null;
+            }
+
+            $result = ["status" => "success"];
+
+        } catch (\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        }
+
+        return $this->response->setJSON($result);
+    }
 }
