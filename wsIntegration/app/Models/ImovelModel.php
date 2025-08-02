@@ -31,6 +31,8 @@ class ImovelModel extends Model
         'imagens',
         'garagem',
         'tipo',
+        'deletado',
+        'desativado',
         'tipo_venda'
     ];
 
@@ -56,6 +58,22 @@ class ImovelModel extends Model
         $builder = $this->db->table($this->table);
         $builder->where('id', $realtyId);
         return $builder->update(['desativado' => 1]);
+    }
+
+    public function listRealtyDisabledByClientId($user_id) {
+        $builder = $this->db->table($this->table . " i");
+        $builder->select("i.*");
+        $builder->join("usuarios u", "u.id = i.usuario_id", "left");
+        $builder->where("i.desativado", 1);
+        $builder->where("i.usuario_id", $user_id);
+
+        return $builder->get()->getResult();
+    }
+
+    public function activeRealty($realtyId) {
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $realtyId);
+        return $builder->update(['desativado' => 0]);
     }
     
     public function getRealtyUserId($user_id) {
