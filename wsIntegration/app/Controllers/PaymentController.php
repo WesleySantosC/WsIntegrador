@@ -139,7 +139,7 @@ class PaymentController extends Controller
             CURLOPT_POSTFIELDS => json_encode($infoClient),
             CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjE3MDk5MjIzLTJmYTEtNDE3OS05ODczLWRlZWRhNDY1ZmNjYjo6JGFhY2hfMWUyMjRhY2ItNzc2Mi00NDBhLThkODMtNzYxNGQ5ZjJhYTYy',
+                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjhiMjI0NDNmLTYwOTEtNDJjNy04MGNiLTE2M2ZlNWZmNmY5ZDo6JGFhY2hfM2QxMTE5MGQtMWUzMS00YTE4LThmNzgtZTg1MTY5YTRhN2Ix',
                 'User-Agent: WsIntegracoes/1.0'
 
             ],
@@ -178,7 +178,7 @@ class PaymentController extends Controller
             CURLOPT_POSTFIELDS => json_encode($infoClient),
             CURLOPT_HTTPHEADER => [
                 "Content-Type: application/json",
-                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjE3MDk5MjIzLTJmYTEtNDE3OS05ODczLWRlZWRhNDY1ZmNjYjo6JGFhY2hfMWUyMjRhY2ItNzc2Mi00NDBhLThkODMtNzYxNGQ5ZjJhYTYy',
+                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjhiMjI0NDNmLTYwOTEtNDJjNy04MGNiLTE2M2ZlNWZmNmY5ZDo6JGFhY2hfM2QxMTE5MGQtMWUzMS00YTE4LThmNzgtZTg1MTY5YTRhN2Ix',
                 'User-Agent: WsIntegracoes/1.0'
 
             ],
