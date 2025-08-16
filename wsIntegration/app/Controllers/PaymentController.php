@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\PlansModel;
 use App\Models\PagamentosModel;
 use App\Models\TiposPagamentosModel;
-use CodeIgniter\Controller;
+use App\Models\UserModel;
 
 class CreateLeanPaymentDTO {
     public string $customer;
@@ -22,9 +22,7 @@ class CreateLeanPaymentDTO {
     
 }
 
-
-
-class PaymentController extends Controller
+class PaymentController extends BaseController
 {
 
     public function choose($id)
@@ -57,7 +55,8 @@ class PaymentController extends Controller
 
     public function createClientAsaas()
     {
-        $getInfo = $this->request->getPost();
+        $user = new UserModel();
+        $getInfo = $this->post;
 
         $planId = $getInfo["plano_id"];
         $value  =  $getInfo["valor"];
@@ -68,6 +67,19 @@ class PaymentController extends Controller
         $cep = $getInfo["cep"];
         $typePayment = $getInfo["tipo_pagamento"];
 
+        $data = [
+            'nome'  => $nameCustomer,
+            'email' => $emailCustomer,
+        ];
+
+        $idenidentity = 'payment';
+        $withEmail = $user->getInfoUsers($emailCustomer, $idenidentity);
+
+        if($withEmail) {
+            throw new \Exception("Já possui um usuário utilizando este e-mail!");  
+        } else {
+            $user->insertByArray($data);
+        }
 
         if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
             return "Está faltando alguma informação! Por gentileza revise os dados";
@@ -121,7 +133,6 @@ class PaymentController extends Controller
         $paymentModel = new PagamentosModel();
 
         $paymentModel->insert($data);
-
     }
 
     public function requestCreateClientAsaas($infoClient, $typePayment, $planValue)
@@ -146,8 +157,6 @@ class PaymentController extends Controller
         ]);
 
         $response = curl_exec($curl);
-
-
         
         $err = curl_error($curl);
         
@@ -163,8 +172,6 @@ class PaymentController extends Controller
     }
 
     public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient) {
-
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -185,7 +192,6 @@ class PaymentController extends Controller
         ]);
 
         $response = curl_exec($curl);
-
 
         $err = curl_error($curl);
 

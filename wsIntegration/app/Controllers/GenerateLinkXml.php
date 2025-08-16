@@ -15,7 +15,9 @@ class GenerateLinkXml extends Controller
         $objUser = new UserModel();
         $userId = session('usuario')['id'];
 
-        $infoClients = (array) $objUser->getInfoUsers($userId);
+        $identity = 'generate_xml';
+
+        $infoClients = (array) $objUser->getInfoUsers($userId, $identity);
         return view('generateLinkXml', ['infoClients' => $infoClients]);
     }
 

@@ -18,7 +18,7 @@ $(document).ready(function() {
             } else {
                 Swal.fire({
                     title: "Erro",
-                    text : "Erro ao finalizar o seu cadastro!",
+                    text : response.error,
                     icon : "error"
                 });
             }
