@@ -11,16 +11,25 @@ class UserModel extends Model
 
     protected $allowedFields = ['nome', 'email', 'senha'];
 
-    public function getInfoUsers($idUser) {
+    public function getInfoUsers($infoUser, $idenidentity) {
         
         $builder = $this->db->table($this->table . ' u');
         $builder->select('*');
-        $builder->where('u.id', $idUser);
+
+        if($idenidentity == 'generate_xml') {
+            $builder->where('u.id', $infoUser);
+        } else {
+            $builder->where('u.email', $infoUser);
+        }
+
         $query = $builder->get()->getRow();
         return $query;
 
         // $query = $this->db->query("SELECT * FROM usuarios");
         // return $query->getRow();
-        
+    }
+
+    public function insertByArray($data) {        
+        $this->insert($data);
     }
 }
