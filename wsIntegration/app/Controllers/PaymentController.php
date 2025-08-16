@@ -67,7 +67,7 @@ class PaymentController extends BaseController
         $cep = $getInfo["cep"];
         $typePayment = $getInfo["tipo_pagamento"];
 
-        $data = [
+        $dataInsert = [
             'nome'  => $nameCustomer,
             'email' => $emailCustomer,
         ];
@@ -78,7 +78,7 @@ class PaymentController extends BaseController
         if($withEmail) {
             throw new \Exception("Já possui um usuário utilizando este e-mail!");  
         } else {
-            $user->insertByArray($data);
+            $user->insertByArray($dataInsert);
         }
 
         if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
