@@ -24,8 +24,8 @@ $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 $routes->post('/dashboard/activeRealty', 'Dashboard::activeRealty');
 
 //Página de registros
-$routes->get('/register', 'Register::index');
-$routes->post('/register/store', 'Register::store');
+$routes->get('/resetPassword', 'RegisterNewPassword::index');
+$routes->post('/resetPassword', 'RegisterNewPassword::resultStatus');
 
 //Página de dados
 $routes->get('/dataClient', 'DataClient::index');
