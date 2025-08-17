@@ -20,7 +20,7 @@
         <button type="submit">Entrar</button>
         <br><br>
         
-        Não tem uma conta? <a href="<?= site_url('register') ?>">Cadastre-se</a>
+        Esqueceu a sua senha? <a href="<?= site_url('resetPassword') ?>">Clique para redefinir</a>
 
         <?php if (session()->has('erro')): ?>
             <p style="color: red;"><?php echo session('erro'); ?></p>
