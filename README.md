@@ -16,10 +16,10 @@
 
 <h2>🚀 Benefícios</h2>
 <p align="left">
-  <img src="https://img.icons8.com/ios-filled/24/000000/no-copy.png"/> Evita cadastro repetitivo <br>
-  <img src="https://img.icons8.com/ios-filled/24/000000/error.png"/> Reduz erros e inconsistências <br>
-  <img src="https://img.icons8.com/ios-filled/24/000000/time.png"/> Economiza tempo e aumenta a produtividade <br>
-  <img src="https://img.icons8.com/ios-filled/24/000000/api.png"/> Facilita integração com marketplaces
+  Evita cadastro repetitivo <br>
+  Reduz erros e inconsistências <br>
+  Economiza tempo e aumenta a produtividade <br>
+  Facilita integração com marketplaces
 </p>
 
 <h2>🛠️ Tecnologias</h2>
