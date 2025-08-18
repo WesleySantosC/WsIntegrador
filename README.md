@@ -8,10 +8,10 @@
 
 <h2>💡 Funcionalidades</h2>
 <p align="left">
-  <img src="https://img.icons8.com/ios-filled/40/000000/folder-invoices.png" alt="Cadastro"/> Cadastro centralizado de imóveis <br>
-  <img src="https://img.icons8.com/ios-filled/40/000000/xml-file.png" alt="XML"/> Geração automática de XML para terceiros <br>
-  <img src="https://img.icons8.com/ios-filled/40/000000/user-interface.png" alt="Interface"/> Interface simples e intuitiva <br>
-  <img src="https://img.icons8.com/ios-filled/40/000000/management.png" alt="Gestão"/> Gestão de anúncios e usuários
+  Cadastro centralizado de imóveis <br>
+  Geração automática de XML para terceiros <br>
+  Interface simples e intuitiva <br>
+  Gestão de anúncios e usuários
 </p>
 
 <h2>🚀 Benefícios</h2>
