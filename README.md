@@ -8,10 +8,10 @@
 
 <h2>💡 Funcionalidades</h2>
 <p align="left">
-  Cadastro centralizado de imóveis <br>
-  Geração automática de XML para terceiros <br>
-  Interface simples e intuitiva <br>
-  Gestão de anúncios e usuários
+  <li>Cadastro centralizado de imóveis </li><br>
+  <li>Geração automática de XML para terceiros </li> <br>
+  <li>Interface simples e intuitiva </li><br>
+  <li>Gestão de anúncios e usuários </li>
 </p>
 
 <h2>🚀 Benefícios</h2>
