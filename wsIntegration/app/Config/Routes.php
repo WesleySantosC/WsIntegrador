@@ -23,9 +23,12 @@ $routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 $routes->post('/dashboard/activeRealty', 'Dashboard::activeRealty');
 
-//Página de registros
+//Página de editar senha
 $routes->get('/resetPassword', 'RegisterNewPassword::index');
 $routes->post('/resetPassword', 'RegisterNewPassword::resultStatus');
+
+/*API Do XML para Plataforma de terceiros fazerem requisição*/
+$routes->get('xml/user_(:num).xml', 'ApiXml::showXmlForTheThirdPlataform/$1');
 
 //Página de dados
 $routes->get('/dataClient', 'DataClient::index');
