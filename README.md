@@ -16,10 +16,10 @@
 
 <h2>🚀 Benefícios</h2>
 <p align="left">
-  Evita cadastro repetitivo <br>
-  Reduz erros e inconsistências <br>
-  Economiza tempo e aumenta a produtividade <br>
-  Facilita integração com marketplaces
+  <li>Evita cadastro repetitivo </li><br>
+  <li>Reduz erros e inconsistências </li><br>
+  <li>Economiza tempo e aumenta a produtividade </li><br>
+  <li>Facilita integração com marketplaces</li>
 </p>
 
 <h2>🛠️ Tecnologias</h2>
