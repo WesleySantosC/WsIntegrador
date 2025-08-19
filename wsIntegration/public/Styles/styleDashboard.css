@@ -126,6 +126,7 @@ body {
     background-color: green;
     font-weight: bold;
     color: white;
+    cursor: pointer;
 }
 
 .btn.edit {
