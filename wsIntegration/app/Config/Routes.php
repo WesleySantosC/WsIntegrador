@@ -30,6 +30,11 @@ $routes->post('/resetPassword', 'RegisterNewPassword::resultStatus');
 /*API Do XML para Plataforma de terceiros fazerem requisição*/
 $routes->get('xml/user_(:num).xml', 'ApiXml::showXmlForTheThirdPlataform/$1');
 
+/* Página de Editar os Anúncios*/
+$routes->get("edit/(:num)", "EditAds::edit/$1");
+$routes->match(['get','post'], "edit/editAds", "EditAds::editAds");
+
+
 //Página de dados
 $routes->get('/dataClient', 'DataClient::index');
 

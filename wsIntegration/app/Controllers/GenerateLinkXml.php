@@ -51,22 +51,22 @@ class GenerateLinkXml extends Controller
         foreach ($imoveis as $anuncio) {
             $imovel = $xml->addChild('imovel');
             $imovel->addChild('id', $anuncio->id);
-            $imovel->addChild('quartos', $anuncio->quantidade_quartos);
-            $imovel->addChild('banheiros', $anuncio->quantidade_banheiros);
-            $imovel->addChild('suites', $anuncio->quantidade_suites);
-            $imovel->addChild('referencia', $anuncio->referencia);
-            $imovel->addChild('valor', $anuncio->valor);
-            $imovel->addChild('areraUtil', $anuncio->areaUtil);
-            $imovel->addChild('desativado', $anuncio->desativado);
+            $imovel->addChild('quartos', $anuncio->rooms);
+            $imovel->addChild('banheiros', $anuncio->bathrooms);
+            $imovel->addChild('suites', $anuncio->suites);
+            $imovel->addChild('referencia', $anuncio->reference);
+            $imovel->addChild('valor', $anuncio->value);
+            $imovel->addChild('areraUtil', $anuncio->footage);
+            $imovel->addChild('desativado', $anuncio->disabled);
             $imovel->addChild('cep', $anuncio->cep);
-            $imovel->addChild('bairro', $anuncio->bairro);
-            $imovel->addChild('estado', $anuncio->estado);
-            $imovel->addChild('cidade', $anuncio->cidade);
-            $imovel->addChild('endereco', $anuncio->endereco);
-            $imovel->addChild('garagem', $anuncio->garagem);
-            $imovel->addChild('titulo', $anuncio->titulo);
-            $imovel->addChild('descricao', $anuncio->descricao);
-            $imovel->addChild('criado_em', $anuncio->criado_em);
+            $imovel->addChild('bairro', $anuncio->neighborhood);
+            $imovel->addChild('estado', $anuncio->state);
+            $imovel->addChild('cidade', $anuncio->city);
+            $imovel->addChild('endereco', $anuncio->address);
+            $imovel->addChild('garagem', $anuncio->garage);
+            $imovel->addChild('titulo', $anuncio->title);
+            $imovel->addChild('descricao', $anuncio->description);
+            $imovel->addChild('criado_em', $anuncio->created_at);
         }
 
         $fileName = FCPATH . "xml/user_{$userId}.xml";

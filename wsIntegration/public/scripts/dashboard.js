@@ -52,6 +52,11 @@ $(document).ready(function() {
         );
     });
 
+$(".edit").click(function() {
+    let realtyId = $(this).data("id");
+    window.location.href = wwwroot + "edit/" + realtyId;
+});
+
     $("#openModal").click(function() {
         $("#modal").show();
     });

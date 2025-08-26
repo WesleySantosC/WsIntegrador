@@ -1,128 +1,14 @@
+<?= view('headerAdminClient'); ?>
+<link rel="stylesheet" href="<?= base_url('Styles/StyleRealty.css'); ?>">
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Imóvel</title>
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: #f0f2f5;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .form-container {
-      background: #fff;
-      padding: 30px 40px;
-      border-radius: 16px;
-      max-width: 960px;
-      width: 100%;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #222;
-    }
-
-    .section {
-      margin-bottom: 40px;
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 25px;
-      background-color: #fafafa;
-    }
-
-    .section h3 {
-      font-size: 18px;
-      color: #444;
-      margin-bottom: 20px;
-      border-left: 4px solid #0077cc;
-      padding-left: 10px;
-    }
-
-    .grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      margin-bottom: 6px;
-      font-size: 14px;
-      color: #333;
-    }
-
-    input,
-    select,
-    textarea {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      background-color: #fff;
-      transition: border 0.3s ease;
-    }
-
-    input:focus,
-    select:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #0077cc;
-      background: #fdfdfd;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .optional {
-      color: #888;
-      font-size: 12px;
-      margin-left: 6px;
-    }
-
-    button {
-      background-color: #0077cc;
-      color: white;
-      padding: 15px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      width: 100%;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #005fa3;
-    }
-  </style>
 </head>
-
 <body>
   <div class="form-container">
     <h2>Cadastro de Imóvel</h2>
@@ -133,8 +19,12 @@
         <h3>Informações do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="type">Tipo Imovel</label>
-            <select id="type_imovel" name="type_imovel">
+            <label for="reference">Referencia</label>
+            <input type="text" id="reference" name="reference" placeholder="Ex: ABC123">
+          </div>
+          <div class="form-group">
+            <label for="type_realty">Tipo Imovel</label>
+            <select id="type_realty" name="type_realty">
               <option value="">Selecione</option>
               <option value="casa" <?= old('type') == 'casa' ? 'selected' : '' ?>>Casa</option>
               <option value="apartamento" <?= old('type') == 'apartamento' ? 'selected' : '' ?>>Apartamento</option>
@@ -142,8 +32,8 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="tipo_venda">Tipo Venda</label>
-            <select name="tipo_venda" id="tipo_venda">
+            <label for="sale_type">Tipo Venda</label>
+            <select name="sale_type" id="sale_type">
               <option value="">Selecione</option>
               <option value="vende-se">Venda</option>
               <option value="aluga-se">Alugar</option>
@@ -172,6 +62,10 @@
       <div class="section">
         <h3>Localização</h3>
         <div class="grid grid-2">
+          <div class="form-group">
+            <label for="cep">CEP</label>
+            <input type="text" id="cep" name="cep">
+          </div>
           <div class="form-group">
             <label for="address">Endereço</label>
             <input type="text" id="address" name="address">
@@ -205,6 +99,10 @@
             <input type="number" id="rooms" name="rooms">
           </div>
           <div class="form-group">
+            <label for="suites">Suites</label>
+            <input type="suites" id="suites" name="suites">
+          </div>
+          <div class="form-group">
             <label for="bathrooms">Banheiros</label>
             <input type="number" id="bathrooms" name="bathrooms">
           </div>
@@ -214,7 +112,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="section">
         <h3>Imagens do Imóvel</h3>
         <div class="form-group">
@@ -263,5 +161,4 @@
     <script src="<?= base_url('scripts/modalError.js') ?>"></script>
   <?php endif; ?>
 </body>
-
 </html>

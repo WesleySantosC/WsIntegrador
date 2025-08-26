@@ -1,10 +1,8 @@
 $(document).ready(function() {
-    const WWWROOT = 'http://localhost:8080/';
-
     $("#generateXMLClient").on("submit", function(e) {
         e.preventDefault();
 
-        $.post(WWWROOT + 'generateLinkXml/generate', {}, function(resposta) {
+        $.post( wwwroot + 'generateLinkXml/generate', {}, function(resposta) {
             if (resposta.status === 'success' && resposta.link) {
                 Swal.fire({
                     title: 'XML Gerado!',
@@ -12,12 +10,12 @@ $(document).ready(function() {
                     icon: 'success',
                     confirmButtonText: 'Abrir XML'
                 }).then(() => {
-                    window.location.href = resposta.link;
+                    window.open(resposta.link, '_blank');
                 });
             } else {
                 Swal.fire({
                     title: 'Erro!',
-                    text: 'Não foi possível gerar o XML.',
+                    text: resposta.error,
                     icon: 'error'
                 });
             }

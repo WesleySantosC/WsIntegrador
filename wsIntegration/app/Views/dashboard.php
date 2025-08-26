@@ -18,12 +18,12 @@
             <div class="card">
                 <i class="fas fa-calendar-check"></i>
                 <h3>Total de Imóveis</h3>
-                <p>Quantidade: <?= $realtyCount->total_imoveis ?: "Nenhum Imóvel cadastrado" ?></p>
+                <p>Quantidade: <?= $realtyCount->total_realty ?: "Nenhum Imóvel cadastrado" ?></p>
             </div>
             <div class="card">
                 <i class="fas fa-chart-line"></i>
-                <h3>Valor total em Imóveis</h3>
-                <p>R$ <?= number_format($realtyValue->total_valor, 2, ",", ".") ?: "Nenhum valor encontrado!" ?></p>
+                <h3>value total em Imóveis</h3>
+                <p>R$ <?= number_format($realtyValue->total_value, 2, ",", ".") ?: "Nenhum value encontrado!" ?></p>
             </div>
         </div>
     </div>
@@ -42,9 +42,9 @@
             <?php foreach ($realtyDisabled as $disabled): ?>
                 <div class="realty-list">
                     <div class="cardRealty">
-                        <h3><?= $disabled->tipo_venda . " " . $disabled->tipo . " com " . $disabled->quantidade_quartos . " quartos em " . $disabled->cidade ?></h3>
-                        <p><?= $disabled->descricao ?></p>
-                        <p>R$ <?= number_format($disabled->valor, 2, ',', '.') ?></p>
+                        <h3><?= $disabled->sale_type . " " . $disabled->type_realty . " com " . $disabled->rooms . " quartos em " . $disabled->city ?></h3>
+                        <p><?= $disabled->description ?></p>
+                        <p>R$ <?= number_format($disabled->value, 2, ',', '.') ?></p>
 
                         <?php
                         $imagens = json_decode($disabled->imagens, true);
@@ -75,9 +75,9 @@
     <?php foreach ($realtyClient as $realty): ?>
         <div class="realty-list">
             <div class="cardRealty">
-                <h3><?= $realty->tipo_venda . " " . $realty->tipo . " com " . $realty->quantidade_quartos . " quartos " . " em " . $realty->cidade ?></h3>
-                <p><?= $realty->descricao ?></p>
-                <p>R$ <?= number_format($realty->valor, 2, ',', '.') ?></p>
+                <h3><?= $realty->sale_type . " " . $realty->type_realty . " com " . $realty->rooms . " quartos " . " em " . $realty->city ?></h3>
+                <p><?= $realty->description ?></p>
+                <p>R$ <?= number_format($realty->value, 2, ',', '.') ?></p>
 
                 <?php
                 $imagens = json_decode($realty->imagens, true);
@@ -97,7 +97,7 @@
                 <?php endforeach;
                 endif; ?>
                 <div class="action-buttons">
-                    <a href="#" class="btn edit" data-id="<?= $realty->id_imovel ?>">Editar</a>
+                    <input type="button" class="btn edit" data-id="<?= $realty->id_imovel ?>" value="Editar">
                     <input type="button" class="btn deactivate" data-id="<?= $realty->id_imovel ?>" value="Desativar">
                 </div>
             </div>

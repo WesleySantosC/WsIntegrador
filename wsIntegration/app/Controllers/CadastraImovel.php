@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ImovelModel;
+use App\Models\UserModel;
 
 class CadastraImovel extends BaseController
 {
@@ -13,11 +14,28 @@ class CadastraImovel extends BaseController
             return $this->validateField();
         }
 
-        return view('cadastraImovel');
+        $infoClients = $this->getInfoClients();
+
+        return view('cadastraImovel', ['infoClients' => $infoClients]);
+    }
+
+    private function getInfoClients()
+    {
+        $session = session();
+        $usuarioData = $session->get('usuario');
+
+        if (!isset($usuarioData['id'])) {
+            return null;
+        }
+
+        $userModel = new UserModel();
+        return $userModel->find($usuarioData['id']);
     }
 
     public function validateField()
     {
+        date_default_timezone_set('America/Sao_Paulo');
+        $dateInsert = date('Y-m-d H:i:s');
         $data = $this->post;
 
         if (empty($data['title'] ?? null)) {
@@ -40,12 +58,13 @@ class CadastraImovel extends BaseController
             return redirect()->back()->withInput();
         }
 
-        if (!$data['type_imovel']) {
+        if (!$data['type_realty']) {
             session()->setFlashdata('error', 'O campo tipo imóvel é obrigatório!');
-            return redirect()->back()->withInput();        }
+            return redirect()->back()->withInput();
+        }
 
         $imagePaths = [];
-        $files = $this->request->getFiles();
+        $files = $this->getFiles;
 
         if (isset($files['images']) && !empty($files['images'])) {
             foreach ($files['images'] as $file) {
@@ -69,23 +88,27 @@ class CadastraImovel extends BaseController
         }
 
         $imovelData = [
-            'usuario_id'           => session('usuario')['id'],
-            'quantidade_quartos'   => $data['rooms'],
-            'quantidade_banheiros' => $data['bathrooms'],
-            'valor'                => $data['value'],
-            'areaUtil'             => $data['footage'],
-            'bairro'               => $data['neighborhood'],
-            'estado'               => $data['state'],
-            'cidade'               => $data['city'],
-            'endereco'             => $data['address'],
-            'titulo'               => $data['title'] ?: "Propriedade a venda",
-            'descricao'            => $data['description'],
-            'garagem'              => $data['garage'],
-            'imagens'              => json_encode($imagePaths),
-            'tipo'                 => $data['type_imovel'],
-            'desativado'           => 0,
-            'deletado'             => 0,
-            'tipo_venda'           => $data['tipo_venda']
+            'user_id'      => session('usuario')['id'],
+            'rooms'        => $data['rooms'] ?? 0,
+            'bathrooms'    => $data['bathrooms'] ?? 0,
+            'suites'       => $data['suites'] ?? 0,
+            'reference'    => $data['reference'] ?? null,
+            'value'        => $data['value'],
+            'footage'      => $data['footage'],
+            'cep'          => $data['cep'] ?? null,
+            'neighborhood' => $data['neighborhood'],
+            'state'        => $data['state'],
+            'city'         => $data['city'],
+            'address'      => $data['address'],
+            'title'        => $data['title'],
+            'description'  => $data['description'],
+            'garage'       => $data['garage'] ?? 0,
+            'type_realty'  => $data['type_realty'],
+            'imagens'      => json_encode($imagePaths),
+            'deleted_at'   => 0,
+            'disabled'     => 0,
+            'sale_type'    => $data['sale_type'],
+            'created_at'   => $dateInsert
         ];
 
         try {
