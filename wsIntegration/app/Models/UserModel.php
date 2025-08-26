@@ -10,7 +10,12 @@ class UserModel extends Model
     protected $table      = 'usuarios';
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['nome', 'email', 'senha'];
+    protected $allowedFields = [
+        'nome',
+        'email',
+        'senha',
+        'asaas_id'
+    ];
 
     public function getInfoUsers($infoUser, $idenidentity) {
         
