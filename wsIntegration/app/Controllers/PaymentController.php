@@ -55,7 +55,6 @@ class PaymentController extends BaseController
 
     public function createClientAsaas()
     {
-        $user = new UserModel();
         $getInfo = $this->post;
 
         $planId = $getInfo["plano_id"];
@@ -66,20 +65,6 @@ class PaymentController extends BaseController
         $cpfCnpj = $getInfo["cpfCnpj"];
         $cep = $getInfo["cep"];
         $typePayment = $getInfo["tipo_pagamento"];
-
-        $dataInsert = [
-            'nome'  => $nameCustomer,
-            'email' => $emailCustomer,
-        ];
-
-        $idenidentity = 'payment';
-        $withEmail = $user->getInfoUsers($emailCustomer, $idenidentity);
-
-        if($withEmail) {
-            throw new \Exception("Já possui um usuário utilizando este e-mail!");  
-        } else {
-            $user->insertByArray($dataInsert);
-        }
 
         if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
             return "Está faltando alguma informação! Por gentileza revise os dados";
@@ -98,13 +83,25 @@ class PaymentController extends BaseController
 
     public function createMonthly($infoClient, $typePayment, $planValue) {
 
-
+        $user = new UserModel();
         $infoClient = json_decode($infoClient);
-
         $idCustomer = $infoClient->id;
+        $idenidentity = 'payment';
+        $withEmail = $user->getInfoUsers($infoClient->email, $idenidentity);
+
+        if($withEmail) {
+            throw new \Exception("Já possui um usuário utilizando este e-mail!");  
+        } else {
+            $dataInsert = [
+                'nome'     => $infoClient->name,
+                'email'    => $infoClient->email,
+                'asaas_id' => $idCustomer
+            ];
+
+            $user->insertByArray($dataInsert);
+        }
 
         $dates = date('Y-m-d'); 
-
         $date = $this->nextDueDate($dates);
 
         if($typePayment == 'cartao credito') {
@@ -127,11 +124,8 @@ class PaymentController extends BaseController
             $date
         );
 
-
         $this->requestCreateMonthly($leanPayment);
-
         $paymentModel = new PagamentosModel();
-
         $paymentModel->insert($data);
     }
 
@@ -152,7 +146,6 @@ class PaymentController extends BaseController
                 "Content-Type: application/json",
                 'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjhiMjI0NDNmLTYwOTEtNDJjNy04MGNiLTE2M2ZlNWZmNmY5ZDo6JGFhY2hfM2QxMTE5MGQtMWUzMS00YTE4LThmNzgtZTg1MTY5YTRhN2Ix',
                 'User-Agent: WsIntegracoes/1.0'
-
             ],
         ]);
 
