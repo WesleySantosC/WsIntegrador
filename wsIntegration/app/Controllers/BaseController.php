@@ -29,6 +29,7 @@ abstract class BaseController extends Controller
     protected $request;
     protected $post;
     protected $verifyAjax;
+    protected $getFiles;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -55,9 +56,14 @@ abstract class BaseController extends Controller
         
         $this->wwwroot      = base_url();
         $this->post         = $this->request->getPost();
+        $this->getFiles     = $this->request->getFiles();
         $this->verifyAjax   = $this->request->isAJAX();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');
+    }
+
+    public function jsonResponse($data) {
+        return $this->response->setJSON($data);
     }
 }
