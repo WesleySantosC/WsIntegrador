@@ -6,18 +6,20 @@
 }
 
 .sidebar {
-    width: 250px;
+    width: 15%;
     background: #2c3e50;
     color: white;
-    padding: 30px 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
+    padding: 30px 20px;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    z-index: 1000;
 }
 
 .sidebar .logo {
@@ -53,7 +55,6 @@
     padding: 12px;
     display: block;
     border-radius: 5px;
-    text-align: left;
     margin-bottom: 10px;
     font-size: 16px;
     transition: background 0.3s;
@@ -61,4 +62,50 @@
 
 .sidebar .menu-list .menu-item:hover {
     background: #34495e;
+}
+
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1100;
+    color: #2c3e50;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .hamburger {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 180px;
+        padding: 15px 10px;
+    }
+
+    .sidebar .logo h1 {
+        font-size: 20px;
+    }
+
+    .sidebar .greeting {
+        font-size: 16px;
+    }
+
+    .sidebar .menu-list .menu-item {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
