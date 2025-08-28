@@ -1,0 +1,9 @@
+.git
+node_modules
+vendor
+*.log
+
+/writable/logs/
+/writable/cache/
+/writable/session/
+/writable/uploads/
