@@ -19,7 +19,7 @@ services:
       MYSQL_USER: wesley
       MYSQL_PASSWORD: wesley123
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
