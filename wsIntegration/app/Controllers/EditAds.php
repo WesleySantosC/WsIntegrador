@@ -5,21 +5,31 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\ImovelModel;
+use App\Models\PropertyType;
+use App\Models\States;
+use App\Models\Cities;
 
 class EditAds extends BaseController
 {
     public function edit($idRealty = null)
     {
-        $objRealty = new ImovelModel();
-
-        $infoClients = $this->getInfoClients();
-        $infoRealty = $objRealty->listInfoAds($idRealty);
-
-        $infoRealty = $this->sanitizeImages($infoRealty, true);
+        $objRealty    = new ImovelModel();
+        $objCities    = new Cities();
+        $objStates    = new States();
+        $objProperty  = new PropertyType();
+        $infoClients  = $this->getInfoClients();
+        $infoRealty   = $objRealty->listInfoAds($idRealty);
+        $cities       = $objCities->getListCities();
+        $states       = $objStates->getListStates();
+        $listProperty = $objProperty->getListProperty();
+        $infoRealty   = $this->sanitizeImages($infoRealty, true);
 
         return view('EditAds', [
-            'infoClients' => $infoClients,
-            'infoRealty'  => $infoRealty
+            'infoClients'  => $infoClients,
+            'cities'       => $cities,
+            'states'       => $states,
+            'listProperty' => $listProperty,
+            'infoRealty'   => $infoRealty
         ]);
     }
 
@@ -63,11 +73,12 @@ class EditAds extends BaseController
                 'reference'    => $postData['reference'] ?? null,
                 'value'        => $value,
                 'footage'      => $postData['footage'],
-                'cep'          => $postData['cep'] ?? '83406030',
+                'cep'          => $postData['cep'] ?? '',
                 'neighborhood' => $postData['neighborhood'],
                 'state'        => $postData['state'],
                 'city'         => $postData['city'],
                 'address'      => $postData['address'],
+                'complement'   => $postData['complement'],
                 'title'        => $postData['title'],
                 'description'  => $postData['description'],
                 'garage'       => $postData['garage'] ?? 0,
