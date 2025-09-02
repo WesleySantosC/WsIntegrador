@@ -14,6 +14,7 @@
     <nav class="menu">
         <h2>Menu</h2>
         <ul class="menu-list">
+            <li><a href="<?= site_url('/dashboard') ?>" class="menu-item"><i class="fas fa-database"></i> Home</a></li>
             <li><a href="<?= site_url('/dataClient') ?>" class="menu-item"><i class="fas fa-database"></i> Dados</a></li>
             <li><a href="<?= site_url('/cadastrarImovel') ?>" class="menu-item"><i class="fas fa-stethoscope"></i>Cadastrar Imoveis</a></li>
             <li><a href="<?= site_url('/generateLinkXml') ?>" class="menu-item"><i class="fas fa-stethoscope"></i>Gerar XML</a></li>
