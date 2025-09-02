@@ -5,18 +5,33 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\ImovelModel;
 use App\Models\UserModel;
+use App\Models\PropertyType;
+use App\Models\States;
+use App\Models\Cities;
 
 class CadastraImovel extends BaseController
 {
     public function index()
     {
+        $objProperty = new PropertyType();
+        $objStates   = new States();
+        $objCities   = new Cities();
+
         if ($this->request->getMethod() === 'post') {
             return $this->validateField();
         }
 
-        $infoClients = $this->getInfoClients();
+        $infoClients  = $this->getInfoClients();
+        $listProperty = $objProperty->getListProperty();
+        $states       = $objStates->getListStates(); 
+        $cities       = $objCities->getListCities();
 
-        return view('cadastraImovel', ['infoClients' => $infoClients]);
+        return view('cadastraImovel', [
+            'infoClients'  => $infoClients, 
+            'listProperty' => $listProperty, 
+            'states'       => $states,
+            'cities'       => $cities       
+        ]);
     }
 
     private function getInfoClients()
@@ -100,6 +115,7 @@ class CadastraImovel extends BaseController
             'state'        => $data['state'],
             'city'         => $data['city'],
             'address'      => $data['address'],
+            'complement'   => $data['complement'],
             'title'        => $data['title'],
             'description'  => $data['description'],
             'garage'       => $data['garage'] ?? 0,

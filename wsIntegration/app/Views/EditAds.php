@@ -23,12 +23,19 @@
         <h3>Informações do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
+            <label for="reference">Referencia</label>
+            <input type="text" id="reference" name="reference" value="<?= isset($infoRealty->reference) ? $infoRealty->reference : old('reference') ?>" placeholder="Ex: ABC123">
+          </div>
+          
+          <div class="form-group">
             <label for="type_realty">Tipo Imóvel</label>
             <select id="type_realty" name="type_realty">
               <option value="">Selecione</option>
-              <option value="casa" <?= (isset($infoRealty->type_realty) && $infoRealty->type_realty == 'casa') ? 'selected' : (old('type_realty') == 'casa' ? 'selected' : '') ?>>Casa</option>
-              <option value="apartamento" <?= (isset($infoRealty->type_realty) && $infoRealty->type_realty == 'apartamento') ? 'selected' : (old('type_realty') == 'apartamento' ? 'selected' : '') ?>>Apartamento</option>
-              <option value="terreno" <?= (isset($infoRealty->type_realty) && $infoRealty->type_realty == 'terreno') ? 'selected' : (old('type_realty') == 'terreno' ? 'selected' : '') ?>>Terreno</option>
+              <?php foreach($listProperty as $property): ?>
+                <option value="<?= $property->id ?>" <?= (isset($infoRealty->type_realty) && $infoRealty->type_realty == $property->id) ? 'selected' : '' ?>>
+                  <?= $property->name ?>
+                </option>
+              <?php endforeach; ?>
             </select>
           </div>
 
@@ -68,6 +75,11 @@
         <h3>Localização</h3>
         <div class="grid grid-2">
           <div class="form-group">
+            <label for="address">CEP</label>
+            <input type="text" id="cep" name="cep" value="<?= isset($infoRealty->cep) ? $infoRealty->cep : old('cep') ?>">
+          </div>
+
+          <div class="form-group">
             <label for="address">Endereço</label>
             <input type="text" id="address" name="address" value="<?= isset($infoRealty->address) ? $infoRealty->address : old('address') ?>">
           </div>
@@ -78,19 +90,36 @@
           </div>
 
           <div class="form-group">
-            <label for="city">Cidade</label>
-            <input type="text" id="city" name="city" value="<?= isset($infoRealty->city) ? $infoRealty->city : old('city') ?>">
+            <label for="complement">Complemento</label>
+            <input type="text" id="complement" name="complement" value="<?= isset($infoRealty->complement) ? $infoRealty->complement : old('complement') ?>">
           </div>
 
-          <div class="form-group">
-            <label for="state">Estado</label>
-            <select id="state" name="state">
-              <option value="">Selecione</option>
-              <option value="PR" <?= (isset($infoRealty->state) && $infoRealty->state == 'PR') ? 'selected' : (old('state') == 'PR' ? 'selected' : '') ?>>Paraná</option>
-              <option value="SP" <?= (isset($infoRealty->state) && $infoRealty->state == 'SP') ? 'selected' : (old('state') == 'SP' ? 'selected' : '') ?>>São Paulo</option>
-              <option value="RJ" <?= (isset($infoRealty->state) && $infoRealty->state == 'RJ') ? 'selected' : (old('state') == 'RJ' ? 'selected' : '') ?>>Rio de Janeiro</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="city">Cidade</label>
+          <select name="city" id="city">
+            <option value="">Selecione</option>
+            <?php foreach ($cities as $city): ?>
+              <option value="<?= $city->id ?>" 
+                <?= (isset($infoRealty->city) && $infoRealty->city == $city->id) ? 'selected' : '' ?>>
+                <?= $city->name ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="state">Estado</label>
+          <select id="state" name="state">
+            <option value="">Selecione</option>
+            <?php foreach ($states as $state): ?>
+              <option value="<?= $state->id ?>" 
+                <?= (isset($infoRealty->state) && $infoRealty->state == $state->code) ? 'selected' : '' ?>>
+                <?= $state->code ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
         </div>
       </div>
 

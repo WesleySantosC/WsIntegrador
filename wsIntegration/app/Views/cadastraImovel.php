@@ -26,9 +26,9 @@
             <label for="type_realty">Tipo Imovel</label>
             <select id="type_realty" name="type_realty">
               <option value="">Selecione</option>
-              <option value="casa" <?= old('type') == 'casa' ? 'selected' : '' ?>>Casa</option>
-              <option value="apartamento" <?= old('type') == 'apartamento' ? 'selected' : '' ?>>Apartamento</option>
-              <option value="terreno" <?= old('type') == 'terreno' ? 'selected' : '' ?>>Terreno</option>
+              <?php foreach ($listProperty as $property):?>
+                <option value="<?= $property->id ?>"><?= $property->name ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
           <div class="form-group">
@@ -75,16 +75,25 @@
             <input type="text" id="neighborhood" name="neighborhood">
           </div>
           <div class="form-group">
+            <label for="complement">Complemento</label>
+            <input type="text" id="complement" name="complement">
+          </div>
+          <div class="form-group">
             <label for="city">Cidade</label>
-            <input type="text" id="city" name="city">
+            <select name="city" id="city">
+              <option value="">Selecione</option>
+              <?php foreach ($cities as $city): ?>
+                <option value="<?= $city->id ?>"><?= $city->name ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
           <div class="form-group">
             <label for="state">Estado</label>
             <select id="state" name="state">
               <option value="">Selecione</option>
-              <option value="PR">Paraná</option>
-              <option value="SP">São Paulo</option>
-              <option value="RJ">Rio de Janeiro</option>
+              <?php foreach ($states as $state): ?>
+                <option value="<?= $state->id ?>"><?= $state->code ?></option>
+              <?php endforeach; ?>
             </select>
           </div>
         </div>

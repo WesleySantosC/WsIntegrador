@@ -5,10 +5,10 @@
 
 <div class="card">
     <h3>Pagamento do plano: <?= esc($plan['name']) ?> </h3>
-    <p>Valor: R$ <?= number_format($plan['price'], 2, ',', '.') ?> </p>
-    <p>Duração: <?= $plan['duration_days'] ?> dias</p>
-    <p>Qtd Anúncios: <?= $plan['qtd_anuncio'] ?> </p>
-    <p>Qtd Destaques: <?= $plan['qtd_destaque'] ?> </p>
+    <p>Valor: <?= !$plan['price'] ? "R$ " . number_format($plan['price'], 2, ',', '.') : " Gratuito"?> </p>
+    <p>Duração: <?= "∞" //$plan['duration_days'] ?></p>
+    <p>Qtd Anúncios: <?= "∞" //$plan['qtd_anuncio'] ?> </p>
+    <!--<p>Qtd Destaques: <?php //$plan['qtd_destaque'] ?> </p>-->
 </div>
 
 <form id="frm_payment">
