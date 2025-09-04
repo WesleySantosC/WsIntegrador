@@ -131,3 +131,5 @@ public/xml
 /writable/cache/
 /writable/session/
 /writable/uploads/
+*.env
+/env/
