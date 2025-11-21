@@ -1,4 +1,11 @@
 $(document).ready(function() {
+
+    let phone    = $("#telefone");
+    let cpf_cnpj = $("#cpfCnpj");
+    let cep      = $("#cep");
+
+    maskInputs(phone, cpf_cnpj, cep);
+
     $("#frm_payment").on("submit", function(e) {
         e.preventDefault();
 
@@ -25,3 +32,15 @@ $(document).ready(function() {
         });
     });
 });
+
+function maskInputs(phone, cpf_cnpj, cep) {
+    phone.on('input', function() {
+        $(this).val(window.maskPhone($(this).val()));
+    });
+    cpf_cnpj.on('input', function() {
+        $(this).val(window.maskCPF($(this).val()));
+    });
+    cep.on('input', function() {
+        $(this).val(window.maskCEP($(this).val()));
+    });
+}
