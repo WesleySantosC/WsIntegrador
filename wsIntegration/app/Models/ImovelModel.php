@@ -40,8 +40,9 @@ class ImovelModel extends Model
 
     public function getRealtyClient($user_id) {
         $builder = $this->db->table($this->table . " i");
-        $builder->select("u.id, i.*, i.id as id_imovel");
+        $builder->select("u.id, i.*, i.id as id_imovel, p.*");
         $builder->join("usuarios u", "u.id = i.user_id", "left");
+        $builder->join("property_types p", "p.id = i.type_realty");
         $builder->where("u.id", $user_id);
         $builder->where("i.disabled", 0);
 
@@ -62,12 +63,13 @@ class ImovelModel extends Model
 
     public function listRealtyDisabledByClientId($user_id) {
         $builder = $this->db->table($this->table . " i");
-        $builder->select("i.*");
+        $builder->select("i.id as id_imovel, i.*, p.*");
         $builder->join("usuarios u", "u.id = i.user_id", "left");
+        $builder->join("property_types p", "p.id = i.type_realty");
         $builder->where("i.disabled", 1);
         $builder->where("i.user_id", $user_id);
 
-        return $builder->get()->getResult();
+        return $this->getResult($builder);
     }
 
     public function activeRealty($realtyId) {
@@ -85,11 +87,27 @@ class ImovelModel extends Model
 
         /*
             USAR PARA PRINTAR A QUERY:
-            echo $builder->getCompiledSelect();
+            $this->printQuery($builder);
             die;
         */
 
         return $builder->get()->getRow();
+    }
+
+    public function getRealtyDisableUserId($user_id) {
+        $builder = $this->db->table($this->table . " i");
+        $builder->select('count(*) as total_realtyDisabled');
+        $builder->join("usuarios u", "u.id = i.user_id", "left");
+        $builder->where("u.id", $user_id);
+        $builder->where("i.disabled", 1);
+
+        
+            //USAR PARA PRINTAR A QUERY:
+            //$this->printQuery($builder);
+            //die;
+        
+
+        return $this->getRow($builder);
     }
 
     public function getRealtyValue($user_id) {
