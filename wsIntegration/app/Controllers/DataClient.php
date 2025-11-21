@@ -12,7 +12,7 @@ class DataClient extends BaseController
         $session = session();
 
         if (!$session->has('usuario')) {
-            return redirect()->to('/login')->with('erro', 'Você precisa estar logado para acessar o Dashboard.');
+            return redirect()->to('/login')->with('erro', 'Você precisa estar logado para acessar as suas informações.');
         }
 
         $infoClients = $this->getInfoClients();

@@ -13,12 +13,15 @@ class GenerateLinkXml extends Controller
     public function index()
     {   
         $objUser = new UserModel();
-        $userId = session('usuario')['id'];
+        $userSession = session('usuario');
 
-        $identity = 'generate_xml';
-
-        $infoClients = (array) $objUser->getInfoUsers($userId, $identity);
-        return view('generateLinkXml', ['infoClients' => $infoClients]);
+        if($userSession) {
+            $identity = 'generate_xml';
+            $infoClients = (array) $objUser->getInfoUsers($userSession['id'], $identity);
+            return view('generateLinkXml', ['infoClients' => $infoClients]);
+        } else {
+            return redirect()->to('/login')->with('erro', 'Você precisa estar logado para gerar um XML.');
+        }
     }
 
     public function generate()

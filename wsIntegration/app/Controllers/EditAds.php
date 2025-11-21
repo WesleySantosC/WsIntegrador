@@ -13,6 +13,12 @@ class EditAds extends BaseController
 {
     public function edit($idRealty = null)
     {
+        $session = session();
+
+        if (!$session->has('usuario')) {
+            return redirect()->to('/login')->with('erro', 'Você precisa estar logado para editar seu anúncio.');
+        }
+
         $objRealty    = new ImovelModel();
         $objCities    = new Cities();
         $objStates    = new States();
