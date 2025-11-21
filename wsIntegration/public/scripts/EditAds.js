@@ -1,10 +1,85 @@
+function maskInputs(valueRealty, valueIPTU, valueCond, cep, footage) {
+    
+    const financialFields = [
+        { field: valueRealty, maskFn: window.maskCoin },
+        { field: valueIPTU, maskFn: window.maskCoin },
+        { field: valueCond, maskFn: window.maskCoin },
+        { field: footage, maskFn: window.maskfootage },
+        { field: cep, maskFn: window.maskCEP } 
+    ];
+
+    financialFields.forEach(item => {
+        const field = item.field;
+        const maskFn = item.maskFn;
+
+        field.on('focus', function() {
+            $(this).val(window.unmaskValue($(this).val()));
+        });
+        
+        field.on('blur', function() {
+            $(this).val(maskFn($(this).val()));
+        });
+        
+        field.on('input', function() {
+            $(this).val(window.unmaskValue($(this).val()));
+        });
+    });
+
+    cep.on('input', function() {
+        $(this).val(window.maskCEP($(this).val()));
+    });
+}
+
 $(document).ready(function() {
-    let form = $("#frmzDataRealty");
-    const ROUTE = 'edit/editAds'; 
-    const HOME  = wwwroot + 'index.php/dashboard';
+    let form           = $("#frmzDataRealty");
+    let valueRealty    = $("#value");
+    let valueIPTU      = $("#iptu");
+    let valueCond      = $("#condominium");
+    let cep            = $("#cep");
+    let footage        = $("#footage");
+    let cep_val        = cep.val();
+    let address        = $("#address");
+    let neighborhood   = $("#neighborhood");
+    let complement     = $("#complement");
+    let city           = $("#city");
+    let state          = $("#state");
+
+    let fieldsToFillIn = [
+        address,
+        neighborhood,
+        complement,
+        city,
+        state
+    ];
+
+    cep.on("input", function () {
+        let cleaned = $(this).val().replace(/\D/g, "");
+
+        if (cleaned.length === 8) {
+        getAddress(cleaned, fieldsToFillIn);
+        }
+    });
+
+    const ROUTE      = 'edit/editAds'; 
+    const HOME       = wwwroot + 'index.php/dashboard';
+
+    maskInputs(valueRealty, valueIPTU, valueCond, cep, footage);
+    getAddress(cep_val, fieldsToFillIn);
+    
+    valueRealty.blur();
+    valueIPTU.blur();
+    valueCond.blur();
+    footage.blur();
+    cep.blur();
 
     form.submit(function(e) {
         e.preventDefault();
+
+        valueRealty.val(window.unmaskValue(valueRealty.val()));
+        valueIPTU.val(window.unmaskValue(valueIPTU.val()));
+        valueCond.val(window.unmaskValue(valueCond.val()));
+        footage.val(window.unmaskValue(footage.val()));
+        cep.val(window.unmaskValue(cep.val()));
 
         let formData = new FormData(form[0]);
 
@@ -18,8 +93,8 @@ $(document).ready(function() {
             success: function(response) {
                 if(response.status == 'success') {
                     Swal.fire({
-                        title: 'Imovel Alterado!',
-                        text : 'Imovel Alterado com Sucesso!',
+                        title: 'Imóvel Alterado!',
+                        text : 'Imóvel Alterado com Sucesso!',
                         icon : 'success'
                     }).then(function() {
                         window.location.href= HOME;
@@ -31,7 +106,23 @@ $(document).ready(function() {
                         icon : 'error'
                     });
                 }
+            },
+
+            error: function() {
+                valueRealty.blur();
+                valueIPTU.blur();
+                valueCond.blur();
+                footage.blur();
+                cep.blur();
             }
         });
+    });
+
+    $("#logout").on("click", function() {
+        $.post(
+            window.wwwroot + 'login/logout', {}, function() {
+                console.log("Sessão Destruída");
+            }
+        )
     });
 });
