@@ -1,12 +1,13 @@
 <link rel="stylesheet" href="<?= base_url('Styles/StyleHeaderAdminClient.css'); ?>">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= base_url('scripts/mask.js'); ?>"></script>
 <script>
     const wwwroot = "<?= base_url() ?>";
 </script>
 <div class="sidebar">
     <div class="logo">
-        <h1>Ws Integrações</h1>
+        <h1>Movy</h1>
     </div>
     <div class="greeting">
         Olá, <?php if (isset($infoClients[0])) { $nome = $infoClients[0]['nome']; } else { $nome = $infoClients['nome']; } echo $nome;?>
