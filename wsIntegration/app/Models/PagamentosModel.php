@@ -9,5 +9,15 @@ class PagamentosModel extends Model
     protected $table            = 'pagamentos';
     protected $primaryKey       = 'id';
 
-    protected $allowedFields = ['customer_id', 'billing_type', 'valuePlan', 'created_at'];
+    protected $allowedFields = [
+                                'id', 
+                                'subscription_id', 
+                                'payment_id', 
+                                'value', 
+                                'billing_type', 
+                                'status',
+                                'due_date',
+                                'confirmed_at',
+                                'created_at'
+                            ];
 }
