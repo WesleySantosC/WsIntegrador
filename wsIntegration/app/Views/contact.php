@@ -10,19 +10,19 @@
         <form id="frm_registerContact">
             <div class="form-group">
                 <label for="nome">Digite seu nome: </label>
-                <input type="text" name="nome" id="nome" required>
+                <input type="text" name="nome" id="nome" placeholder="Ex: João" required>
             </div>
             <div class="form-group">
                 <label for="email">Digite seu E-mail: </label>
-                <input type="email" name="email" id="email" required>
+                <input type="email" name="email" id="email" placeholder="Ex: joao@email.com" required>
             </div>
             <div class="form-group">
                 <label for="phone">Digite o seu telefone: </label>
-                <input type="tel" name="phone" id="phone" required>
+                <input type="tel" name="phone" id="phone" placeholder="00 00000-0000" maxlength="9" required>
             </div>
             <div class="form-group">
                 <label for="question">Solicitação: </label>
-                <textarea name="question" id="question"></textarea>
+                <textarea name="question" id="question" placeholder="Sua mensagem"></textarea>
             </div>
             <div>
                 <input type="submit" value="Enviar" id="send">
