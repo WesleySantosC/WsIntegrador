@@ -22,4 +22,12 @@ $(document).ready(function() {
         }, 'json'
         );
     });
+
+    $("#logout").on("click", function() {
+        $.post(
+            wwwroot + 'login/logout', {}, function() {
+                console.log("Sessão Destruida");
+            }
+        )
+    });
 });
