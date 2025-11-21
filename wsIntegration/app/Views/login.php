@@ -10,11 +10,11 @@
     <h1>Login</h1>
     <form action="<?= site_url('login/verifyUsers') ?>" method="post">
         <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" placeholder="Ex: Seu E-mail" autocomplete="off" required>
         <br><br>
 
         <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="password" placeholder="Sua Senha" autocomplete="off" required>
         <br><br>
 
         <button type="submit">Entrar</button>
