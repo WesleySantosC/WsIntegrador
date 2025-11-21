@@ -40,7 +40,7 @@ $(document).ready(function() {
                         icon : 'success'
                     }).then(() => {
                         window.location.href=wwwroot + 'dashboard'
-                    });;
+                    });
                 } else {
                         Swal.fire({
                         title: 'Error',
@@ -52,10 +52,10 @@ $(document).ready(function() {
         );
     });
 
-$(".edit").click(function() {
-    let realtyId = $(this).data("id");
-    window.location.href = wwwroot + "edit/" + realtyId;
-});
+    $(".edit").click(function() {
+        let realtyId = $(this).data("id");
+        window.location.href = wwwroot + "edit/" + realtyId;
+    });
 
     $("#openModal").click(function() {
         $("#modal").show();
