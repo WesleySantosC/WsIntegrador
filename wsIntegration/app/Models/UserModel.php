@@ -14,7 +14,13 @@ class UserModel extends Model
         'nome',
         'email',
         'senha',
-        'asaas_id'
+        'asaas_id',
+        'cpf_cnpj',
+        'telefone',
+        'cidade',
+        'estado',
+        'endereco',
+        'cep'
     ];
 
     public function getInfoUsers($infoUser, $idenidentity) {
@@ -39,32 +45,39 @@ class UserModel extends Model
         $this->insert($data);
     }
 
-public function redefinirSenhaPorEmail($email, $novaSenha) {
-    $user = $this->where('email', $email)->first();
+    public function redefinirSenhaPorEmail($email, $novaSenha) {
+        $user = $this->where('email', $email)->first();
 
-    if (!$user) {
-        return "E-mail não encontrado!";
+        if (!$user) {
+            return "E-mail não encontrado!";
+        }
+
+        $hash = password_hash($novaSenha, PASSWORD_BCRYPT);
+
+        $this->update($user['id'], [
+            'senha' => $hash
+        ]);
+
+        $mensagem = "
+            <h2>Redefinição de senha</h2>
+            <p>A senha do seu software WS INtegration foi redefinida com Sucesso!</p>
+        ";
+
+        $resultadoEmail = $this->enviarEmail($email, $mensagem);
+
+        if ($resultadoEmail !== true) {
+            return $resultadoEmail;
+        }
+
+        return "Senha redefinida com sucesso!";
     }
 
-    $hash = password_hash($novaSenha, PASSWORD_BCRYPT);
+    public function getAllUsers() {
+        $builder = $this->db->table($this->table . ' u');
+        $builder->select('*');
 
-    $this->update($user['id'], [
-        'senha' => $hash
-    ]);
-
-    $mensagem = "
-        <h2>Redefinição de senha</h2>
-        <p>A senha do seu software WS INtegration foi redefinida com Sucesso!</p>
-    ";
-
-    $resultadoEmail = $this->enviarEmail($email, $mensagem);
-
-    if ($resultadoEmail !== true) {
-        return $resultadoEmail;
+        return $this->getRow($builder);
     }
-
-    return "Senha redefinida com sucesso!";
-}
 
     private function enviarEmail($destinatario) {
         $mail = new PHPMailer(true);
