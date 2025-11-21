@@ -1,29 +1,28 @@
 <?= view('headerAdminClient'); ?>
 <link rel="stylesheet" href="<?= base_url('Styles/StyleRealty.css'); ?>">
+<script src="<?= base_url("scripts/registerRealty.js") ?>"></script>
+<script src="<?= base_url("scripts/api_cep.js") ?>"></script>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Imóvel</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
   <div class="form-container">
-    <h2>Cadastro de Imóvel</h2>
-    <form method="post" action="<?= base_url('cadastrarImovel/validateField'); ?>" enctype="multipart/form-data">
+    <form id="form" enctype="multipart/form-data">
 
       <!-- Seção 1 -->
       <div class="section">
         <h3>Informações do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="reference">Referencia</label>
+            <label for="reference" class="group_label">Referencia</label>
             <input type="text" id="reference" name="reference" placeholder="Ex: ABC123">
           </div>
           <div class="form-group">
-            <label for="type_realty">Tipo Imovel</label>
+            <label for="type_realty" class="group_label">Tipo Imovel</label>
             <select id="type_realty" name="type_realty">
               <option value="">Selecione</option>
               <?php foreach ($listProperty as $property):?>
@@ -32,7 +31,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="sale_type">Tipo Venda</label>
+            <label for="sale_type" class="group_label">Tipo Venda</label>
             <select name="sale_type" id="sale_type">
               <option value="">Selecione</option>
               <option value="vende-se">Venda</option>
@@ -40,20 +39,20 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="value">Valor (R$)</label>
-            <input type="number" id="value" name="value" placeholder="Ex: 450000">
+            <label for="value" class="group_label">Valor (R$)</label>
+            <input type="text" id="value" name="value" placeholder="Ex: 450000">
           </div>
           <div class="form-group">
-            <label for="iptu">IPTU (R$) <span class="optional">(opcional)</span></label>
-            <input type="number" id="iptu" name="iptu">
+            <label for="iptu" class="group_label">IPTU (R$) <span class="optional">(opcional)</span></label>
+            <input type="text" id="iptu" name="iptu" placeholder="Ex: 300">
           </div>
           <div class="form-group">
-            <label for="condominium">Condomínio (R$) <span class="optional">(opcional)</span></label>
-            <input type="number" id="condominium" name="condominium">
+            <label for="condominium" class="group_label">Condomínio (R$) <span class="optional">(opcional)</span></label>
+            <input type="text" id="condominium" name="condominium" placeholder="Ex: 300">
           </div>
           <div class="form-group">
-            <label for="footage">Área total (m²)</label>
-            <input type="number" id="footage" name="footage" value="<?= old('footage') ?>" placeholder="Ex: 120">
+            <label for="footage" class="group_label">Área total (m²)</label>
+            <input type="text" id="footage" name="footage" value="<?= old('footage') ?>" placeholder="Ex: 120">
           </div>
         </div>
       </div>
@@ -63,38 +62,28 @@
         <h3>Localização</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="cep">CEP</label>
-            <input type="text" id="cep" name="cep">
+            <label for="cep" class="group_label">CEP</label>
+            <input type="text" id="cep" name="cep" placeholder="Ex: 00000-000" maxlength="9">
           </div>
           <div class="form-group">
-            <label for="address">Endereço</label>
-            <input type="text" id="address" name="address">
+            <label for="address" class="group_label">Endereço</label>
+            <input type="text" id="address" name="address" placeholder="Ex: Endereço do imóvel">
           </div>
           <div class="form-group">
-            <label for="neighborhood">Bairro</label>
-            <input type="text" id="neighborhood" name="neighborhood">
+            <label for="neighborhood" class="group_label">Bairro</label>
+            <input type="text" id="neighborhood" name="neighborhood" placeholder="Ex: Água Verde">
           </div>
           <div class="form-group">
-            <label for="complement">Complemento</label>
-            <input type="text" id="complement" name="complement">
+            <label for="complement" class="group_label">Complemento</label>
+            <input type="text" id="complement" name="complement" placeholder="Ex: Casa">
           </div>
           <div class="form-group">
-            <label for="city">Cidade</label>
-            <select name="city" id="city">
-              <option value="">Selecione</option>
-              <?php foreach ($cities as $city): ?>
-                <option value="<?= $city->id ?>"><?= $city->name ?></option>
-              <?php endforeach; ?>
-            </select>
+            <label for="city" class="group_label">Cidade</label>
+            <input type="text" id="city" name="city" placeholder="Ex: Curitiba" readonly>
           </div>
           <div class="form-group">
-            <label for="state">Estado</label>
-            <select id="state" name="state">
-              <option value="">Selecione</option>
-              <?php foreach ($states as $state): ?>
-                <option value="<?= $state->id ?>"><?= $state->code ?></option>
-              <?php endforeach; ?>
-            </select>
+            <label for="state" class="group_label">Estado</label>
+            <input type="text" id="state" name="state" placeholder="Ex: Paraná" readonly>
           </div>
         </div>
       </div>
@@ -104,20 +93,20 @@
         <h3>Detalhes do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="rooms">Quartos</label>
-            <input type="number" id="rooms" name="rooms">
+            <label for="rooms" class="group_label">Quartos</label>
+            <input type="number" id="rooms" name="rooms" placeholder="Ex: 1">
           </div>
           <div class="form-group">
-            <label for="suites">Suites</label>
-            <input type="suites" id="suites" name="suites">
+            <label for="suites" class="group_label">Suites</label>
+            <input type="suites" id="suites" name="suites" placeholder="Ex: 2">
           </div>
           <div class="form-group">
-            <label for="bathrooms">Banheiros</label>
-            <input type="number" id="bathrooms" name="bathrooms">
+            <label for="bathrooms" class="group_label">Banheiros</label>
+            <input type="number" id="bathrooms" name="bathrooms" placeholder="Ex: 3">
           </div>
           <div class="form-group">
-            <label for="garage">Vagas de garagem</label>
-            <input type="number" id="garage" name="garage">
+            <label for="garage" class="group_label">Vagas de garagem</label>
+            <input type="number" id="garage" name="garage" placeholder="Ex: 2">
           </div>
         </div>
       </div>
@@ -125,7 +114,7 @@
       <div class="section">
         <h3>Imagens do Imóvel</h3>
         <div class="form-group">
-          <label for="images">Selecione até 15 imagens</label>
+          <label for="images" class="group_label">Selecione até 15 imagens</label>
           <input type="file" id="images" name="images[]" accept="image/*" multiple>
           <small class="optional">Apenas imagens (JPEG, PNG, etc.)</small>
         </div>
@@ -136,38 +125,18 @@
         <h3>Informações adicionais</h3>
         <div class="grid grid-2">
           <div class="form-group" style="grid-column: span 2;">
-            <label for="title">Título</label>
+            <label for="title" class="group_label">Título</label>
             <input type="text" id="title" name="title" value="<?= old('title') ?>" placeholder="Ex: Casa moderna com suíte">
           </div>
           <div class="form-group" style="grid-column: span 2;">
-            <label for="description">Descrição</label>
+            <label for="description" class="group_label">Descrição</label>
             <textarea id="description" name="description" placeholder="Fale um pouco sobre o imóvel..."></textarea>
           </div>
         </div>
-      </div>
+        <button type="submit">Cadastrar Imóvel</button>
+      </div><br><br>
 
-
-      <button type="submit">Cadastrar Imóvel</button>
     </form>
   </div>
-
-  <!-- Modal de Erro -->
-  <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title" id="errorModalLabel">Erro</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
-        </div>
-        <div class="modal-body">
-          <?= session()->getFlashdata('error') ?>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <?php if (session()->getFlashdata('error')): ?>
-    <script src="<?= base_url('scripts/modalError.js') ?>"></script>
-  <?php endif; ?>
 </body>
 </html>
