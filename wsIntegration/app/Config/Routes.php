@@ -56,3 +56,6 @@ $routes->get('/payment/(:num)', 'PaymentController::choose/$1');
 
 //Página de teste com o banco.
 $routes->get('testeconexao', 'TesteConexao::index');
+
+//Teste requisição Asaas via webhook.
+$routes->post('webhook', 'AsaasWebhook::index');
