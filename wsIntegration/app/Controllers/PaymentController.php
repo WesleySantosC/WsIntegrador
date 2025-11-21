@@ -6,6 +6,7 @@ use App\Models\PlansModel;
 use App\Models\PagamentosModel;
 use App\Models\TiposPagamentosModel;
 use App\Models\UserModel;
+use App\Models\SubscriptionTypes;
 
 class CreateLeanPaymentDTO {
     public string $customer;
@@ -19,180 +20,201 @@ class CreateLeanPaymentDTO {
         $this->value = $value;
         $this->dueDate = $dueDate;
     }
-    
 }
 
 class PaymentController extends BaseController
 {
-
     public function choose($id)
     {
         $plansModel = new PlansModel();
         $typePayments = new TiposPagamentosModel();
         $plan = $plansModel->find($id);
-        $payments = $typePayments->findAll(); 
-        
+        $payments = $typePayments->findAll();
+
         if (!$plan) {
             return "Plano não encontrado.";
         }
-        
-        return view('payment', ['plan' => $plan,  'payments' => $payments]);
+
+        return view('payment', ['plan' => $plan, 'payments' => $payments]);
     }
 
-    public function returnStatus() {
-        // TO DO: ENTENDER O PORQUE NÃO ESTA INSERINDO OS CLIENTES NO ASAAS...
-        $result = [];
-
+    public function returnStatus()
+    {
         try {
             $this->createClientAsaas();
-            $result = ['status' => 'success'];
+            return $this->response->setJSON(['status' => 'success']);
         } catch (\Throwable $e) {
-            $result['error'] = $e->getMessage();
+            log_message('error', 'PaymentController::returnStatus error: ' . $e->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => $e->getMessage()]);
         }
-
-        return $this->response->setJSON($result);
     }
 
     public function createClientAsaas()
     {
-        $getInfo = $this->post;
+        $post = $this->request->getPost();
 
-        $planId = $getInfo["plano_id"];
-        $value  =  $getInfo["valor"];
-        $nameCustomer = $getInfo["nome"];
-        $emailCustomer  = $getInfo["email"];
-        $phoneCustomer = $getInfo["telefone"];
-        $cpfCnpj = $getInfo["cpfCnpj"];
-        $cep = $getInfo["cep"];
-        $typePayment = $getInfo["tipo_pagamento"];
-
+        $planId = $post["plano_id"] ?? null;
+        $value  = $post["valor"] ?? null;
+        $nameCustomer = $post["nome"] ?? null;
+        $emailCustomer  = $post["email"] ?? null;
+        $phoneCustomer = $post["telefone"] ?? null;
+        $cpfCnpj = $post["cpfCnpj"] ?? null;
+        $cep = $post["cep"] ?? null;
+        $typePayment = $post["tipo_pagamento"] ?? null; 
         if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
-            return "Está faltando alguma informação! Por gentileza revise os dados";
+            throw new \Exception("Está faltando alguma informação! Por gentileza revise os dados");
         }
 
-        $data = [
-            "name" => $nameCustomer,
-            "cpfCnpj" => $cpfCnpj,
-            "email" => $emailCustomer,
+        $payload = [
+            "name"        => $nameCustomer,
+            "cpfCnpj"     => $cpfCnpj,
+            "email"       => $emailCustomer,
             "mobilePhone" => $phoneCustomer,
-            "postalCode" => $cep
+            "postalCode"  => $cep,
+            "id_plan"     => $planId
         ];
 
-        $this->requestCreateClientAsaas($data, $typePayment, $value);
+        $this->requestCreateClientAsaas($payload, $typePayment, $value);
     }
 
-    public function createMonthly($infoClient, $typePayment, $planValue) {
+    /**
+     *
+     * @param object $infoClient  Objeto retornado do Asaas (cliente) — já decodificado (stdClass)
+     * @param string $typePayment valor vindo do front (ex: 'cartao credito','boleto','pix')
+     * @param float  $planValue
+     * @param int    $id_plan
+     */
+    public function createMonthly($infoClient, $typePayment, $planValue, $id_plan)
+    {
+        date_default_timezone_set('America/Sao_Paulo');
 
-        $user = new UserModel();
-        $infoClient = json_decode($infoClient);
-        $idCustomer = $infoClient->id;
-        $idenidentity = 'payment';
-        $withEmail = $user->getInfoUsers($infoClient->email, $idenidentity);
+        $userModel = new UserModel();
+        $subModel = new SubscriptionTypes();
 
-        if($withEmail) {
-            throw new \Exception("Já possui um usuário utilizando este e-mail!");  
-        } else {
-            $dataInsert = [
-                'nome'     => $infoClient->name,
-                'email'    => $infoClient->email,
-                'asaas_id' => $idCustomer
-            ];
-
-            $user->insertByArray($dataInsert);
+        $customerAsaasId = $infoClient->id ?? null;
+        if (!$customerAsaasId) {
+            throw new \Exception("Cliente inválido recebido do Asaas.");
         }
 
-        $dates = date('Y-m-d'); 
-        $date = $this->nextDueDate($dates);
-
-        if($typePayment == 'cartao credito') {
-            $typePayment = 'CREDIT_CARD';
-        } else {
-            $typePayment = 'PIX';
+        $exists = $userModel->where('email', $infoClient->email)->first();
+        if ($exists) {
+            throw new \Exception("Já existe usuário com este e-mail.");
         }
 
-        $data = [
-            "customer_id"  => $idCustomer,
-            "billing_type" => $typePayment,
-            "valuePlan"    => $planValue,
-            "created_at"   => $date
+        $userData = [
+            'nome'     => $infoClient->name ?? null,
+            'email'    => $infoClient->email ?? null,
+            'asaas_id' => $customerAsaasId,
+            'cpf_cnpj' => $infoClient->cpfCnpj ?? null,
+            'telefone' => $infoClient->mobilePhone ?? null,
+            'cidade'   => $infoClient->cityName ?? null,
+            'estado'   => $infoClient->state ?? null,
+            'endereco' => $infoClient->address ?? null,
+            'cep'      => $infoClient->postalCode ?? null
         ];
 
-        $leanPayment = new CreateLeanPaymentDTO(
-            $idCustomer, 
-            $typePayment, 
-            $planValue, 
-            $date
+        $userModel->insert($userData);
+
+        $normalized = strtolower($typePayment);
+        if (strpos($normalized, 'cartao') !== false || strpos($normalized, 'credito') !== false) {
+            $billingType = 'CREDIT_CARD';
+        } elseif (strpos($normalized, 'boleto') !== false) {
+            $billingType = 'BOLETO';
+        } else {
+            $billingType = 'BOLETO';
+        }
+
+        $nextDueDate = $this->nextDueDate(date('Y-m-d'));
+
+        $dto = new CreateLeanPaymentDTO(
+            $customerAsaasId,
+            $billingType,
+            (string)$planValue,
+            $nextDueDate
         );
 
-        $this->requestCreateMonthly($leanPayment);
-        $paymentModel = new PagamentosModel();
-        $paymentModel->insert($data);
+        $subscriptionResponse = $this->requestCreateMonthly($dto);
+        log_message('info', "Create subscription response: " . $subscriptionResponse);
+
+        $subscriptionData = json_decode($subscriptionResponse);
+        if (!$subscriptionData || !isset($subscriptionData->id)) {
+            throw new \Exception("Erro ao criar assinatura no Asaas: " . $subscriptionResponse);
+        }
+
+        $subscriptionId = $subscriptionData->id;
+
+        $subInsert = [
+            'customer_id_asaas' => $customerAsaasId,
+            'subscription_id'   => $subscriptionId,
+            'id_plan'           => $id_plan,
+            'value'             => $planValue,
+            'billing_type'      => $billingType,
+            'status'            => $subscriptionData->status ?? 'PENDING',
+            'next_due_date'     => $subscriptionData->nextDueDate ?? $nextDueDate,
+            'last_payment_date' => null
+        ];
+
+        $subModel->insert($subInsert);
+        $subLocalId = $subModel->getInsertID();
+
+        return $this->response->setJSON([
+            'status' => 'ok',
+            'subscription_local_id' => $subLocalId,
+            'subscription_id' => $subscriptionId,
+            'next_due_date' => $subInsert['next_due_date']
+        ]);
     }
 
+    /**
+     * @param array $infoClient payload para criar cliente no Asaas
+     * @param string $typePayment
+     * @param float $planValue
+     */
     public function requestCreateClientAsaas($infoClient, $typePayment, $planValue)
     {
-        $curl = curl_init();
+        helper('curl');
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/customers",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($infoClient),
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjhiMjI0NDNmLTYwOTEtNDJjNy04MGNiLTE2M2ZlNWZmNmY5ZDo6JGFhY2hfM2QxMTE5MGQtMWUzMS00YTE4LThmNzgtZTg1MTY5YTRhN2Ix',
-                'User-Agent: WsIntegracoes/1.0'
-            ],
-        ]);
+        $url = "https://api-sandbox.asaas.com/v3/customers";
+        $method = "POST";
 
-        $response = curl_exec($curl);
-        
-        $err = curl_error($curl);
-        
-        curl_close($curl);
+        $response = curlRequest($url, $method, $infoClient);
 
-        if ($err) {
-            return "cURL Error #: " . $err;
+        if (!$response) {
+            throw new \Exception("Erro ao criar cliente no Asaas.");
         }
 
-        if($response) {
-            $this->createMonthly($response, $typePayment, $planValue);
+        $client = json_decode($response);
+        if (!isset($client->id)) {
+            throw new \Exception("Erro na criação do cliente: " . $response);
         }
+
+        return $this->createMonthly($client, $typePayment, $planValue, $infoClient['id_plan'] ?? null);
     }
 
-    public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient) {
-        $curl = curl_init();
+    /**
+     * @param CreateLeanPaymentDTO $infoClient
+     * @return string
+     */
+    public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient)
+    {
+        helper('curl');
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/lean/payments",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($infoClient),
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                'access_token: $aact_hmlg_000MzkwODA2MWY2OGM3MWRlMDU2NWM3MzJlNzZmNGZhZGY6OjhiMjI0NDNmLTYwOTEtNDJjNy04MGNiLTE2M2ZlNWZmNmY5ZDo6JGFhY2hfM2QxMTE5MGQtMWUzMS00YTE4LThmNzgtZTg1MTY5YTRhN2Ix',
-                'User-Agent: WsIntegracoes/1.0'
+        $url     = "https://api-sandbox.asaas.com/v3/subscriptions";
+        $method  = "POST";
 
-            ],
-        ]);
+        $payload = [
+            "customer"    => $infoClient->customer,
+            "billingType" => $infoClient->billingType,
+            "value"       => $infoClient->value,
+            "cycle"       => "MONTHLY",
+            "nextDueDate" => $infoClient->dueDate
+        ];
 
-        $response = curl_exec($curl);
+        $response = curlRequest($url, $method, $payload);
 
-        $err = curl_error($curl);
+        log_message("info", "ASSINATURA RESPONSE: " . $response);
 
-        curl_close($curl);
-
-        if ($err) {
-            return "cURL Error #: " . $err;
-        }
+        return $response;
     }
 
     function nextDueDate($dateEntry) {
@@ -219,5 +241,4 @@ class PaymentController extends BaseController
         $monthFormatted = sprintf('%02d', $month);
         return \DateTime::createFromFormat('Y-m-d', "$year-$monthFormatted-$dayFormatted")->format('Y-m-d');
     }
-
 }
