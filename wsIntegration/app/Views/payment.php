@@ -1,5 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?= base_url('scripts/mask.js'); ?>"></script>
 <script src="<?= base_url("scripts/payment.js"); ?>"></script>
 <link rel="stylesheet" href="<?= base_url("Styles/stylePayment.css"); ?>">
 
@@ -17,22 +18,22 @@
 
     <div class="form-group">
         <label for="nome">Nome do titular</label>
-        <input type="text" name="nome" id="nome" class="form-control" required>
+        <input type="text" name="nome" id="nome" class="form-control" autocomplete="off" required>
     </div>
 
     <div class="form-group">
         <label for="email">E-mail para confirmação</label>
-        <input type="email" name="email" id="email" class="form-control" required>
+        <input type="email" name="email" id="email" class="form-control" autocorrect="off" autocapitalize="off" spellcheck="false" autocomplete="off" required>
     </div>
 
     <div class="form-group">
         <label for="telefone">Numero Telefone</label>
-        <input type="number" name="telefone" id="telefone" class="form-control" required>
+        <input type="text" name="telefone" id="telefone" class="form-control" autocomplete="off" required>
     </div>
 
     <div class="form-group">
         <label for="cpfCnpj">CPF / CNPJ</label>
-        <input type="number" name="cpfCnpj" id="cpfCnpj" class="form-control" required>
+        <input type="text" name="cpfCnpj" id="cpfCnpj" class="form-control" autocomplete="off" required>
     </div>
 
     <div class="form-group">
@@ -49,7 +50,7 @@
 
     <div class="form-group">
         <label for="cep">CEP</label>
-        <input type="number" name="cep" id="cep" class="form-control" required>
+        <input type="text" name="cep" id="cep" class="form-control" autocomplete="off" required>
     </div>
 
     <button type="submit" class="btn btn-primary" id="submitPlanClient">Pagar</button>
