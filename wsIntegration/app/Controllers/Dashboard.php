@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\ImovelModel;
+use App\Models\PlansModel;
 
 class DashBoard extends BaseController
 {
@@ -16,11 +17,13 @@ class DashBoard extends BaseController
             return redirect()->to('/login')->with('erro', 'Você precisa estar logado para acessar o Dashboard.');
         }
 
-        $infoClients    = $this->getInfoClients();
-        $realtyCount    = $this->getRealty();
-        $realtyValue    = $this->getRealtyValue();
-        $realtyClient   = $this->displayPropertiesDashboard();
-        $realtyDisabled = $this->viewRealtyDisable();
+        $infoClients         = $this->getInfoClients();
+        $realtyCount         = $this->getRealty();
+        $realtyValue         = $this->getRealtyValue();
+        $realtyClient        = $this->displayPropertiesDashboard();
+        $realtyDisabled      = $this->viewRealtyDisable();
+        $realtyCountDisabled = $this->getRealtyDisable();
+        $planUsedClient      = $this->getPlanUsedClient();
 
         if (!$infoClients) {
             return redirect()->to('/login')->with('erro', 'Usuário não encontrado.');
@@ -31,11 +34,13 @@ class DashBoard extends BaseController
         $realtyDisabled = $this->sanitizeImages($realtyDisabled);
 
         return view('dashboard', [
-            'infoClients'    => $infoClients,
-            'realtyCount'    => $realtyCount,
-            'realtyValue'    => $realtyValue,
-            'realtyClient'   => $realtyClient,
-            'realtyDisabled' => $realtyDisabled
+            'infoClients'         => $infoClients,
+            'realtyCount'         => $realtyCount,
+            'realtyValue'         => $realtyValue,
+            'realtyClient'        => $realtyClient,
+            'realtyDisabled'      => $realtyDisabled,
+            'realtyCountDisabled' => $realtyCountDisabled,
+            'planUsedClient'      => $planUsedClient
         ]);
     }
 
@@ -58,10 +63,24 @@ class DashBoard extends BaseController
         $session = session();
         $userId = $session->get('usuario')['id'] ?? null;
 
-        if (!$userId) return null;
+        if (!$userId) {
+            return null;
+        }
 
         $imovelModel = new ImovelModel();
         return $imovelModel->getRealtyUserId($userId) ?: null;
+    }
+
+    public function getRealtyDisable() {
+        $session = session();
+        $userId = $session->get('usuario')['id'] ?? null;
+
+        if (!$userId) {
+            return null;
+        }
+
+        $imovelModel = new ImovelModel();
+        return $imovelModel->getRealtyDisableUserId($userId);
     }
 
     public function getRealtyValue()
@@ -69,7 +88,9 @@ class DashBoard extends BaseController
         $session = session();
         $userId = $session->get('usuario')['id'] ?? null;
 
-        if (!$userId) return null;
+        if (!$userId) {
+            return null;
+        }
 
         $imovelModel = new ImovelModel();
         return $imovelModel->getRealtyValue($userId) ?: null;
@@ -154,5 +175,29 @@ class DashBoard extends BaseController
             }
         }
         return $properties;
+    }
+
+    public function sessionClient() {
+        $session = session();
+        $userId = $session->get('usuario')['id'] ?? null;
+
+        if (!$userId) {
+            return redirect()->to('/login')->with('erro', 'Você precisa estar logado para acessar o Dashboard.');
+        }
+
+        return $userId;
+    }
+
+    public function getPlanUsedClient() {
+        $plansModel = new PlansModel();
+        $idUser     = $this->sessionClient();
+
+        $planChoose = $plansModel->obtainThePlanChosenByTheCustomer($idUser);
+
+        if(!$planChoose) {
+            return "Este cliente não possui um plano!";
+        }
+
+        return $planChoose;
     }
 }
