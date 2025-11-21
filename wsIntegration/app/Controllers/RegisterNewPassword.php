@@ -14,9 +14,9 @@ class RegisterNewPassword extends BaseController
 
     public function resultStatus()
     {
-        $request = service('request');
-        $email = $request->getPost('email');
-        $novaSenha = $request->getPost('nova_senha');
+        $request        = service('request');
+        $email          = $request->getPost('email');
+        $novaSenha      = $request->getPost('nova_senha');
         $confirmarSenha = $request->getPost('confirmar_senha');
 
         try {
