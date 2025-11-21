@@ -172,10 +172,32 @@ class PaymentController extends BaseController
      */
     public function requestCreateClientAsaas($infoClient, $typePayment, $planValue)
     {
+<<<<<<< HEAD
         helper('curl');
 
         $url = "https://api-sandbox.asaas.com/v3/customers";
         $method = "POST";
+=======
+        $asaasApiKey = getenv('ASAAS_TOKEN');
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/customers",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($infoClient),
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "access_token: $asaasApiKey",
+                'User-Agent: WsIntegracoes/1.0'
+            ],
+        ]);
+>>>>>>> 2486610cefa334beb0fc2d7a89eea9e130b0cc37
 
         $response = curlRequest($url, $method, $infoClient);
 
@@ -191,6 +213,7 @@ class PaymentController extends BaseController
         return $this->createMonthly($client, $typePayment, $planValue, $infoClient['id_plan'] ?? null);
     }
 
+<<<<<<< HEAD
     /**
      * @param CreateLeanPaymentDTO $infoClient
      * @return string
@@ -201,6 +224,25 @@ class PaymentController extends BaseController
 
         $url     = "https://api-sandbox.asaas.com/v3/subscriptions";
         $method  = "POST";
+=======
+    public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient) {
+        $asaasApiKey = getenv('ASAAS_TOKEN');
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/lean/payments",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($infoClient),
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json",
+                "access_token: $asaasApiKey",
+                'User-Agent: WsIntegracoes/1.0'
+>>>>>>> 2486610cefa334beb0fc2d7a89eea9e130b0cc37
 
         $payload = [
             "customer"    => $infoClient->customer,
