@@ -61,6 +61,7 @@ class PaymentController extends BaseController
         $cpfCnpj = $post["cpfCnpj"] ?? null;
         $cep = $post["cep"] ?? null;
         $typePayment = $post["tipo_pagamento"] ?? null; 
+
         if (!$planId || !$value || !$nameCustomer || !$emailCustomer || !$phoneCustomer || !$cpfCnpj || !$cep || !$typePayment) {
             throw new \Exception("Está faltando alguma informação! Por gentileza revise os dados");
         }
@@ -78,7 +79,6 @@ class PaymentController extends BaseController
     }
 
     /**
-     *
      * @param object $infoClient  Objeto retornado do Asaas (cliente) — já decodificado (stdClass)
      * @param string $typePayment valor vindo do front (ex: 'cartao credito','boleto','pix')
      * @param float  $planValue
@@ -114,6 +114,7 @@ class PaymentController extends BaseController
         ];
 
         $userModel->insert($userData);
+        $localUserId = $userModel->getInsertID();
 
         $normalized = strtolower($typePayment);
         if (strpos($normalized, 'cartao') !== false || strpos($normalized, 'credito') !== false) {
@@ -138,6 +139,7 @@ class PaymentController extends BaseController
 
         $subscriptionData = json_decode($subscriptionResponse);
         if (!$subscriptionData || !isset($subscriptionData->id)) {
+            // registra o erro e aborta
             throw new \Exception("Erro ao criar assinatura no Asaas: " . $subscriptionResponse);
         }
 
@@ -172,32 +174,10 @@ class PaymentController extends BaseController
      */
     public function requestCreateClientAsaas($infoClient, $typePayment, $planValue)
     {
-<<<<<<< HEAD
         helper('curl');
 
         $url = "https://api-sandbox.asaas.com/v3/customers";
         $method = "POST";
-=======
-        $asaasApiKey = getenv('ASAAS_TOKEN');
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/customers",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($infoClient),
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                "access_token: $asaasApiKey",
-                'User-Agent: WsIntegracoes/1.0'
-            ],
-        ]);
->>>>>>> 2486610cefa334beb0fc2d7a89eea9e130b0cc37
 
         $response = curlRequest($url, $method, $infoClient);
 
@@ -213,7 +193,6 @@ class PaymentController extends BaseController
         return $this->createMonthly($client, $typePayment, $planValue, $infoClient['id_plan'] ?? null);
     }
 
-<<<<<<< HEAD
     /**
      * @param CreateLeanPaymentDTO $infoClient
      * @return string
@@ -224,25 +203,6 @@ class PaymentController extends BaseController
 
         $url     = "https://api-sandbox.asaas.com/v3/subscriptions";
         $method  = "POST";
-=======
-    public function requestCreateMonthly(CreateLeanPaymentDTO $infoClient) {
-        $asaasApiKey = getenv('ASAAS_TOKEN');
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://api-sandbox.asaas.com/v3/lean/payments",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($infoClient),
-            CURLOPT_HTTPHEADER => [
-                "Content-Type: application/json",
-                "access_token: $asaasApiKey",
-                'User-Agent: WsIntegracoes/1.0'
->>>>>>> 2486610cefa334beb0fc2d7a89eea9e130b0cc37
 
         $payload = [
             "customer"    => $infoClient->customer,
