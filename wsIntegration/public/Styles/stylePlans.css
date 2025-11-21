@@ -2,8 +2,8 @@ html, body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #f9f9f9;
     color: #333;
+    background: #222222;
 }
 
 main {
@@ -19,29 +19,29 @@ main {
 }
 
 .plan-card {
-    border: 1px solid #ccc;
     border-radius: 12px;
     padding: 25px;
-    width: 280px;
-    background-color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 300px;
+    max-width: 100%;
+    background-color: #222222;
+    box-shadow: 0px 4px 4px 4px #C9A646;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .plan-card:hover {
     transform: scale(1.03);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    box-shadow: 0px 4px 4px 4px #C9A646;
 }
 
 .plan-card h2 {
     margin-top: 0;
-    color: #2e8b57;
+    color: #F5F7FA;
     font-size: 1.4rem;
 }
 
 .plan-card p {
     margin: 8px 0;
-    color: #555;
+    color: #F5F7FA;
     font-size: 0.95rem;
 }
 
@@ -76,6 +76,17 @@ main {
     margin-top: auto;
 }
 
+@media (max-width: 1024px) {
+    .plans-container {
+        padding: 60px 15px 30px;
+        gap: 25px;
+    }
+
+    .plan-card {
+        width: 280px;
+    }
+}
+
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
@@ -91,9 +102,31 @@ main {
     .plans-container {
         flex-direction: column;
         align-items: center;
+        padding: 50px 15px 30px;
     }
 
     .plan-card {
         width: 90%;
+        max-width: 420px;
+    }
+}
+
+@media (max-width: 480px) {
+    .plan-card {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .plan-card h2 {
+        font-size: 1.25rem;
+    }
+
+    .plan-card p {
+        font-size: 0.9rem;
+    }
+
+    .btn-escolher {
+        padding: 12px;
+        font-size: 0.95rem;
     }
 }

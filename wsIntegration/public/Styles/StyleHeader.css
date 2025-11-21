@@ -5,12 +5,17 @@
     font-family: Arial, sans-serif;
 }
 
+body {
+    background-color: #222222;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
+    background-color: #222222;
     padding: 15px 20px;
+    box-shadow: 0 4px 4px 0 #C9A646
 }
 
 .logo {

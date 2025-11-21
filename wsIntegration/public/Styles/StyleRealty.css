@@ -6,12 +6,11 @@
 }
 
 body {
-  background-color: #f4f6f8;
+  background-color: #222222;
   padding: 30px 15px;
   display: flex;
   justify-content: center;
-  transition: padding-left 0.3s ease;
-  padding-left: 15%;
+  transition: 0.3s ease;
 }
 
 .form-container {
@@ -24,14 +23,14 @@ body {
 }
 
 .section {
-  background-color: #fafafa;
+  background-color: #222222;
   border-radius: 12px;
   padding: 25px;
   margin-top: 2%;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border: 1px solid #e1e4e8;
+  box-shadow: 0px 0px 4px 1px #C9A646;
 }
 
 .section h3 {
@@ -45,7 +44,7 @@ body {
 
 .grid-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -59,20 +58,31 @@ input,
 select,
 textarea {
   padding: 12px 15px;
-  border: 1px solid #cbd2d9;
+  border: none;
   border-radius: 12px;
   font-size: 15px;
   width: 100%;
-  background-color: #fff;
-  transition: all 0.3s ease;
+  background-color: #222222;
+  outline: none;
+  color: #F5F7FA;
+  transition: 0.3s ease;
+  box-shadow: 0px 0px 4px 1px #F5F7FA;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: #0077cc;
-  box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.1);
-  outline: none;
+  box-shadow: 0px 0px 4px 1px #C9A646;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #C9A646;
+}
+
+.group_label,
+.optional {
+  color: #F5F7FA;
 }
 
 .title {
@@ -85,45 +95,57 @@ textarea {
 }
 
 button {
-  background-color: #0077cc;
-  color: white;
+  background-color: #222222;
+  color: #F5F7FA;
   padding: 15px;
   border: none;
   border-radius: 12px;
   font-size: 16px;
   cursor: pointer;
   width: 100%;
+  box-shadow: 0px 0px 4px 1px #C9A646;
+  transition: 0.3s ease;
 }
 
 button:hover {
-  background-color: #005fa3;
+  box-shadow: 0px 0px 6px 2px #C9A646;
 }
 
-/* Responsividade Form */
+
 @media (max-width: 1024px) {
   body {
-    padding-left: 220px;
+    justify-content: center;
+    padding: 25px 10px;
   }
 }
 
 @media (max-width: 768px) {
   body {
-    padding-left: 0; /* remove deslocamento quando sidebar some */
+    padding: 20px 10px;
     flex-direction: column;
   }
 
   .form-container {
     width: 100%;
-    padding: 20px;
-  }
-
-  .grid-2 {
-    grid-template-columns: 1fr;
+    padding: 10px;
   }
 }
 
 @media (max-width: 480px) {
+  body {
+    padding: 15px 5px;
+  }
+
   .form-container {
-    padding: 15px;
+    padding: 10px;
+  }
+
+  .section {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .section h3 {
+    font-size: 17px;
   }
 }

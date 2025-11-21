@@ -9,12 +9,13 @@ body {
     display: flex;
     height: 100vh;
     overflow: hidden;
+    background: #222222;
 }
 
 .sidebar {
     width: 250px;
-    background: #2c3e50;
-    color: white;
+    background: #222222;
+    color: #F5F7FA;
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 8px 2px #C9A646;
 }
 
 .sidebar .logo {
@@ -117,29 +118,22 @@ body {
 }
 
 @media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: 100%;
-        position: static;
-        height: auto;
-        box-shadow: none;
-    }
-
-    .content {
+    .generate-xml-container {
         margin-left: 0;
-    }
-
-    .dashboard-stats {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .card {
+        margin-top: 40px;
+        padding: 20px;
         width: 100%;
-        margin-bottom: 20px;
+        height: auto;
+        text-align: center;
+    }
+
+    .xml-link {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #generateXMLClient {
+        justify-content: center;
     }
 }
 
@@ -154,22 +148,28 @@ body {
     font-size: 20px;
     margin-bottom: 20px;
     display: block;
-    color: #2c3e50;
+    color: #F5F7FA;
 }
 
 .generate-xml-container button {
     padding: 10px 20px;
-    background-color: #2980b9;
-    color: white;
+    background-color: #222222;
+    color: #F5F7FA;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 4px 4px #C9A646;
 }
 
 .generate-xml-container button:hover {
-    background-color: #3498db;
+    transform: translateY(-5px);
+}
+
+#generateXMLClient {
+    display: flex;
+    justify-content: center;
 }
 
 .xml-link {

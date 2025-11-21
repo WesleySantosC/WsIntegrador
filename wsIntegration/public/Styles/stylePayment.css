@@ -6,19 +6,20 @@
 }
 
 body {
-    background: #f6f8fa;
+    background: #222222;
     padding: 40px 20px;
     color: #1f2937;
 }
 
 .card {
-    background: white;
+    background: #222222;
     border-radius: 16px;
     padding: 24px 28px;
     max-width: 520px;
+    width: 100%;
     margin: 0 auto 32px auto;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0px 0px 8px 4px #C9A646;
+    border: none;
     transition: all 0.3s ease;
 }
 
@@ -26,23 +27,24 @@ body {
     font-size: 22px;
     font-weight: 600;
     margin-bottom: 16px;
-    color: #111827;
+    color: #F5F7FA;
 }
 
 .card p {
     font-size: 16px;
     margin-bottom: 8px;
-    color: #374151;
+    color: #F5F7FA;
 }
 
 form {
-    background: white;
+    background: #222222;
     border-radius: 16px;
     padding: 28px 30px;
     max-width: 520px;
+    width: 100%;
     margin: 0 auto;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0px 0px 8px 4px #C9A646;
+    border: none;
 }
 
 .form-group {
@@ -53,7 +55,7 @@ label {
     display: block;
     font-weight: 500;
     margin-bottom: 6px;
-    color: #374151;
+    color: #F5F7FA;
 }
 
 input[type="text"],
@@ -62,44 +64,43 @@ input[type="email"] {
     width: 100%;
     padding: 12px 14px;
     font-size: 15px;
-    border: 1px solid #d1d5db;
+    border: none;
+    outline: none;
     border-radius: 10px;
-    background-color: #f9fafb;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    background: #222222;
+    color: #F5F7FA;
+    box-shadow: 0px 0px 4px 0px #F5F7FA;
+    appearance: none;
 }
 
 input[type="text"]:focus,
-input[type="email"]:focus {
-    border-color: #3b82f6;
-    background-color: #fff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    outline: none;
+input[type="email"]:focus,
+input[type="number"]:focus {
+    box-shadow: 0px 0px 4px 0px #C9A646;
 }
 
 select {
     width: 100%;
     padding: 12px 14px;
     font-size: 15px;
-    border: 1px solid #d1d5db;
+    border: none;
     border-radius: 10px;
-    background-color: #f9fafb;
-    color: #374151;
-    appearance: none; /* remove seta padrão (opcional) */
-    background-image: url('data:image/svg+xml;utf8,<svg fill="%2371717a" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background: #222222;
+    color: #F5F7FA;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    box-shadow: 0px 0px 4px 0px #F5F7FA;
+
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23C9A646" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 16px;
-    cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 select:focus {
-    border-color: #3b82f6;
-    background-color: #fff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    outline: none;
+    box-shadow: 0px 0px 4px 0px #C9A646;
 }
-
 
 button.btn {
     width: 100%;
@@ -107,7 +108,7 @@ button.btn {
     font-size: 16px;
     font-weight: 600;
     color: white;
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #2e8b57;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -115,15 +116,34 @@ button.btn {
 }
 
 button.btn:hover {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     transform: scale(1.02);
 }
 
 @media (max-width: 600px) {
+
+    body {
+        padding: 20px 10px;
+    }
+
     .card,
     form {
         padding: 20px;
-        margin: 10px;
+        margin: 10px auto;
+        width: 100%;
+    }
+
+    .card h3 {
+        font-size: 20px;
+    }
+
+    input,
+    select {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    button.btn {
+        padding: 12px 16px;
+        font-size: 15px;
     }
 }
-
