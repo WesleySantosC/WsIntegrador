@@ -46,11 +46,12 @@ class GenerateLinkXml extends Controller
     public function GenerateLink($userId)
     {
         $imovelModel = new ImovelModel();
-        $linkModel   = new GenerateLinkXmlModel();
-        $imoveis     = $imovelModel->generateLinkXml($userId);
+        $imovelModel->resetQuery(); //Reseta a consulta
 
-        // Gera o XML sempre
+        $imoveis = $imovelModel->generateLinkXml($userId);
+
         $xml = new SimpleXMLElement('<imoveis/>');
+
         foreach ($imoveis as $anuncio) {
             $imovel = $xml->addChild('imovel');
             $imovel->addChild('id', $anuncio->id);
@@ -66,6 +67,7 @@ class GenerateLinkXml extends Controller
             $imovel->addChild('estado', $anuncio->state);
             $imovel->addChild('cidade', $anuncio->city);
             $imovel->addChild('endereco', $anuncio->address);
+            $imovel->addChild('imagens', $anuncio->imagens);
             $imovel->addChild('garagem', $anuncio->garage);
             $imovel->addChild('titulo', $anuncio->title);
             $imovel->addChild('descricao', $anuncio->description);
@@ -73,13 +75,19 @@ class GenerateLinkXml extends Controller
         }
 
         $fileName = FCPATH . "xml/user_{$userId}.xml";
+
         if (!is_dir(FCPATH . 'xml')) {
             mkdir(FCPATH . 'xml', 0777, true);
         }
+
+        if (file_exists($fileName)) {
+            unlink($fileName);
+        }
+
         $xml->asXML($fileName);
 
-        $link = $this->wwwroot . "xml/user_{$userId}.xml";
-
+        $linkModel = new GenerateLinkXmlModel();
+        $link      = base_url("xml/user_{$userId}.xml");
         $data = [
             'link' => $link,
             'id_usuario_gerou' => $userId,
