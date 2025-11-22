@@ -106,15 +106,16 @@
                     <div>
                         <?php
                         $imagens = json_decode($realty->imagens, true);
+                        $imgPadrao = base_url("imgs/imagem_padrão_casa.png");
 
-                        // TO DO: Mostrar todas as imagens, com uma setinha, que mostra a imagem do lado...
-                        if (is_array($imagens) && !empty($imagens)):
-                                $imagemUrl = base_url($imagens[0]);
+                        if (is_array($imagens) && !empty($imagens) && !empty($imagens[0])) {
+                            $imagemUrl = base_url($imagens[0]);
+                        } else {
+                            $imagemUrl = $imgPadrao;
+                        }
                         ?>
 
-                        <img src="<?= $imagemUrl ?>" alt="Imagem do imóvel">
-
-                        <?php endif; ?>
+                        <img src="<?= $imagemUrl ?>" alt="Imagem do imóvel" title="Imagem do imóvel">
 
                             <!--$imagens = json_decode($realty->imagens, true);
 
