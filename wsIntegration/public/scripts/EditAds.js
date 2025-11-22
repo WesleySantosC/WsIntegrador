@@ -2,10 +2,10 @@ function maskInputs(valueRealty, valueIPTU, valueCond, cep, footage) {
     
     const financialFields = [
         { field: valueRealty, maskFn: window.maskCoin },
-        { field: valueIPTU, maskFn: window.maskCoin },
-        { field: valueCond, maskFn: window.maskCoin },
-        { field: footage, maskFn: window.maskfootage },
-        { field: cep, maskFn: window.maskCEP } 
+        { field: valueIPTU,  maskFn: window.maskCoin },
+        { field: valueCond,  maskFn: window.maskCoin },
+        { field: footage,    maskFn: window.maskfootage },
+        { field: cep,        maskFn: window.maskCEP }
     ];
 
     financialFields.forEach(item => {
@@ -15,18 +15,14 @@ function maskInputs(valueRealty, valueIPTU, valueCond, cep, footage) {
         field.on('focus', function() {
             $(this).val(window.unmaskValue($(this).val()));
         });
-        
+
+        field.on('input', function() {
+            $(this).val(maskFn($(this).val()));
+        });
+
         field.on('blur', function() {
             $(this).val(maskFn($(this).val()));
         });
-        
-        field.on('input', function() {
-            $(this).val(window.unmaskValue($(this).val()));
-        });
-    });
-
-    cep.on('input', function() {
-        $(this).val(window.maskCEP($(this).val()));
     });
 }
 
@@ -56,16 +52,19 @@ $(document).ready(function() {
         let cleaned = $(this).val().replace(/\D/g, "");
 
         if (cleaned.length === 8) {
-        getAddress(cleaned, fieldsToFillIn);
+            getAddress(cleaned, fieldsToFillIn);
         }
     });
 
-    const ROUTE      = 'edit/editAds'; 
-    const HOME       = wwwroot + 'index.php/dashboard';
+    const ROUTE = 'edit/editAds'; 
+    const HOME  = wwwroot + 'index.php/dashboard';
 
     maskInputs(valueRealty, valueIPTU, valueCond, cep, footage);
-    getAddress(cep_val, fieldsToFillIn);
-    
+
+    if (cep_val) {
+        getAddress(cep_val, fieldsToFillIn);
+    }
+
     valueRealty.blur();
     valueIPTU.blur();
     valueCond.blur();
@@ -97,7 +96,7 @@ $(document).ready(function() {
                         text : 'Imóvel Alterado com Sucesso!',
                         icon : 'success'
                     }).then(function() {
-                        window.location.href= HOME;
+                        window.location.href = HOME;
                     });
                 } else {
                     Swal.fire({
@@ -121,7 +120,7 @@ $(document).ready(function() {
     $("#logout").on("click", function() {
         $.post(
             window.wwwroot + 'login/logout', {}, function() {
-                console.log("Sessão Destruída");
+            console.log("Sessão Destruída");
             }
         )
     });
