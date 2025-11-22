@@ -143,15 +143,24 @@
           <small class="optional">Apenas imagens (JPEG, PNG, etc.)</small>
         </div>
 
+        <input type="hidden" id="images_to_delete" name="images_to_delete" value="[]">
         <?php if (isset($infoRealty->imagens) && !empty($infoRealty->imagens)): ?>
-          <div class="preview-images" style="margin-top: 10px;">
+        <div class="preview-images" style="margin-top: 10px;">
             <?php
-            $images = is_string($infoRealty->imagens) ? json_decode($infoRealty->imagens, true) : $infoRealty->imagens;
-            if (!empty($images)) {
-              foreach ($images as $img): ?>
-                <img src="<?= base_url(trim($img)) ?>" alt="Imagem do imóvel" style="width:100px; max-height: 60px; margin-right:5px; margin-bottom:5px;">
-            <?php endforeach; } ?>
-          </div>
+            $images = is_string($infoRealty->imagens)
+                ? json_decode($infoRealty->imagens, true)
+                : $infoRealty->imagens;
+
+            if (!empty($images)):
+                foreach ($images as $img):
+                    $imgPath = trim($img, " \t\n\r\0\x0B/");
+            ?>
+                <div class="image-wrapper" data-image="<?= esc($imgPath) ?>">
+                    <img src="<?= base_url($imgPath) ?>" alt="Imagem do imóvel">
+                    <span class="remove-btn" title="Remover imagem">✖</span>
+                </div>
+            <?php endforeach; endif; ?>
+        </div>
         <?php endif; ?>
       </div>
 
