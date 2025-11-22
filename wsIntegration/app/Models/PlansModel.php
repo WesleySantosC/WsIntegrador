@@ -35,7 +35,7 @@ class PlansModel extends Model
                           p.qtd_destaque"
                         );
         $builder->join("subscription_types st", "st.id_plan = p.id", "inner");
-        $builder->join("usuarios u", "u.cpf_cnpj = st.cpf_cnpj_user", "inner");
+        $builder->join("usuarios u", "u.asaas_id = st.customer_id_asaas", "inner");
         $builder->where("u.id", $idUser);
 
         return $this->getRow($builder);
