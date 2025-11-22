@@ -247,7 +247,7 @@ body {
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #777;
+    border: 2px solid #3f3f3f;
 }
 
 .action-buttons {
