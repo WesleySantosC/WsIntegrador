@@ -54,90 +54,112 @@ class EditAds extends BaseController
         return $user ? (array) $user : null;
     }
 
-    public function editAds()
-    {
-        $result = [];
+public function editAds()
+{
+    $result = [];
 
-        try {
-            $postData = $this->post;
-            $files = $this->getFiles;
+    try {
+        $postData = $this->post;
+        $files = $this->getFiles;
 
-            if (empty($postData['id'])) {
-                throw new \Exception("ID do imóvel não informado.");
-            }
-
-            $id = $postData['id'];
-            unset($postData['id']);
-
-            $value = str_replace(['.', ','], ['', '.'], $postData['value']);
-
-            $updateData = [
-                'user_id'      => session('usuario')['id'],
-                'rooms'        => $postData['rooms'] ?? 0,
-                'bathrooms'    => $postData['bathrooms'] ?? 0,
-                'suites'       => $postData['suites'] ?? 0,
-                'reference'    => $postData['reference'] ?? null,
-                'value'        => $value,
-                'footage'      => $postData['footage'],
-                'cep'          => $postData['cep'] ?? '',
-                'neighborhood' => $postData['neighborhood'],
-                'state'        => $postData['state'],
-                'city'         => $postData['city'],
-                'address'      => $postData['address'],
-                'complement'   => $postData['complement'],
-                'title'        => $postData['title'],
-                'description'  => $postData['description'],
-                'garage'       => $postData['garage'] ?? 0,
-                'type_realty'  => $postData['type_realty'],
-                'deleted_at'   => 0,
-                'disabled'     => 0,
-                'sale_type'    => $postData['sale_type']
-            ];
-
-            $imovelModel = new ImovelModel();
-            $old = $imovelModel->find($id);
-
-            $oldImgs = !empty($old['imagens']) ? json_decode($old['imagens'], true) : [];
-
-            // Remove imagens antigas que não existem mais
-            $oldImgs = array_filter($oldImgs, fn($img) => file_exists(ROOTPATH . 'public/' . $img));
-
-            // Upload de imagens novas
-            $uploadedFiles = [];
-            if (isset($files['images']) && !empty($files['images'])) {
-                foreach ($files['images'] as $file) {
-                    if ($file->isValid() && !$file->hasMoved()) {
-                        // Valida apenas JPEG e PNG
-                        if (!in_array($file->getClientMimeType(), ['image/jpeg', 'image/png'])) {
-                            throw new \Exception('Apenas imagens JPEG ou PNG são permitidas!');
-                        }
-
-                        if ($file->getSize() > 5 * 1024 * 1024) {
-                            throw new \Exception('As imagens não podem exceder 5MB!');
-                        }
-
-                        $newName = time() . '_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', $file->getName());
-                        $file->move(ROOTPATH . 'public/uploads/', $newName);
-                        $uploadedFiles[] = 'uploads/' . $newName;
-                    }
-                }
-            }
-
-            // Acumula imagens antigas + novas
-            $allImgs = array_merge($oldImgs, $uploadedFiles);
-            if (!empty($allImgs)) {
-                $updateData['imagens'] = json_encode(array_values($allImgs));
-            }
-
-            $imovelModel->update($id, $updateData);
-
-            $result = ['status' => 'success'];
-        } catch (\Throwable $e) {
-            $result['error'] = $e->getMessage();
+        if (empty($postData['id'])) {
+            throw new \Exception("ID do imóvel não informado.");
         }
 
-        return $this->jsonResponse($result);
+        $id = $postData['id'];
+        unset($postData['id']);
+
+        $rawToDelete = $postData['images_to_delete'] ?? '[]';
+        $imagesToDelete = json_decode($rawToDelete, true);
+        if (!is_array($imagesToDelete)) {
+            $imagesToDelete = [];
+        }
+
+        $imagesToDelete = array_map(fn($p) => ltrim(trim($p), '/'), $imagesToDelete);
+        $value          = str_replace(['.', ','], ['', '.'], $postData['value'] ?? '0');
+
+        $updateData = [
+            'user_id'       => session('usuario')['id'],
+            'rooms'         => $postData['rooms'] ?? 0,
+            'bathrooms'     => $postData['bathrooms'] ?? 0,
+            'suites'        => $postData['suites'] ?? 0,
+            'reference'     => $postData['reference'] ?? null,
+            'value'         => $value,
+            'footage'       => $postData['footage'] ?? null,
+            'cep'           => $postData['cep'] ?? '',
+            'neighborhood'  => $postData['neighborhood'] ?? null,
+            'state'         => $postData['state'] ?? null,
+            'city'          => $postData['city'] ?? null,
+            'address'       => $postData['address'] ?? null,
+            'complement'    => $postData['complement'] ?? null,
+            'title'         => $postData['title'] ?? null,
+            'description'   => $postData['description'] ?? null,
+            'garage'        => $postData['garage'] ?? 0,
+            'type_realty'   => $postData['type_realty'] ?? null,
+            'deleted_at'    => 0,
+            'disabled'      => 0,
+            'sale_type'     => $postData['sale_type'] ?? null
+        ];
+
+        $imovelModel = new ImovelModel();
+        $old = $imovelModel->find($id);
+
+        $oldImgs = [];
+        if (!empty($old['imagens'])) {
+            $decoded = json_decode($old['imagens'], true);
+            if (is_array($decoded)) {
+                $oldImgs = $decoded;
+            }
+        }
+
+        $oldImgs = array_map(fn($p) => ltrim(trim($p), '/'), $oldImgs);
+
+        foreach ($imagesToDelete as $img) {
+            $fullPath = ROOTPATH . 'public/' . $img;
+            if (file_exists($fullPath)) {
+                @unlink($fullPath);
+            }
+        }
+
+        $oldImgs = array_values(array_filter($oldImgs, fn($i) => !in_array($i, $imagesToDelete)));
+
+        $newUploads = [];
+        if (isset($files['images']) && !empty($files['images'])) {
+            foreach ($files['images'] as $file) {
+                if ($file->isValid() && !$file->hasMoved()) {
+
+                    if (!in_array($file->getClientMimeType(), ['image/jpeg', 'image/png'])) {
+                        throw new \Exception("Somente JPEG e PNG são permitidos.");
+                    }
+
+                    if ($file->getSize() > 5 * 1024 * 1024) {
+                        throw new \Exception("Cada imagem deve ter no máximo 5MB.");
+                    }
+
+                    $newName = time() . '_' . preg_replace('/[^a-zA-Z0-9\._-]/', '', $file->getName());
+                    $file->move(ROOTPATH . 'public/uploads/', $newName);
+                    $newUploads[] = 'uploads/' . $newName;
+                }
+            }
+        }
+
+        $finalImgs = array_merge($oldImgs, $newUploads);
+
+        if (!empty($finalImgs)) {
+            $updateData['imagens'] = json_encode(array_values($finalImgs));
+        } else {
+            $updateData['imagens'] = null;
+        }
+
+        $imovelModel->update($id, $updateData);
+
+        $result = ['status' => 'success'];
+    } catch (\Throwable $e) {
+        $result = ['error' => $e->getMessage()];
     }
+
+    return $this->jsonResponse($result);
+}
 
     /**
      * Sanitiza imagens do imóvel.
