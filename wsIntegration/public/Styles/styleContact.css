@@ -83,10 +83,6 @@ textarea {
     padding: 2%;
 }
 
-input[type="submit"]:hover {
-    background-color: #45a49b;
-}
-
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
