@@ -1,6 +1,7 @@
 <?= view('header') ?>
 <title>Sobre Nos</title>
 <link rel="stylesheet" href="<?= base_url('Styles/styleSobreNos.css'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>

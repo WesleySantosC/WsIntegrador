@@ -15,7 +15,6 @@
 
 <body>
   <div class="form-container">
-    <h2 class="title">Cadastro de Imóvel</h2>
     <form id="frmzDataRealty" enctype="multipart/form-data">
       <input type="hidden" name="id" value="<?= $infoRealty->id ?>">
 

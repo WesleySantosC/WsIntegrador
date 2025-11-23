@@ -1,7 +1,9 @@
 <?= view('header') ?>
 <title>Ws Integrações</title>
-<script src="<?= base_url('scripts/contact.js'); ?>"></script>
 <link rel="stylesheet" href="<?= base_url('Styles/styleContact.css'); ?>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="<?= base_url('scripts/contact.js'); ?>"></script>
+<script src="<?= base_url('scripts/mask.js'); ?>"></script>
 <body>
     <div class="intro">
         <p>Envie seu e-mail com dúvidas ou solicitação de atendimento, e em breve entraremos em contato!</p>
@@ -18,13 +20,13 @@
             </div>
             <div class="form-group">
                 <label for="phone">Digite o seu telefone: </label>
-                <input type="tel" name="phone" id="phone" placeholder="00 00000-0000" maxlength="9" required>
+                <input type="text" name="phone" id="phone" placeholder="00 00000-0000"  maxlength="11" required>
             </div>
             <div class="form-group">
                 <label for="question">Solicitação: </label>
                 <textarea name="question" id="question" placeholder="Sua mensagem"></textarea>
             </div>
-            <div>
+            <div class="test">
                 <input type="submit" value="Enviar" id="send">
             </div>
         </form>
