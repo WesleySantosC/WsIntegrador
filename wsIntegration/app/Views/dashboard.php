@@ -57,16 +57,16 @@
                             <div>
                                 <?php
                                 $imagens = json_decode($disabled->imagens, true);
-                                if (is_array($imagens) && !empty($imagens)):
-                                    foreach ($imagens as $imagem):
-                                        if (strpos($imagem, 'uploads/') === false) {
-                                            $imagem = 'uploads/' . $imagem;
-                                        }
-                                        $imagemUrl = base_url($imagem);
+                                $imgPadrao = base_url("imgs/imagem_padrão_casa.png");
+
+                                if (is_array($imagens) && !empty($imagens) && !empty($imagens[0])) {
+                                    $imagemUrl = base_url($imagens[0]);
+                                } else {
+                                    $imagemUrl = $imgPadrao;
+                                }
                                 ?>
-                                        <img src="<?= $imagemUrl ?>" alt="Imagem do imóvel">
-                                <?php endforeach;
-                                endif; ?>
+
+                                <img src="<?= $imagemUrl ?>" alt="Imagem do imóvel" title="Imagem do imóvel">
                             </div>
 
                             <div class="test">

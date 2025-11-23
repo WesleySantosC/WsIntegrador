@@ -1,328 +1,197 @@
 body {
     height: 100vh;
-    overflow: auto;
-    background: #222222;
+    overflow-y: auto;
+    background: #1f1f1f;
+    color: #F5F7FA;
+    font-family: Arial, sans-serif;
 }
 
 .content {
     margin-left: 250px;
     padding: 30px;
-    overflow-y: auto;
-    flex-grow: 1;
-    transition: margin-left 0.3s ease;
-}
-
-.header-content p {
-    font-size: 18px;
-    color: #7f8c8d;
+    transition: margin-left .3s ease;
 }
 
 .dashboard-stats {
     display: flex;
-    gap: 40px;
-    margin-top: 30px;
+    gap: 30px;
     justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
 }
 
 .card {
-    background: #222222;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0px 4px 4px #C9A646;
+    background: #2a2a2a;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 6px #C9A646;
     text-align: center;
+    width: 260px;
+    transition: transform .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card i {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #C9A646;
 }
 
 .card h3 {
     font-size: 20px;
-    color: #F5F7FA;
     margin-bottom: 10px;
 }
 
 .card p {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    color: #F5F7FA;
-}
-
-@media (max-width: 1200px) {
-
-    .content {
-        margin-left: 250px;
-    }
-
-    .dashboard-stats {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 25px;
-    }
-
-    .card {
-        width: 45%;
-        min-width: 260px;
-    }
-}
-
-
-@media (max-width: 992px) {
-
-    /* Conteúdo principal se ajusta */
-    .content {
-        margin-left: 0;
-        padding: 20px;
-    }
-
-    /* Sidebar vira bloco normal */
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        box-shadow: none;
-    }
-
-    /* Cards do dashboard */
-    .dashboard-stats {
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-    }
-
-    /* Cards padrão */
-    .card {
-        width: 100%;
-        max-width: 600px;
-    }
-
-    /* LISTAGEM DE IMÓVEIS */
-    .realty-list {
-        margin-left: 0;
-        width: 100%;
-        padding: 20px;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-    }
-
-    .cardRealty {
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-    }
-
-    .cardRealty img {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 15px;
-    }
-
-    .title_ads,
-    .description_ads,
-    .value_realty {
-        padding-left: 0 !important;
-        text-align: center;
-        width: 100%;
-    }
-
-    /* Caixa do plano */
-    .title_plan {
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-    }
-
-    /* Botões */
-    .action-buttons {
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .action-buttons .btn {
-        margin-left: 0 !important;
-        width: 100%;
-    }
-
-    .realty_disabled_button {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    #openModal {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    /* Modal */
-    .modal-content {
-        width: 90%;
-        margin-top: 30%;
-    }
-}
-
-
-@media (max-width: 576px) {
-
-    /* Telas pequenas */
-    .content {
-        padding: 15px;
-    }
-
-    .cardRealty img {
-        width: 90px;
-        height: 90px;
-    }
-
-    .modal-content {
-        width: 95%;
-        margin-top: 40%;
-    }
-
-    .title_plan {
-        font-size: 14px;
-        height: auto;
-        padding: 10px;
-    }
-}
-
-.init_card_realty {
-    padding: 1%;
-}
-
-.test {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.realty-list {
-    display: flex;
-    margin-left: 30%;
-    padding: 1%;
-    background-color: #222222;
-    width: 55%;
-    box-shadow: 0px 0px 4px 2px #F5F7FA;
-    border-radius: 10px;
-}
-
-.cardRealty {
-    display: flex;
-    width: 90%;
-}
-
-.title_ads {
-    color: #F5F7FA;
-    padding-top: 1%;
-    padding-left: 5%;
-}
-
-.description_ads, .value_realty {
-    padding-left: 5%;
 }
 
 .title_plan {
     display: flex;
-    margin-left: 20%;
-    background: #222222;
-    width: 16%;
-    height: 2rem;
-    align-items: center;
-    border-radius: 5px;
-    box-shadow: 0 0px 4px 4px #C9A646;
-    padding: 1%;
+    justify-content: center;
+    margin: 0 auto;
+    background: #2c2c2c;
+    box-shadow: 0 0 5px #C9A646;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: fit-content;
 }
 
-.desc_plan {
-    color: #F5F7FA;
+.init_card_realty {
+    padding: 15px 0;
 }
 
-.cardRealty p {
-    margin: 10px 0;
-    color: #F5F7FA;
-    font-size: 16px;
-    line-height: 1.4;
+.realty-list {
+    display: flex;
+    justify-content: center;
+}
+
+.cardRealty {
+    display: flex;
+    background: #2a2a2a;
+    width: 65%;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px #F5F7FA;
+    gap: 20px;
 }
 
 .cardRealty img {
     width: 110px;
     height: 110px;
-    border-radius: 50%;
+    border-radius: 12px;
     object-fit: cover;
-    border: 2px solid #3f3f3f;
+    border: 2px solid #444;
 }
 
+.test {
+    flex: 1;
+}
+
+.title_ads h3 {
+    margin-bottom: 8px;
+}
+
+.value_realty p {
+    font-size: 20px;
+    margin-top: 8px;
+}
+
+/* Botões */
 .action-buttons {
-    margin-top: 15px;
-}
-
-.realty_disabled_button {
     display: flex;
-    height: 4%;
-    width: 10%;
-    margin-left: 29%;
-}
-
-#openModal {
-    margin-left: 15%; 
-    background: #222222; 
-    color: #F5F7FA;
-    border: none; 
-    width: 100%; 
-    border-radius: 5px; 
-    cursor: pointer;
-    box-shadow: 0px 0px 4px 2px #C9A646;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .action-buttons .btn {
-    display: inline-block;
-    padding: 8px 12px;
-    margin-right: 8px;
-    border-radius: 5px;
-    text-decoration: none;
+    padding: 10px 12px;
+    background: #222;
     border: none;
-    background-color: #222222;
-    font-weight: bold;
+    border-radius: 6px;
     color: #F5F7FA;
     cursor: pointer;
-    margin-left: 100%;
-    box-shadow: 0px 0px 4px 2px #C9A646;
+    box-shadow: 0 0 5px #C9A646;
+    font-weight: bold;
+}
+.action-buttons .btn:hover {
+    background: #C9A646;
+    color: #222;
 }
 
-#title_realty_disabled {
-    text-align: center;
+.realty_disabled_button {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+}
+
+#openModal {
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    background: #2a2a2a;
+    box-shadow: 0 0 5px #C9A646;
+    color: #fff;
+    cursor: pointer;
+}
+#openModal:hover {
+    box-shadow: 0 0 10px #C9A646;
     color: #F5F7FA;
+    transform: translateY(-5px);
 }
 
 #modal {
     display: none;
     position: fixed;
+    inset: 0;
     z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,.6);
 }
 
 .modal-content {
-    background: #222222;
-    margin: 15% auto;
-    padding: 20px;
+    background: #2a2a2a;
+    width: 65%;
+    margin: 8% auto;
+    padding: 25px;
     border-radius: 10px;
-    width: 60%;
-    box-shadow: 0px 0px 4px 2px #F5F7FA;
-    animation: fadeIn 0.3s;
+    box-shadow: 0 0 6px #F5F7FA;
+    animation: fadeIn .3s ease;
 }
 
 #close {
-    color: #f30707;
-    float: right;
     font-size: 28px;
-    font-weight: bold;
     cursor: pointer;
+    color: #ff5555;
+    float: right;
 }
 
-#close:hover,
-#close:focus {
-    text-decoration: none;
+@media (max-width: 992px) {
+    .content {
+        margin-left: 0 !important;
+        padding: 20px;
+    }
+
+    .cardRealty {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        width: 90%;
+    }
+
+    .action-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 576px) {
+    .cardRealty img {
+        width: 100px;
+        height: 100px;
+    }
 }
