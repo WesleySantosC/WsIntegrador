@@ -6,170 +6,49 @@
 }
 
 body {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
     background: #222222;
-}
-
-.sidebar {
-    width: 250px;
-    background: #222222;
-    color: #F5F7FA;
-    padding: 30px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 0px 0px 8px 2px #C9A646;
-}
-
-.sidebar .logo {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.sidebar .logo h1 {
-    color: #ecf0f1;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.sidebar .greeting {
-    font-size: 18px;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.sidebar nav h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.sidebar .menu-list {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar .menu-list .menu-item {
-    text-decoration: none;
-    color: white;
-    padding: 12px;
-    display: block;
-    border-radius: 5px;
-    text-align: left;
-    margin-bottom: 10px;
-    font-size: 16px;
-    transition: background 0.3s;
-}
-
-.sidebar .menu-list .menu-item:hover {
-    background: #34495e;
-}
-
-.content {
-    margin-left: 250px;
     padding: 30px;
-    background: #ecf0f1;
-    overflow-y: auto;
-    flex-grow: 1;
-    transition: margin-left 0.3s ease;
-}
-
-.header-content h1 {
-    font-size: 32px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.header-content p {
-    font-size: 18px;
-    color: #7f8c8d;
-}
-
-.dashboard-stats {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
-.card {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 48%;
-    text-align: center;
-}
-
-.card h3 {
-    font-size: 20px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2980b9;
-}
-
-@media (max-width: 768px) {
-    .generate-xml-container {
-        margin-left: 0;
-        margin-top: 40px;
-        padding: 20px;
-        width: 100%;
-        height: auto;
-        text-align: center;
-    }
-
-    .xml-link {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    #generateXMLClient {
-        justify-content: center;
-    }
+    overflow-x: hidden;
 }
 
 .generate-xml-container {
-    margin-left: 50%;
-    margin-top: 10%;
-    padding: 30px;
-    height: 100vh;
+    width: 100%;
+    max-width: 500px;
+    margin: 10% auto 0 auto;
+    padding: 35px;
+    background: #1e1e1e;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px 2px #C9A646;
 }
 
 .generate-xml-container span {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 22px;
+    color: #F5F7FA;
+    margin-bottom: 25px;
     display: block;
-    color: #F5F7FA;
-}
-
-.generate-xml-container button {
-    padding: 10px 20px;
-    background-color: #222222;
-    color: #F5F7FA;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0px 4px 4px 4px #C9A646;
-}
-
-.generate-xml-container button:hover {
-    transform: translateY(-5px);
 }
 
 #generateXMLClient {
     display: flex;
     justify-content: center;
+}
+
+#generate-btn {
+    padding: 12px 26px;
+    background-color: #222222;
+    color: #F5F7FA;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0px 0px 8px 2px #C9A646;
+}
+
+#generate-btn:hover {
+    transform: translateY(-4px);
+    background-color: #333;
 }
 
 .xml-link {
@@ -178,9 +57,11 @@ body {
     background-color: #2980b9;
     border-radius: 8px;
     width: fit-content;
-    color: #2c3e50;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
     font-size: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .xml-link a {
@@ -192,3 +73,42 @@ body {
     text-decoration: underline;
 }
 
+@media (max-width: 900px) {
+    .generate-xml-container {
+        max-width: 80%;
+        margin-top: 15%;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px;
+    }
+
+    .generate-xml-container {
+        max-width: 95%;
+        margin-top: 20%;
+        padding: 25px;
+    }
+
+    #generate-btn {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 430px) {
+    .generate-xml-container {
+        margin-top: 25%;
+        padding: 20px;
+    }
+
+    .generate-xml-container span {
+        font-size: 18px;
+    }
+
+    #generate-btn {
+        font-size: 15px;
+    }
+}
