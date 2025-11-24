@@ -35,13 +35,13 @@ window.maskCEP = function(cep) {
 
 window.maskCoin = function(coin) {
     if (!coin) {
-        return "R$ ";
+        return "R$ 0,00";
     }
 
     let value = coin.replace(/\D/g, "");
 
     if (value.length === 0) {
-        value = "";
+        value = "0,00";
     }
 
     value = value.replace(/(\d{2})$/, ",$1");

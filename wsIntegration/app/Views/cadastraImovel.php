@@ -34,8 +34,8 @@
             <label for="sale_type" class="group_label">Tipo Venda</label>
             <select name="sale_type" id="sale_type">
               <option value="">Selecione</option>
-              <option value="vende-se">Venda</option>
-              <option value="aluga-se">Alugar</option>
+              <option value="Vende-se">Venda</option>
+              <option value="Aluga-se">Alugar</option>
             </select>
           </div>
           <div class="form-group">
