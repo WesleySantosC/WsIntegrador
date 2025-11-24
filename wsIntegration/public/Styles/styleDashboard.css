@@ -156,11 +156,31 @@ body {
 .modal-content {
     background: #2a2a2a;
     width: 65%;
-    margin: 8% auto;
+    margin: 2% auto;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 0 6px #F5F7FA;
     animation: fadeIn .3s ease;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #1f1f1f;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #777;
 }
 
 #close {
