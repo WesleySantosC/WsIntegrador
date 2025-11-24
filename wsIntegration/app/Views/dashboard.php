@@ -71,9 +71,8 @@
 
                             <div class="test">
                                 <div class="title_ads">
-                                    <h3><?= $disabled->sale_type . " " . $disabled->name . " com " . $disabled->rooms . " quartos em " . $disabled->neighborhood ?></h3>
+                                    <h3><?= ucfirst(trim($disabled->sale_type)) . " " . $disabled->name . " com " . $disabled->rooms . " quarto(s) em " . $disabled->neighborhood ?></h3>                                
                                 </div>
-                                
                                 <div class="description_ads">
                                     <p><?= $disabled->description ?></p>
                                 </div>
@@ -137,7 +136,7 @@
 
                     <div class="test">
                         <div class="title_ads">
-                            <h3><?= $realty->sale_type . " " . $realty->name . " com " . $realty->rooms . " quartos " . " em " . $realty->neighborhood ?></h3>
+                            <h3><?= $realty->sale_type . " " . $realty->name . " com " . $realty->rooms . " quarto(s) " . " em " . $realty->neighborhood ?></h3>
                         </div>
         
                         <div class="description_ads">
