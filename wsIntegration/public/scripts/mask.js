@@ -34,22 +34,20 @@ window.maskCEP = function(cep) {
 };
 
 window.maskCoin = function(coin) {
-    if (!coin) {
-        return "R$ 0,00";
-    }
+    if (!coin) return "R$ ";
+
+    coin = coin.replace("R$", "").trim();
 
     let value = coin.replace(/\D/g, "");
 
     if (value.length === 0) {
-        value = "0,00";
+        return "R$ ";
     }
 
     value = value.replace(/(\d{2})$/, ",$1");
     value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
-    
-    value = "R$ " + value;
 
-    return value;
+    return "R$ " + value;
 }
 
 window.maskfootage = function(metragem) {

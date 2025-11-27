@@ -76,7 +76,8 @@ public function editAds()
         }
 
         $imagesToDelete = array_map(fn($p) => ltrim(trim($p), '/'), $imagesToDelete);
-        $value          = str_replace(['.', ','], ['', '.'], $postData['value'] ?? '0');
+        $value          = $postData['value'];
+        $value          = $this->cleanMoney($value);
 
         $updateData = [
             'user_id'       => session('usuario')['id'],
@@ -201,5 +202,18 @@ public function editAds()
         }
 
         return $properties;
+    }
+
+    function cleanMoney($value)
+    {
+        if (!$value) return 0;
+
+        $value = str_replace(['R$', ' '], '', $value);
+
+        $value = str_replace('.', '', $value);
+
+        $value = str_replace(',', '.', $value);
+
+        return floatval($value);
     }
 }
