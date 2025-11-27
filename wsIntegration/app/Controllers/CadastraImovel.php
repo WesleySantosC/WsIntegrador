@@ -62,6 +62,8 @@ class CadastraImovel extends BaseController
             $dateInsert = date('Y-m-d H:i:s');
             $data       = $this->post;
             $result     = [];
+            $value      = $data['value'];
+            $value      = $this->cleanMoney($value);
 
             if (empty($data)) {
                 throw new \Exception("Nenhum campo foi preenchido!");
@@ -125,7 +127,7 @@ class CadastraImovel extends BaseController
                 'bathrooms'    => $data['bathrooms'] ?? 0,
                 'suites'       => $data['suites'] ?? 0,
                 'reference'    => $data['reference'] ?? null,
-                'value'        => $data['value'],
+                'value'        => $value,
                 'footage'      => $data['footage'],
                 'cep'          => $data['cep'] ?? null,
                 'neighborhood' => $data['neighborhood'],
@@ -155,5 +157,18 @@ class CadastraImovel extends BaseController
             return $this->jsonResponse($result);
         }
 
+    }
+
+    function cleanMoney($value)
+    {
+        if (!$value) return 0;
+
+        $value = str_replace(['R$', ' '], '', $value);
+
+        $value = str_replace('.', '', $value);
+
+        $value = str_replace(',', '.', $value);
+
+        return floatval($value);
     }
 }
