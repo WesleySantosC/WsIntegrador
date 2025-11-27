@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<?= base_url('Styles/StyleHeader.css'); ?>">
+<link rel="icon" href="<?= base_url('imgs/fivecon_muvy.png') ?>">
 <script>
     const wwwroot = "<?= base_url() ?>";
 </script>
