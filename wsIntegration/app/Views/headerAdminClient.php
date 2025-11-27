@@ -1,12 +1,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="<?= base_url('Styles/StyleHeaderAdminClient.css'); ?>">
+<link rel="icon" href="<?= base_url('imgs/fivecon_muvy.png') ?>">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= base_url('scripts/mask.js'); ?>"></script>
 <script>
     const wwwroot = "<?= base_url() ?>";
 </script>
-
+<script src="https://kit.fontawesome.com/b46ba83dad.js" crossorigin="anonymous"></script>
 <div class="hamburger" id="hamburger">&#9776;</div><br><br><br>
 
 <div class="sidebar">
