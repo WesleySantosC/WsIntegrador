@@ -33,33 +33,59 @@ $(document).ready(() => {
 
   form.submit((e) => {
     e.preventDefault();
-      let formData = new FormData(form[0]);
-        $.ajax({
-            url: wwwroot + "cadastrarImovel/validateField",
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
-            success: function(response) {
-                if(response.status == 'success') {
-                    Swal.fire({
-                        title: "Imóvel cadastrado com sucesso!",
-                        text: "O imóvel foi cadastrado com sucesso!",
-                        icon: response.status
-                    }).then(function() {
-                        window.location.href = wwwroot + 'dashboard'
-                    });
-                } else {
-                    Swal.fire({
-                      title: "Error!",
-                      text: response.error,
-                      icon: "error"
-                    });
-                }
-            },
+
+    let formData = new FormData(form[0]);
+
+    Swal.fire({
+      title: 'Aguarde...',
+      html: 'Cadastrando imóvel.',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    $.ajax({
+      url: wwwroot + "cadastrarImovel/validateField",
+      type: 'POST',
+      data: formData,
+      contentType: false,
+      processData: false,
+      dataType: 'json',
+
+      success: function (response) {
+
+        Swal.close();
+
+        if (response.status == 'success') {
+          Swal.fire({
+            title: "Imóvel cadastrado com sucesso!",
+            text: "O imóvel foi cadastrado com sucesso!",
+            icon: response.status
+          }).then(function () {
+            window.location.href = wwwroot + 'dashboard';
+          });
+        } else {
+          Swal.fire({
+            title: "Erro!",
+            text: response.error,
+            icon: "error"
+          });
+        }
+      },
+
+      error: function () {
+        Swal.close();
+
+        Swal.fire({
+          title: "Erro!",
+          text: "Não foi possível enviar o formulário.",
+          icon: "error"
         });
-      })
+      }
+    });
+  });
 
   $("#logout").on("click", function () {
     $.post(

@@ -78,16 +78,20 @@ $(document).ready(function () {
     form.submit(function (e) {
         e.preventDefault();
 
-        // Remove máscaras antes de enviar
-        if (valueRealty.length) valueRealty.val(window.unmaskValue(valueRealty.val()));
-        if (valueIPTU.length) valueIPTU.val(window.unmaskValue(valueIPTU.val()));
-        if (valueCond.length) valueCond.val(window.unmaskValue(valueCond.val()));
-        if (footage.length) footage.val(window.unmaskValue(footage.val()));
-        if (cep.length) cep.val(window.unmaskValue(cep.val()));
-
         $("#images_to_delete").val(JSON.stringify(imagesToDelete));
 
         let formData = new FormData(form[0]);
+
+        // 🔥 Loading ENQUANTO a requisição está acontecendo
+        Swal.fire({
+            title: 'Aguarde...',
+            html: 'Salvando alterações do imóvel.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
 
         $.ajax({
             url: wwwroot + ROUTE,
@@ -97,6 +101,9 @@ $(document).ready(function () {
             contentType: false,
             dataType: 'json',
             success: function (response) {
+
+                Swal.close();
+
                 if (response.status === 'success') {
                     Swal.fire({
                         title: 'Imóvel Alterado!',
@@ -112,6 +119,8 @@ $(document).ready(function () {
                 }
             },
             error: function () {
+                Swal.close();
+
                 Swal.fire("Erro", "Não foi possível enviar o formulário.", "error");
             }
         });
