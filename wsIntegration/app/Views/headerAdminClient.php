@@ -18,7 +18,11 @@
     </div>
     
     <div class="greeting">
-        Olá, <?php if (isset($infoClients[0])) { $nome = $infoClients[0]['nome']; } else { $nome = $infoClients['nome']; } echo $nome;?>
+        <p id="greeting"> Olá, <?php if (isset($infoClients[0])) { $nome = $infoClients[0]['nome']; } else { $nome = $infoClients['nome']; } echo $nome;?> </p>
+    </div>
+
+    <div hidden>
+        <p id="id_client"> ID: <?php if (isset($infoClients[0]['id'])) { $nome = $infoClients[0]['id']; } else { $nome = $infoClients['id']; } echo $nome;?> </p>
     </div>
 
     <nav class="menu">
@@ -29,7 +33,11 @@
             <li><a href="<?= site_url('/cadastrarImovel') ?>" class="menu-item">Cadastrar Imóveis</a></li>
             <li><a href="<?= site_url('/generateLinkXml') ?>" class="menu-item">Gerar XML</a></li>
             <li><a href="<?= site_url('/') ?>" class="menu-item" id="logout">Logout</a></li>
-        </ul>
+        </ul><br>
+        <div id="div_whatsApp">
+            <p>Dúvidas, entre em contato</p><br>
+            <i class="fa-brands fa-whatsapp" id="icon_whatsApp"></i>
+        </div>
     </nav>
 </div>
 
@@ -45,6 +53,20 @@ $(document).ready(function () {
         } else {
             $(this).text("☰");
         }
+    });
+
+    $("#icon_whatsApp").click(() => {
+        let input_text              = $("#greeting").text();
+        let idClient                = $("#id_client").text();
+        let transform_in_array_name = input_text.split(",");
+        let transform_in_array_id   = idClient.split(":");
+        const name                  = transform_in_array_name[1];
+        const id                    = transform_in_array_id[1]; 
+        const phone                 = '5541987932887';
+        const message               = `Olá! Estou com dúvidas no uso do site e solicito suporte. Meu nome é: ${name} e o id da minha conta é: ${id}. Aguardo o retorno!`;
+
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
     });
 
     $(".menu-item").click(() => {
