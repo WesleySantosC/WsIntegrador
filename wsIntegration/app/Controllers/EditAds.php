@@ -77,7 +77,12 @@ public function editAds()
 
         $imagesToDelete = array_map(fn($p) => ltrim(trim($p), '/'), $imagesToDelete);
         $value          = $postData['value'];
-        $value          = $this->cleanMoney($value);
+        $iptu           = $postData['iptu'];
+        $condominium    = $postData['condominium'];
+
+        $value       = $this->cleanMoney($value);
+        $iptu        = $this->cleanMoney($iptu);
+        $condominium = $this->cleanMoney($condominium);
 
         $updateData = [
             'user_id'       => session('usuario')['id'],
@@ -99,7 +104,9 @@ public function editAds()
             'type_realty'   => $postData['type_realty'] ?? null,
             'deleted_at'    => 0,
             'disabled'      => 0,
-            'sale_type'     => $postData['sale_type'] ?? null
+            'sale_type'     => $postData['sale_type'] ?? null,
+            'condominium'   => $condominium,
+            'iptu'          => $iptu
         ];
 
         $imovelModel = new ImovelModel();

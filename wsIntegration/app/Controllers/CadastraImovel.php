@@ -59,11 +59,16 @@ class CadastraImovel extends BaseController
 
         try {
             date_default_timezone_set('America/Sao_Paulo');
-            $dateInsert = date('Y-m-d H:i:s');
-            $data       = $this->post;
-            $result     = [];
-            $value      = $data['value'];
-            $value      = $this->cleanMoney($value);
+            $dateInsert  = date('Y-m-d H:i:s');
+            $data        = $this->post;
+            $result      = [];
+            $value       = $data['value'];
+            $iptu        = $data['iptu'];
+            $condominium = $data['condominium'];
+
+            $value       = $this->cleanMoney($value);
+            $iptu        = $this->cleanMoney($iptu);
+            $condominium = $this->cleanMoney($condominium);
 
             if (empty($data)) {
                 throw new \Exception("Nenhum campo foi preenchido!");
@@ -143,7 +148,9 @@ class CadastraImovel extends BaseController
                 'deleted_at'   => 0,
                 'disabled'     => 0,
                 'sale_type'    => $data['sale_type'],
-                'created_at'   => $dateInsert
+                'created_at'   => $dateInsert,
+                'condominium'  => $condominium,
+                'iptu'         => $iptu
             ];
 
             
