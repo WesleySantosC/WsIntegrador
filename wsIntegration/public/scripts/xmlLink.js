@@ -23,6 +23,20 @@ $(document).ready(function() {
         );
     });
 
+    $("#copyBtn").click(() => {
+        const input = $("#xmlLink")[0];
+
+        input.select();
+        document.execCommand("copy");
+
+        $("#copyMsg").fadeIn();
+
+        setTimeout(() => {
+            $("#copyMsg").fadeOut();
+        }, 1500);
+    });
+
+
     $("#logout").on("click", function() {
         $.post(
             wwwroot + 'login/logout', {}, function() {
