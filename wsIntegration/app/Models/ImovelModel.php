@@ -34,7 +34,9 @@ class ImovelModel extends Model
         'deleted_at',        
         'disabled',
         'sale_type',         
-        'created_at'
+        'created_at',
+        'condominium',
+        'iptu'
     ];
 
 
