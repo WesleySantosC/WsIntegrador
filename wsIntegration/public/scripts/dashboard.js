@@ -2,54 +2,78 @@ $(document).ready(function() {
     $(".deactivate").on("click", function() {
         let idRealty = $(this).data("id");
 
-        $.post(
-            wwwroot + 'dashboard/desativaImovel',
-            { id: idRealty },
-            function(result) {
-                if(result.status === 'success') {
-                    Swal.fire({
-                        title: 'Imóvel Desativado!',
-                        text: 'O imóvel foi desativado!',
-                        icon: 'success'
-                    }).then(() => {
-                        window.location.href=wwwroot + 'dashboard'
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Erro!',
-                        text: 'Não foi possível desativar o imóvel.',
-                        icon: 'error'
-                    });
-                }
-            },
-            'json'
-        );
+        Swal.fire({
+            title: "Tem certeza?",
+            text: "Você realmente deseja desativar este imóvel?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, desativar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.post(
+                    wwwroot + 'dashboard/desativaImovel',
+                    { id: idRealty },
+                    function(result) {
+                        if(result.status === 'success') {
+                            Swal.fire({
+                                title: 'Imóvel Desativado!',
+                                text: 'O imóvel foi desativado!',
+                                icon: 'success'
+                            }).then(() => {
+                                window.location.href = wwwroot + 'dashboard';
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Erro!',
+                                text: 'Não foi possível desativar o imóvel.',
+                                icon: 'error'
+                            });
+                        }
+                    },
+                    'json'
+                );
+            }
+        });
     });
 
     $(".active").click(function() {
         let realtyId = $(this).data("id");
 
-        $.post(
-            wwwroot + 'dashboard/activeRealty',
-            { id: realtyId },
-            function(result) {
-                if(result.status == 'success') {
-                    Swal.fire({
-                        title: 'Imóvel Ativado!',
-                        text : 'Imóvel ativado com sucesso!',
-                        icon : 'success'
-                    }).then(() => {
-                        window.location.href=wwwroot + 'dashboard'
-                    });
-                } else {
-                        Swal.fire({
-                        title: 'Error',
-                        text : result.error,
-                        icon : 'error'
-                    });
-                }
+        Swal.fire({
+            title: "Ativar imóvel?",
+            text: "Deseja ativar este imóvel?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Sim, ativar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.post(
+                    wwwroot + 'dashboard/activeRealty',
+                    { id: realtyId },
+                    function(result) {
+                        if(result.status == 'success') {
+                            Swal.fire({
+                                title: 'Imóvel Ativado!',
+                                text : 'Imóvel ativado com sucesso!',
+                                icon : 'success'
+                            }).then(() => {
+                                window.location.href = wwwroot + 'dashboard';
+                            });
+                        } else {
+                                Swal.fire({
+                                title: 'Erro',
+                                text : result.error,
+                                icon : 'error'
+                            });
+                        }
+                    }
+                );
             }
-        );
+        });
     });
 
     $(".edit").click(function() {
