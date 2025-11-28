@@ -21,6 +21,24 @@
         </form>
     </div>
 
+    <?php if($linkXml) {  ?>
+        <div class="generate-xml-container">
+            <label>Link XML</label><br>
+            <div class="copy-box">
+                <input type="text" id="xmlLink" value="<?= $linkXml ?>" readonly>
+                <button id="copyBtn"><i class="fa-regular fa-copy"></i></button>
+            </div><br>
+    
+            <span id="copyMsg" style="display:none;">Copiado!</span>
+        </div>
+    <?php } else { ?>
+        <div class="generate-xml-container">
+            <div class="copy-box">
+                <input type="text" id="xmlLink" style="text-align: center;" value="Nenhum XML foi gerado!" readonly>
+            </div>
+        </div>
+    <?php } ?>
+
 </body>
 
 </html>

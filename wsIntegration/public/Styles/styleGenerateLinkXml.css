@@ -73,6 +73,26 @@ body {
     text-decoration: underline;
 }
 
+#xmlLink {
+    width: 60%;
+    height: 3rem;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+#copyBtn {
+    height: 2rem;
+    width: 6%;
+    border: none;
+    outline: none;
+    background: #22222222;
+    color: #F5F7FA;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 @media (max-width: 900px) {
     .generate-xml-container {
         max-width: 80%;
