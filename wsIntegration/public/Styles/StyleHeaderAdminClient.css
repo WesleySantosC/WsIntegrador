@@ -98,6 +98,25 @@ body {
     transform: translateX(5px);
 }
 
+#div_whatsApp {
+    width: 100%;
+    display: flex;
+    padding-top: 5%;
+    flex-direction: column;
+    align-items: center;
+}
+
+#icon_whatsApp {
+    cursor: pointer;
+    font-size: 3rem;
+    color: #f5f5f5;
+}
+
+#icon_whatsApp:hover {
+    transition: 0.5s ease;
+    color: green;
+}
+
 @media (max-width: 992px) {
 
     .hamburger {
