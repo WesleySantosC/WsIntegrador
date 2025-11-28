@@ -112,23 +112,39 @@
         <h3>Detalhes do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="rooms" class="group_label">Quartos</label>
-            <input type="number" id="rooms" name="rooms" value="<?= isset($infoRealty->rooms) ? $infoRealty->rooms : old('rooms') ?>">
-          </div>
+            <label for="rooms" class="rooms" style="color: #f5f5f5;">Quartos</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="rooms" name="rooms" value="<?= isset($infoRealty->rooms) ? $infoRealty->rooms : old('rooms') ?>" min="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
 
-          <div class="form-group">
-            <label for="bathrooms" class="group_label">Banheiros</label>
-            <input type="number" id="bathrooms" name="bathrooms" value="<?= isset($infoRealty->bathrooms) ? $infoRealty->bathrooms : old('bathrooms') ?>">
           </div>
-
           <div class="form-group">
-            <label for="garage" class="group_label">Vagas de garagem</label>
-            <input type="number" id="garage" name="garage" value="<?= isset($infoRealty->garage) ? $infoRealty->garage : old('garage') ?>">
+            <label for="suites" class="suites" style="color: #f5f5f5;">Suites</label>
+
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="suites" name="suites" value="<?= isset($infoRealty->suites) ? $infoRealty->suites : old('suites') ?>" min="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
           </div>
-
+          
           <div class="form-group">
-            <label for="suites" class="group_label">Suítes</label>
-            <input type="number" id="suites" name="suites" value="<?= isset($infoRealty->suites) ? $infoRealty->suites : old('suites') ?>">
+            <label for="bathrooms" class="bathrooms" style="color: #f5f5f5;">Banheiros</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="bathrooms" name="bathrooms" value="<?= isset($infoRealty->bathrooms) ? $infoRealty->bathrooms : old('bathrooms') ?>" minlength="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="garage" class="garage" style="color: #f5f5f5;">Vagas de garagem</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="garage" name="garage" value="<?= isset($infoRealty->garage) ? $infoRealty->garage : old('garage') ?>" minlength="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
           </div>
         </div>
       </div>

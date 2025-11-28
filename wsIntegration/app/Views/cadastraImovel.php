@@ -93,20 +93,40 @@
         <h3>Detalhes do Imóvel</h3>
         <div class="grid grid-2">
           <div class="form-group">
-            <label for="rooms" class="group_label">Quartos</label>
-            <input type="number" id="rooms" name="rooms" placeholder="Ex: 1">
+            
+            <label for="rooms" class="rooms">Quartos</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="rooms" name="rooms" value="0" min="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
+
           </div>
           <div class="form-group">
-            <label for="suites" class="group_label">Suites</label>
-            <input type="suites" id="suites" name="suites" placeholder="Ex: 2">
+            <label for="suites" class="suites">Suites</label>
+
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="suites" name="suites" value="0" min="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="bathrooms" class="bathrooms">Banheiros</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="bathrooms" name="bathrooms" value="0" minlength="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
           </div>
           <div class="form-group">
-            <label for="bathrooms" class="group_label">Banheiros</label>
-            <input type="number" id="bathrooms" name="bathrooms" placeholder="Ex: 3">
-          </div>
-          <div class="form-group">
-            <label for="garage" class="group_label">Vagas de garagem</label>
-            <input type="number" id="garage" name="garage" placeholder="Ex: 2">
+            <label for="garage" class="garage">Vagas de garagem</label>
+            <div class="counter">
+              <button type="button" class="btn-minus" id="buttons">-</button>
+              <input type="number" id="garage" name="garage" value="0" minlength="0">
+              <button type="button" class="btn-plus" id="buttons">+</button>
+            </div>
           </div>
         </div>
       </div>
