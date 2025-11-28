@@ -132,4 +132,17 @@ $(document).ready(function () {
         });
     });
 
+    $(".btn-plus").click(function () {
+        let input = $(this).siblings("input");
+        let val = parseInt(input.val()) || 0;
+        input.val(val + 1);
+    });
+
+    $(".btn-minus").click(function () {
+        let input = $(this).siblings("input");
+        let val = parseInt(input.val()) || 0;
+        if (val > 0) {
+            input.val(val - 1);
+        }
+    });
 });
