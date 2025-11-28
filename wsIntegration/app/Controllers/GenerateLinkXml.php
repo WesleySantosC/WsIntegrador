@@ -16,9 +16,11 @@ class GenerateLinkXml extends Controller
         $userSession = session('usuario');
 
         if($userSession) {
-            $identity = 'generate_xml';
+            $identity    = 'generate_xml';
             $infoClients = (array) $objUser->getInfoUsers($userSession['id'], $identity);
-            return view('generateLinkXml', ['infoClients' => $infoClients]);
+            $linkXml     = $this->getLinkXmlUserId();
+
+            return view('generateLinkXml', ['infoClients' => $infoClients, 'linkXml' => $linkXml]);
         } else {
             return redirect()->to('/login')->with('erro', 'Você precisa estar logado para gerar um XML.');
         }
@@ -30,17 +32,24 @@ class GenerateLinkXml extends Controller
 
         try {
             $userId = session('usuario')['id'];
-            $link = $this->GenerateLink($userId);
+            $link   = $this->GenerateLink($userId);
 
             $result = [
                 'status' => 'success',
-                'link' => $link
+                'link'   => $link
             ];
         } catch (\Throwable $e) {
             $result['error'] = $e->getMessage();
         }
 
         return $this->response->setJSON($result);
+    }
+
+    public function getLinkXmlUserId() {
+        $userId  = session('usuario')['id'];
+        $linkXml = $this->GenerateLink($userId);
+
+        return $linkXml;
     }
 
     public function GenerateLink($userId)
