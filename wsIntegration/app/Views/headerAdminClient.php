@@ -35,7 +35,7 @@
             <li><a href="<?= site_url('/') ?>" class="menu-item" id="logout">Logout</a></li>
         </ul><br>
         <div id="div_whatsApp">
-            <p>Dúvidas, entre em contato</p><br>
+            <p style="color: #f5f5f5;">Dúvidas, entre em contato</p><br>
             <i class="fa-brands fa-whatsapp" id="icon_whatsApp"></i>
         </div>
     </nav>
