@@ -14,6 +14,7 @@ class PropertyType extends Model
     public function getListProperty() {
         $builder = $this->db->table($this->table . " pt");
         $builder->select("*");
+        $builder->orderBy("pt.name ASC");
 
         return $this->getResult($builder);
     }
