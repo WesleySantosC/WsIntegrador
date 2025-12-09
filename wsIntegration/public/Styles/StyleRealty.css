@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #222222;
+  background-color: var(--gray-light);
   padding: 30px 15px;
   display: flex;
   justify-content: center;
@@ -22,8 +22,13 @@ body {
   gap: 30px;
 }
 
+#hide_address {
+  width: 5%;
+  box-shadow: none;
+}
+
 .section {
-  background-color: #222222;
+  background-color: var(--blue-dark);
   border-radius: 12px;
   padding: 25px;
   margin-top: 2%;
@@ -55,16 +60,28 @@ body {
 }
 
 input,
-select,
 textarea {
   padding: 12px 15px;
   border: none;
   border-radius: 12px;
   font-size: 15px;
   width: 100%;
-  background-color: #222222;
+  background-color: rgba(255,255,255,0.08);
   outline: none;
   color: #F5F7FA;
+  transition: 0.3s ease;
+  box-shadow: 0px 0px 4px 1px #F5F7FA;
+}
+
+select {
+  padding: 12px 15px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  width: 100%;
+  background: var(--blue-dark);
+  color: var(--gray-light);
+  outline: none;
   transition: 0.3s ease;
   box-shadow: 0px 0px 4px 1px #F5F7FA;
 }
@@ -73,11 +90,6 @@ input:focus,
 select:focus,
 textarea:focus {
   box-shadow: 0px 0px 4px 1px #C9A646;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #C9A646;
 }
 
 .group_label,
@@ -95,7 +107,7 @@ textarea {
 }
 
 button {
-  background-color: #222222;
+  background: rgba(255,255,255,0.08);
   color: #F5F7FA;
   padding: 15px;
   border: none;
@@ -103,14 +115,8 @@ button {
   font-size: 16px;
   cursor: pointer;
   width: 100%;
-  box-shadow: 0px 0px 4px 1px #C9A646;
   transition: 0.3s ease;
 }
-
-button:hover {
-  box-shadow: 0px 0px 6px 2px #C9A646;
-}
-
 
 @media (max-width: 1024px) {
   body {
@@ -191,7 +197,7 @@ input[type=number] {
 }
 
 #buttons {
-    background-color: #222222;
+    background-color: rgba(255,255,255,0.08);
     color: #F5F7FA;
     padding: 15px;
     border: none;
