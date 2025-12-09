@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use App\Models\PropertyType;
 use App\Models\States;
 use App\Models\Cities;
+use App\Models\PlansModel;
 
 class CadastraImovel extends BaseController
 {
@@ -126,9 +127,16 @@ class CadastraImovel extends BaseController
             }
 
             $hideAddress = isset($data['hide_address']) ? 1 : 0;
+            $session     = session('usuario')['id'];
+            $getPlan     = $this->getPlanClient($session);
 
+            $registeredRealty = $getPlan['registeredRealty']; //total_realty
+            $planUsedByClient = $getPlan['planUsedByClient']; //qtd_anuncio
+
+            $isDisabled = $registeredRealty->total_realty == $planUsedByClient->qtd_anuncio ? 1 : 0;
+            
             $imovelData = [
-                'user_id'      => session('usuario')['id'],
+                'user_id'      => $session,
                 'rooms'        => $data['rooms'] ?? 0,
                 'bathrooms'    => $data['bathrooms'] ?? 0,
                 'suites'       => $data['suites'] ?? 0,
@@ -147,7 +155,7 @@ class CadastraImovel extends BaseController
                 'type_realty'  => $data['type_realty'],
                 'imagens'      => json_encode($imagePaths),
                 'deleted_at'   => 0,
-                'disabled'     => 0,
+                'disabled'     => $isDisabled,
                 'sale_type'    => $data['sale_type'],
                 'created_at'   => $dateInsert,
                 'condominium'  => $condominium,
@@ -168,6 +176,21 @@ class CadastraImovel extends BaseController
             return $this->jsonResponse($result);
         }
 
+    }
+
+    public function getPlanClient($userId) {
+        $plans  = new PlansModel();
+        $realty = new ImovelModel(); 
+
+        $registeredRealty = $realty->getRealtyUserId($userId); 
+        $planUsedByClient = $plans->obtainThePlanChosenByTheCustomer($userId);
+
+        $array = [
+            'registeredRealty' => $registeredRealty,
+            'planUsedByClient' => $planUsedByClient
+        ];
+
+        return $array;
     }
 
     function cleanMoney($value)
