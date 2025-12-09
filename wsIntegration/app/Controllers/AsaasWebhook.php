@@ -62,6 +62,7 @@ class AsaasWebhook extends BaseController
             "billing_type"    => $p->billingType ?? "UNKNOWN",
             "status"          => $p->status,
             "due_date"        => $p->dueDate ?? null,
+            "invoice_url"     => $p->invoiceUrl ?? null,
             "created_at"      => date("Y-m-d H:i:s")
         ]);
 
