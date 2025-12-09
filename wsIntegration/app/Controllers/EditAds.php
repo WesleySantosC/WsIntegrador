@@ -84,6 +84,8 @@ public function editAds()
         $iptu        = $this->cleanMoney($iptu);
         $condominium = $this->cleanMoney($condominium);
 
+        $hideAddress = isset($postData['hide_address']) ? 1 : 0;
+
         $updateData = [
             'user_id'       => session('usuario')['id'],
             'rooms'         => $postData['rooms'] ?? 0,
@@ -106,7 +108,10 @@ public function editAds()
             'disabled'      => 0,
             'sale_type'     => $postData['sale_type'] ?? null,
             'condominium'   => $condominium,
-            'iptu'          => $iptu
+            'iptu'          => $iptu,
+            'purpose'       => $postData['purpose'],
+            'hide_address'  => $hideAddress,
+            'uf'            => $postData['uf']
         ];
 
         $imovelModel = new ImovelModel();
