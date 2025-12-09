@@ -1,0 +1,116 @@
+.mensalidades-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.mensalidades-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--blue-dark);
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.mensalidades-table thead {
+    background: var(--blue-darker);
+}
+
+.mensalidades-table th,
+.mensalidades-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 14px;
+}
+
+.mensalidades-table tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+    transition: 0.2s;
+}
+
+.status-pago {
+    color: green;
+    font-weight: bold;
+}
+
+.status-pendente {
+    color: orange;
+    font-weight: bold;
+}
+
+.status-atrasado {
+    color: red;
+    font-weight: bold;
+}
+
+.pay {
+    border: none;
+    background: var(--blue-dark);
+    color: var(--gray-light);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.pay:hover {
+    color: var(--green);
+}
+
+@media (max-width: 992px) {
+    .mensalidades-container {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 700px) {
+    .mensalidades-table thead {
+        display: none;
+    }
+
+    .mensalidades-table,
+    .mensalidades-table tbody,
+    .mensalidades-table tr,
+    .mensalidades-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .mensalidades-table tbody tr {
+        background: var(--blue-dark);
+        margin-bottom: 15px;
+        padding: 12px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .mensalidades-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        font-size: 13px;
+    }
+
+    .mensalidades-table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    .mensalidades-table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: var(--gray-light);
+        flex: 0 0 50%;
+    }
+
+    .mensalidades-table tbody td button.pay {
+        flex: 1 0 auto;
+        margin-left: 10px;
+        text-align: right;
+        padding: 6px 10px;
+    }
+}

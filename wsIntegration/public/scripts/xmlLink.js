@@ -1,17 +1,21 @@
 $(document).ready(function() {
+    let form = $("#generateXMLClient");
+
     $("#generateXMLClient").on("submit", function(e) {
+        let formSerialize = form.serialize();
         e.preventDefault();
 
-        $.post( wwwroot + 'generateLinkXml/generate', {}, function(resposta) {
+        $.post(wwwroot + 'generateLinkXml/generate', formSerialize, function(resposta) {
             if (resposta.status === 'success' && resposta.link) {
                 Swal.fire({
                     title: 'XML Gerado!',
                     text: 'Clique em OK para abrir o arquivo.',
                     icon: 'success',
-                    confirmButtonText: 'Abrir XML'
-                }).then(() => {
-                    window.open(resposta.link, '_blank');
                 });
+
+                $("#xmlLink").val(resposta.link);
+
+                $("#copyMsg").fadeIn();
             } else {
                 Swal.fire({
                     title: 'Erro!',
@@ -19,13 +23,11 @@ $(document).ready(function() {
                     icon: 'error'
                 });
             }
-        }, 'json'
-        );
+        }, 'json');
     });
 
     $("#copyBtn").click(() => {
         const input = $("#xmlLink")[0];
-
         input.select();
         document.execCommand("copy");
 
@@ -36,12 +38,9 @@ $(document).ready(function() {
         }, 1500);
     });
 
-
     $("#logout").on("click", function() {
-        $.post(
-            wwwroot + 'login/logout', {}, function() {
-                console.log("Sessão Destruida");
-            }
-        )
+        $.post(wwwroot + 'login/logout', {}, function() {
+            console.log("Sessão Destruída");
+        });
     });
 });

@@ -70,7 +70,8 @@ $(document).ready(function () {
                 $("#neighborhood"),
                 $("#complement"),
                 $("#city"),
-                $("#state")
+                $("#state"),
+                $("#uf")
             ]);
         }
     });

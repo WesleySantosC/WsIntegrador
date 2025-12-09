@@ -31,11 +31,20 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="sale_type" class="group_label">Tipo Venda</label>
+            <label for="sale_type" class="group_label">Comercialização</label>
             <select name="sale_type" id="sale_type">
               <option value="">Selecione</option>
               <option value="Vende-se">Venda</option>
               <option value="Aluga-se">Alugar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="purpose" class="group_label">Finalidade</label>
+            <select name="purpose" id="purpose">
+              <option value="">Selecione</option>
+              <option value="RE">Residencial</option>
+              <option value="CO">Comerial</option>
+              <option value="RU">Rural</option>
             </select>
           </div>
           <div class="form-group">
@@ -84,6 +93,11 @@
           <div class="form-group">
             <label for="state" class="group_label">Estado</label>
             <input type="text" id="state" name="state" placeholder="Ex: Paraná" readonly>
+          </div>
+          <input type="text" name="uf" id="uf" hidden>
+          <div>
+            <input type="checkbox" name="hide_address" id="hide_address">
+            <label for="hide_address">Esconder Endereço</label>
           </div>
         </div>
       </div>

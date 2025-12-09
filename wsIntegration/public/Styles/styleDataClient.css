@@ -1,22 +1,18 @@
-/* ===================== */
-/* RESET / BASE */
-/* ===================== */
+@import 'variables.css';
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
+    font-family: "Inter", Arial, sans-serif;
 }
 
 body {
-    background: #222222;
+    background: var(--gray-light);
     padding: 30px;
     overflow-x: hidden;
+    color: var(--gray-light);
 }
-
-/* ===================== */
-/* CONTEÚDO PRINCIPAL */
-/* ===================== */
 
 .content {
     display: flex;
@@ -28,46 +24,51 @@ body {
 .container {
     width: 100%;
     max-width: 650px;
-    background: #1e1e1e;
-    padding: 28px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 10px 2px #C9A646;
+    background: var(--blue-dark);
+    backdrop-filter: blur(12px);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.12);
+    transition: all 0.3s ease;
 }
 
-/* ===================== */
-/* GRID DE INFORMAÇÕES */
-/* ===================== */
+.container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+}
 
 .info-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 20px;
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    color: #f5f7fa;
 }
 
 .label {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 6px;
+    color: var(--green);
 }
 
 .value {
-    background: #2a2a2a;
-    padding: 12px;
-    border-radius: 6px;
+    background: rgba(255,255,255,0.08);
+    padding: 14px;
+    border-radius: 10px;
     font-size: 15px;
-    color: #ffffff;
-    box-shadow: 0px 0px 2px 1px #C9A646;
+    color: var(--gray-light);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.2s ease;
 }
 
-/* ===================== */
-/* RODAPÉ / BOTÕES */
-/* ===================== */
+.value:hover {
+    background: rgba(255,255,255,0.12);
+}
 
 .bottom-actions {
     margin-top: 28px;
@@ -77,19 +78,21 @@ body {
 
 .back-link {
     text-decoration: none;
-    color: #C9A646;
+    color: var(--blue);
     font-size: 17px;
-    font-weight: bold;
-    transition: 0.2s;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .back-link:hover {
-    color: #e7c676;
+    background: var(--blue-dark);
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
 }
-
-/* ===================== */
-/* RESPONSIVIDADE */
-/* ===================== */
 
 @media (max-width: 900px) {
     .info-grid {
@@ -107,12 +110,12 @@ body {
     }
 
     .container {
-        padding: 20px;
+        padding: 25px;
     }
 
     .value {
         font-size: 14px;
-        padding: 10px;
+        padding: 12px;
     }
 
     .back-link {

@@ -20,18 +20,23 @@ class Contact extends BaseController
         $result = [];
 
         try {
-            $request = $this->request;
-            $data = $request->getPost();
-
+            $data      = $this->post;
             $name      = $data['nome'];
             $email     = $data['email'];
             $phone     = $data['phone'];
             $question  = $data['question'];
 
-
             if (!$name || !$email || !$phone || !$question) {
                 throw new \Exception("Revise as informações inseridas, por gentileza!");
                 
+            }
+
+            $name = mb_strtolower($name, 'UTF-8');
+            $name = ucwords($name);
+
+            if ($phone) {
+                $caracteres_a_remover = ["(", ")", " ", "-"];
+                $phone = str_replace($caracteres_a_remover, "", $phone);
             }
 
             $insertData = [

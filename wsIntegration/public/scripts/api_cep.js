@@ -6,11 +6,12 @@ window.getAddress = async (cep, fieldsToFillIn) => {
     return "CEP inválido ou vazio!";
   }
 
-  let address = fieldsToFillIn[0];
+  let address      = fieldsToFillIn[0];
   let neighborhood = fieldsToFillIn[1];
-  let complement = fieldsToFillIn[2];
-  let city = fieldsToFillIn[3];
-  let state = fieldsToFillIn[4];
+  let complement   = fieldsToFillIn[2];
+  let city         = fieldsToFillIn[3];
+  let state        = fieldsToFillIn[4];
+  let uf           = fieldsToFillIn[5];
 
   const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
   const response = await fetch(apiUrl);
@@ -21,4 +22,5 @@ window.getAddress = async (cep, fieldsToFillIn) => {
   complement.val(data.complemento);
   city.val(data.localidade);
   state.val(data.estado);
+  uf.val(data.uf);
 };
