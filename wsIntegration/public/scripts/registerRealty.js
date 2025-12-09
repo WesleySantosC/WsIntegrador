@@ -11,13 +11,15 @@ $(document).ready(() => {
   let complement = $("#complement");
   let city = $("#city");
   let state = $("#state");
+  let uf   = $("#uf");
 
   let fieldsToFillIn = [
     address,
     neighborhood,
     complement,
     city,
-    state
+    state,
+    uf
   ];
 
   cep.on("input", function () {
