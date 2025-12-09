@@ -54,6 +54,9 @@ $routes->get('/plans', 'Plans::index');
 $routes->match(['get', 'post'], '/payment/returnStatus', 'PaymentController::returnStatus');
 $routes->get('/payment/(:num)', 'PaymentController::choose/$1');
 
+// Página de Mensalidades
+$routes->get('/monthlyFee', 'MonthlyFee::index');
+
 //Página de teste com o banco.
 $routes->get('testeconexao', 'TesteConexao::index');
 
