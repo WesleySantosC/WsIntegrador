@@ -36,7 +36,10 @@ class ImovelModel extends Model
         'sale_type',         
         'created_at',
         'condominium',
-        'iptu'
+        'iptu',
+        'purpose',
+        'hide_address',
+        'uf'
     ];
 
 
@@ -124,8 +127,9 @@ class ImovelModel extends Model
 
     public function generateLinkXml($user_id) {
         $builder = $this->db->table($this->table . " i");
-        $builder->select("i.*, lm.id_usuario_gerou as usuario_gerou_xml");
+        $builder->select("i.*, lm.id_usuario_gerou as usuario_gerou_xml, p.name as nameRealty");
         $builder->join("link_xml lm", "lm.id_usuario_gerou = i.user_id", "left");
+        $builder->join("property_types p", "p.id = i.type_realty", "inner");
         $builder->where("i.user_id", $user_id);
 
         return $builder->get()->getResult();
