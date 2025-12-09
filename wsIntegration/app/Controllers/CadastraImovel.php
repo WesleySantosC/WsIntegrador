@@ -56,7 +56,6 @@ class CadastraImovel extends BaseController
 
     public function validateField()
     {
-
         try {
             date_default_timezone_set('America/Sao_Paulo');
             $dateInsert  = date('Y-m-d H:i:s');
@@ -126,6 +125,8 @@ class CadastraImovel extends BaseController
                 }
             }
 
+            $hideAddress = isset($data['hide_address']) ? 1 : 0;
+
             $imovelData = [
                 'user_id'      => session('usuario')['id'],
                 'rooms'        => $data['rooms'] ?? 0,
@@ -150,7 +151,10 @@ class CadastraImovel extends BaseController
                 'sale_type'    => $data['sale_type'],
                 'created_at'   => $dateInsert,
                 'condominium'  => $condominium,
-                'iptu'         => $iptu
+                'iptu'         => $iptu,
+                'purpose'      => $data['purpose'],
+                'hide_address' => $hideAddress,
+                'uf'           => $data['uf']
             ];
 
             
