@@ -1,6 +1,8 @@
+@import 'variables.css';
+
 body {
-    background-color: #222222;
-    color: #F5F7FA;
+    background: var(--gray-light);
+    color: var(--gray-light);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     display: flex;
@@ -18,18 +20,11 @@ h1 {
 }
 
 form {
-    background-color: #1a1a1a;
     padding: 20px;
     border-radius: 12px;
     width: 90%;
     max-width: 900px;
-    box-shadow: 0px 4px 10px rgba(201, 166, 70, 0.4);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-form:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 6px 14px rgba(201, 166, 70, 0.6);
+    background: var(--blue-dark);
 }
 
 label {
@@ -37,7 +32,7 @@ label {
     margin-bottom: 8px;
     font-size: 1.1em;
     text-align: left;
-    color: #F5F7FA;
+    color: var(--gray-light);
 }
 
 input[type="email"],
@@ -47,22 +42,19 @@ input[type="text"] {
     padding: 12px;
     margin-bottom: 18px;
     border: none;
-    background: #222222;
+    background: rgba(255, 255, 255, 0.12);
     color: #F5F7FA;
     outline: none;
     border-radius: 8px;
     font-size: 1.1em;
-    box-shadow: 0px 0px 5px rgba(201, 166, 70, 0.5);
-    transition: 0.3s ease;
-    box-sizing: border-box;
 }
 
 input:focus {
-    box-shadow: 0px 0px 10px rgba(201, 166, 70, 0.8);
+    box-shadow: 0px 0px 3px var(--purple);
 }
 
 input::placeholder {
-    color: #C9A646;
+    color: var(--glass);
 }
 
 button {
@@ -85,14 +77,13 @@ button:active {
     background-color: #2c6e49;
 }
 
-/* LINK */
 a {
-    color: #F5F7FA;
+    color: var(--gray-light);
     text-decoration: none;
 }
 
 a:hover {
-    color: #C9A646;
+    color: var(--purple);
 }
 
 /* RESPONSIVIDADE */
