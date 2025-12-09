@@ -1,9 +1,10 @@
+@import 'variables.css';
+
 body {
-    height: 100vh;
-    overflow-y: auto;
-    background: #1f1f1f;
-    color: #F5F7FA;
-    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--gray-light);
+    color: var(--gray-dark);
 }
 
 .content {
@@ -14,113 +15,22 @@ body {
 
 .dashboard-stats {
     display: flex;
-    gap: 30px;
-    justify-content: center;
     flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
     margin-top: 25px;
 }
 
 .card {
-    background: #2a2a2a;
-    padding: 25px;
+    background: #fff;
+    color: var(--gray-dark);
+    padding: 25px 20px;
     border-radius: 12px;
-    box-shadow: 0 0 6px #C9A646;
-    text-align: center;
     width: 260px;
-    transition: transform .2s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-.card i {
-    font-size: 32px;
-    margin-bottom: 10px;
-    color: #C9A646;
-}
-
-.card h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.title_plan {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    background: #2c2c2c;
-    box-shadow: 0 0 5px #C9A646;
-    padding: 10px 20px;
-    border-radius: 8px;
-    width: fit-content;
-}
-
-.init_card_realty {
-    padding: 15px 0;
-}
-
-.realty-list {
-    display: flex;
-    justify-content: center;
-}
-
-.cardRealty {
-    display: flex;
-    background: #2a2a2a;
-    width: 65%;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 0 5px #F5F7FA;
-    gap: 20px;
-}
-
-.cardRealty img {
-    width: 110px;
-    height: 110px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 2px solid #444;
-}
-
-.test {
-    flex: 1;
-}
-
-.title_ads h3 {
-    margin-bottom: 8px;
-}
-
-.value_realty p {
-    font-size: 20px;
-    margin-top: 8px;
-}
-
-/* Botões */
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.action-buttons .btn {
-    padding: 10px 12px;
-    background: #222;
-    border: none;
-    border-radius: 6px;
-    color: #F5F7FA;
-    cursor: pointer;
-    box-shadow: 0 0 5px #C9A646;
-    font-weight: bold;
-}
-.action-buttons .btn:hover {
-    background: #C9A646;
-    color: #222;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: all 0.25s ease;
+    position: relative;
 }
 
 .realty_disabled_button {
@@ -130,39 +40,150 @@ body {
     margin-left: 15%;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+}
+
+.card i {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: var(--blue);
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.card p {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.title_plan {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    background: var(--blue-dark);
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: fit-content;
+    color: var(--gray-light);
+}
+
+.realty-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 2%;
+}
+
+.cardRealty {
+    display: flex;
+    align-items: center;
+    background: var(--blue-dark);
+    width: 65%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    gap: 20px;
+    transition: all 0.25s ease;
+    color: var(--gray-light);
+}
+
+.cardRealty:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+.cardRealty img {
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+.test {
+    flex: 1;
+}
+
+.title_ads h3 {
+    margin-bottom: 8px;
+    color: var(--gray-light);
+}
+
+.value_realty p {
+    font-size: 18px;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* ====================== */
+/* ===== BOTÕES ========= */
+/* ====================== */
+.action-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+}
+
+.action-buttons .btn {
+    padding: 10px 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background: var(--blue);
+    color: #fff;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.action-buttons .btn:hover {
+    background: var(--purple);
+    transform: translateY(-2px);
+}
+
 #openModal {
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 10px;
     border: none;
-    background: #2a2a2a;
-    box-shadow: 0 0 5px #C9A646;
+    background: var(--green);
     color: #fff;
     cursor: pointer;
+    font-weight: 500;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
 }
+
 #openModal:hover {
-    box-shadow: 0 0 10px #C9A646;
-    color: #F5F7FA;
-    transform: translateY(-5px);
+    background: #10b981cc;
+    transform: translateY(-2px);
 }
 
 #modal {
     display: none;
     position: fixed;
     inset: 0;
+    background: rgba(0,0,0,.5);
     z-index: 999;
-    background: rgba(0,0,0,.6);
 }
 
 .modal-content {
-    background: #2a2a2a;
+    background: #fff;
     width: 65%;
-    margin: 2% auto;
+    margin: 3% auto;
     padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 0 6px #F5F7FA;
-    animation: fadeIn .3s ease;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease;
     overflow-y: auto;
-    max-height: 90vh;
+    max-height: 85vh;
 }
 
 .modal-content::-webkit-scrollbar {
@@ -170,23 +191,23 @@ body {
 }
 
 .modal-content::-webkit-scrollbar-track {
-    background: #1f1f1f;
+    background: #f0f3f8;
     border-radius: 10px;
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-    background: #555;
+    background: var(--blue-dark);
     border-radius: 10px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-    background: #777;
+    background: var(--blue);
 }
 
 #close {
-    font-size: 28px;
+    font-size: 26px;
     cursor: pointer;
-    color: #ff5555;
+    color: #ff4d4f;
     float: right;
 }
 
@@ -204,8 +225,8 @@ body {
     }
 
     .action-buttons {
-        width: 100%;
         flex-direction: column;
+        gap: 12px;
     }
 }
 

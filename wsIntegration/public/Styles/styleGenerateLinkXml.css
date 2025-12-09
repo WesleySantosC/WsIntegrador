@@ -1,3 +1,5 @@
+@import 'variables.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +8,7 @@
 }
 
 body {
-    background: #222222;
+    background: var(--gray-light);
     padding: 30px;
     overflow-x: hidden;
 }
@@ -16,10 +18,9 @@ body {
     max-width: 500px;
     margin: 10% auto 0 auto;
     padding: 35px;
-    background: #1e1e1e;
+    background: var(--blue-dark);
     text-align: center;
     border-radius: 12px;
-    box-shadow: 0px 0px 10px 2px #C9A646;
 }
 
 .generate-xml-container span {
@@ -31,24 +32,24 @@ body {
 
 #generateXMLClient {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 #generate-btn {
     padding: 12px 26px;
-    background-color: #222222;
-    color: #F5F7FA;
+    background-color: var(--blue-dark);
+    color: var(--gray-light);
     border: none;
     border-radius: 6px;
     font-size: 17px;
     cursor: pointer;
     transition: 0.3s;
-    box-shadow: 0px 0px 8px 2px #C9A646;
+    box-shadow: 0px 0px 2px 1px var(--purple);
 }
 
 #generate-btn:hover {
     transform: translateY(-4px);
-    background-color: #333;
 }
 
 .xml-link {
