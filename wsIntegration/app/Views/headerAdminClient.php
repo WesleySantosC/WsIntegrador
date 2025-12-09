@@ -13,7 +13,7 @@
 <div class="sidebar">
     <div class="logo">
         <a href="<?= base_url("index.php/dashboard"); ?>">
-            <img src="<?= base_url("/imgs/logo_movy.png"); ?>" alt="Logo" class="logo_img">
+            <img src="<?= base_url("/imgs/logo_muvy.png"); ?>" alt="Logo" class="logo_img">
         </a>
     </div>
     
@@ -30,6 +30,7 @@
         <ul class="menu-list">
             <li><a href="<?= site_url('/dashboard') ?>" class="menu-item">Home</a></li>
             <li><a href="<?= site_url('/dataClient') ?>" class="menu-item">Dados</a></li>
+            <li><a href="<?= site_url('/monthlyFee') ?>" class="menu-item">Mensalidades</a></li>
             <li><a href="<?= site_url('/cadastrarImovel') ?>" class="menu-item">Cadastrar Imóveis</a></li>
             <li><a href="<?= site_url('/generateLinkXml') ?>" class="menu-item">Gerar XML</a></li>
             <li><a href="<?= site_url('/') ?>" class="menu-item" id="logout">Logout</a></li>
