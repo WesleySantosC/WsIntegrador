@@ -66,4 +66,9 @@ abstract class BaseController extends Controller
     public function jsonResponse($data) {
         return $this->response->setJSON($data);
     }
+
+    public function printElement($element) {
+        print_r($element);
+        die();
+    }
 }
