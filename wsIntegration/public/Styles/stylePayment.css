@@ -1,3 +1,5 @@
+@import 'variables.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -6,19 +8,19 @@
 }
 
 body {
-    background: #222222;
+    background: var(--gray-light);
     padding: 40px 20px;
     color: #1f2937;
 }
 
 .card {
-    background: #222222;
+    background: var(--blue-dark);
     border-radius: 16px;
     padding: 24px 28px;
     max-width: 520px;
     width: 100%;
     margin: 0 auto 32px auto;
-    box-shadow: 0px 0px 8px 4px #C9A646;
+    box-shadow: 0px 0px 5px 2px var(--purple);
     border: none;
     transition: all 0.3s ease;
 }
@@ -37,13 +39,13 @@ body {
 }
 
 form {
-    background: #222222;
+    background: var(--blue-dark);
     border-radius: 16px;
     padding: 28px 30px;
     max-width: 520px;
     width: 100%;
     margin: 0 auto;
-    box-shadow: 0px 0px 8px 4px #C9A646;
+    box-shadow: 0px 0px 5px 2px var(--purple);
     border: none;
 }
 
@@ -67,16 +69,10 @@ input[type="email"] {
     border: none;
     outline: none;
     border-radius: 10px;
-    background: #222222;
-    color: #F5F7FA;
-    box-shadow: 0px 0px 4px 0px #F5F7FA;
+    background: rgba(255,255,255,0.08);
+    color: var(--gray-light);
+    box-shadow: 0px 0px 4px 0px var(--purple);
     appearance: none;
-}
-
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus {
-    box-shadow: 0px 0px 4px 0px #C9A646;
 }
 
 select {
@@ -85,8 +81,8 @@ select {
     font-size: 15px;
     border: none;
     border-radius: 10px;
-    background: #222222;
-    color: #F5F7FA;
+    background: var(--blue-dark);
+    color: var(--gray-light);
     outline: none;
     appearance: none;
     cursor: pointer;
