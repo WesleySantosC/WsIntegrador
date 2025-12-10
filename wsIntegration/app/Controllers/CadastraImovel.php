@@ -162,7 +162,8 @@ class CadastraImovel extends BaseController
                 'iptu'         => $iptu,
                 'purpose'      => $data['purpose'],
                 'hide_address' => $hideAddress,
-                'uf'           => $data['uf']
+                'uf'           => $data['uf'],
+                'highlights'   => 0
             ];
 
             
