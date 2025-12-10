@@ -97,7 +97,7 @@ class GenerateLinkXml extends BaseController
                 //$imovel->appendChild($dom->createElement('transacao2', ''));
                 $imovel->appendChild($dom->createElement('finalidade', $anuncio->purpose));
                 //$imovel->appendChild($dom->createElement('finalidade2', ''));
-                $imovel->appendChild($dom->createElement('destaque', 0));
+                $imovel->appendChild($dom->createElement('destaque', $anuncio->highlights));
                 $imovel->appendChild($dom->createElement('tipo', $anuncio->nameRealty));
                 //$imovel->appendChild($dom->createElement('tipo2', ''));
                 $imovel->appendChild($dom->createElement('valor', $anuncio->value));
