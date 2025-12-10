@@ -39,7 +39,8 @@ class ImovelModel extends Model
         'iptu',
         'purpose',
         'hide_address',
-        'uf'
+        'uf',
+        'highlights'
     ];
 
 
@@ -81,6 +82,18 @@ class ImovelModel extends Model
         $builder = $this->db->table($this->table);
         $builder->where('id', $realtyId);
         return $builder->update(['disabled' => 0]);
+    }
+
+    public function highlightsPropertyById($realtyId) {
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $realtyId);
+        return $builder->update(['highlights' => 1]);
+    }
+
+    public function removeHighlightsPropertyById($realtyId) {
+        $builder = $this->db->table($this->table);
+        $builder->where('id', $realtyId);
+        return $builder->update(['highlights' => 0]);
     }
     
     public function getRealtyUserId($user_id) {

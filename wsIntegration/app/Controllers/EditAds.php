@@ -111,7 +111,8 @@ public function editAds()
             'iptu'          => $iptu,
             'purpose'       => $postData['purpose'],
             'hide_address'  => $hideAddress,
-            'uf'            => $postData['uf']
+            'uf'            => $postData['uf'],
+            'highlights'    => 0
         ];
 
         $imovelModel = new ImovelModel();

@@ -102,6 +102,12 @@
         <div class="init_card_realty">
             <div class="realty-list">
                 <div class="cardRealty">
+                    <?php if ($realty->highlights == 1): ?>
+                        <div class="highlight-star">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    <?php endif; ?>
+
                     <div>
                         <?php
                         $imagens = json_decode($realty->imagens, true);
@@ -149,8 +155,14 @@
                     </div>
 
                     <div class="action-buttons">
-                        <input type="button" class="btn edit" data-id="<?= $realty->id_imovel ?>" value="Editar"><br><br>
+                        <input type="button" class="btn edit"       data-id="<?= $realty->id_imovel ?>" value="Editar">
                         <input type="button" class="btn deactivate" data-id="<?= $realty->id_imovel ?>" value="Desativar">
+                        
+                        <?php if($realty->highlights){ ?>
+                            <input type="button" class="btn remove_highlights" data-id="<?= $realty->id_imovel ?>" value="Remover Destaque">
+                        <?php } else { ?>
+                            <input type="button" class="btn highlights" data-id="<?= $realty->id_imovel ?>" value="Destacar">
+                        <?php } ?>
                     </div>
                 </div>
             </div>

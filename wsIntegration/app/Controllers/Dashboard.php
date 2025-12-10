@@ -158,6 +158,44 @@ class DashBoard extends BaseController
         return $this->response->setJSON($result);
     }
 
+    public function highlightsProperty() {
+        $result = [];
+
+        try {
+            $objRealty = new ImovelModel();
+            $realtyActiveId = $this->post["id"] ?? null;
+
+            if($realtyActiveId) {
+                $objRealty->highlightsPropertyById($realtyActiveId);
+                $result = ["status" => "success"];
+            }
+
+        } catch(\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        } finally {
+            return $this->response->setJSON($result);
+        }
+    }
+
+    public function removeHighlightsProperty() {
+        $result = [];
+
+        try {
+            $objRealty = new ImovelModel();
+            $realtyActiveId = $this->post["id"] ?? null;
+
+            if($realtyActiveId) {
+                $objRealty->removeHighlightsPropertyById($realtyActiveId);
+                $result = ["status" => "success"];
+            }
+
+        } catch(\Throwable $e) {
+            $result['error'] = $e->getMessage();
+        } finally {
+            return $this->response->setJSON($result);
+        }
+    }
+
     /**
      * Filtra as imagens de cada imóvel, removendo caminhos que não existem
      */

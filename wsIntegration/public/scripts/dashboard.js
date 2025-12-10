@@ -76,6 +76,80 @@ $(document).ready(function() {
         });
     });
 
+    $(".highlights").click(function() {
+        let realtyId = $(this).data("id");
+        
+        Swal.fire({
+            title: 'Destacar Imóvel?',
+            text : 'Você deseja destacar este imóvel?',
+            icon : 'question',
+            showCancelButton : true,
+            confirmButtonText: 'Sim, destacar',
+            cancelButtonText : 'Cancelar'
+        }).then((result) => {
+            if(result.isConfirmed) {
+                $.post(
+                    wwwroot + 'dashboard/highlightsProperty',
+                    { id: realtyId },
+                    function(result) {
+                        if(result.status == 'success') {
+                            Swal.fire({
+                                title: 'Imóvel destacado!',
+                                text : 'Imóvel destacado com sucesso!',
+                                icon : 'success'
+                            }).then(() => {
+                                window.location.href = wwwroot + 'dashboard';
+                            });
+                        } else {
+                                Swal.fire({
+                                title: 'Erro',
+                                text : result.error,
+                                icon : 'error'
+                            });
+                        }
+                    }
+            );
+            }
+        });
+    });
+
+    $(".remove_highlights").click(function() {
+        let realtyId = $(this).data("id");
+        
+        Swal.fire({
+            title: 'Remover Destaque Deste Imóvel?',
+            text : 'Você deseja remover o destaque deste imóvel?',
+            icon : 'question',
+            showCancelButton : true,
+            confirmButtonText: 'Sim, remover destaque',
+            cancelButtonText : 'Cancelar'
+        }).then((result) => {
+            if(result.isConfirmed) {
+                $.post(
+                    wwwroot + 'dashboard/removeHighlightsProperty',
+                    { id: realtyId },
+                    function(result) {
+                        if(result.status == 'success') {
+                            Swal.fire({
+                                title: 'Imóvel destacado!',
+                                text : 'Imóvel destacado com sucesso!',
+                                icon : 'success'
+                            }).then(() => {
+                                window.location.href = wwwroot + 'dashboard';
+                            });
+                        } else {
+                                Swal.fire({
+                                title: 'Erro',
+                                text : result.error,
+                                icon : 'error'
+                            });
+                        }
+                    }
+            );
+            }
+        });
+    });
+
     $(".edit").click(function() {
         let realtyId = $(this).data("id");
         window.location.href = wwwroot + "edit/" + realtyId;

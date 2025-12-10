@@ -22,6 +22,8 @@ $routes->post('/login/logout', 'Login::logout');
 $routes->get('/dashboard', 'Dashboard::index');
 $routes->post('/dashboard/desativaImovel', 'Dashboard::disableRealty');
 $routes->post('/dashboard/activeRealty', 'Dashboard::activeRealty');
+$routes->post('/dashboard/highlightsProperty', 'Dashboard::highlightsProperty');
+$routes->post('/dashboard/removeHighlightsProperty', 'Dashboard::removeHighlightsProperty');
 
 //Página de editar senha
 $routes->get('/resetPassword', 'RegisterNewPassword::index');
