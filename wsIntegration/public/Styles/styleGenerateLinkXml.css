@@ -36,6 +36,24 @@ body {
     align-items: center;
 }
 
+#partners {
+    color: var(--gray-light);
+    background: var(--blue-dark);
+    outline: none;
+    border-radius: 5px;
+    width: 50%;
+    text-align: center;
+    height: 2rem;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#partners:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+    box-shadow: 0px 0px 4px 2px var(--purple);
+}
+
 #generate-btn {
     padding: 12px 26px;
     background-color: var(--blue-dark);

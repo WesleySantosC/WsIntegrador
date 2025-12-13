@@ -53,5 +53,5 @@
         <input type="text" name="cep" id="cep" class="form-control" autocomplete="off" required>
     </div>
 
-    <button type="submit" class="btn btn-primary" id="submitPlanClient">Pagar</button>
+    <button type="submit" class="btn btn-primary" id="submitPlanClient">Realizar Cadastro</button>
 </form>

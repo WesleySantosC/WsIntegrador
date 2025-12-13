@@ -7,7 +7,16 @@ $(document).ready(function() {
         e.preventDefault();
 
         let formSerialize = form.serialize();
-        
+
+        Swal.fire({
+            title: 'Enviando...',
+            text: 'Aguarde enquanto processamos sua solicitação.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
         $.post(
             wwwroot + ROUTE, formSerialize, function(response) {
                 console.log(response);
@@ -21,9 +30,19 @@ $(document).ready(function() {
                     });
                     form[0].reset();
                 } else {
-                    Swal.fire('Erro', response.message, 'error');
+                    Swal.fire({
+                        title:'Erro', 
+                        tetx :'Entre em contato com a nossa equipe, para que possamos ajudar!', 
+                        icon :'error'
+                });
                 }
             }, 'json'
-        );
+        ).fail(function(jqXHR, textStatus, errorThrown) {
+            Swal.fire(
+                'Erro na Conexão',
+                'Não foi possível completar a requisição. Tente novamente.',
+                'error'
+            );
+        });
     });
 });
