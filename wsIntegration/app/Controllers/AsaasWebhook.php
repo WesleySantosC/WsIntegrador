@@ -11,16 +11,16 @@ class AsaasWebhook extends BaseController
     {
         log_message('info', '[ASAAS WEBHOOK] Sem validação de token ativa.');
 
-        $json = $this->request->getJSON();
+        $json = $this->getJson;
 
         if (!$json) {
-            return $this->response->setJSON(['error' => 'Invalid JSON']);
+            return $this->jsonResponse(['error' => 'Invalid JSON']);
         }
 
         $event = $json->event ?? null;
 
         if (!$event) {
-            return $this->response->setJSON(['error' => 'No event received']);
+            return $this->jsonResponse(['error' => 'No event received']);
         }
 
         log_message('info', '[ASAAS WEBHOOK RECEIVED] ' . json_encode($json));
