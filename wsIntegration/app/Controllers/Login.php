@@ -42,7 +42,7 @@ class Login extends BaseController
             return redirect()->to('/login')->with('erro', 'Você precisa estar logado.');
         }
 
-        return $this->response->setJSON($usuario);
+        return $this->jsonResponse($usuario);
     }
 
     public function logout()

@@ -59,10 +59,13 @@ abstract class BaseController extends Controller
         $this->post         = $this->request->getPost();
         $this->getFiles     = $this->request->getFiles();
         $this->verifyAjax   = $this->request->isAJAX();
-        $this->getJson      = $this->request->getJSON();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');
+    }
+
+    public function getJson() {
+        $this->getJson = $this->request->getJSON();
     }
 
     public function jsonResponse($data) {
