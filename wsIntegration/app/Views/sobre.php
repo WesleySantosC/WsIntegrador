@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url('Styles/styleSobreNos.css'); ?>">
     <link rel="icon" href="<?= base_url('imgs/fivecon_muvy.png') ?>">
     <script>
-        const wwwroot = "<?= base_url() ?>";
+        const wwwroot = "<?= getenv('WWWROOT') ?>";
     </script>
 </head>
 

@@ -5,7 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= base_url('scripts/mask.js'); ?>"></script>
 <script>
-    const wwwroot = "<?= base_url() ?>";
+    const wwwroot = "<?= getenv('WWWROOT')?>";
 </script>
 <script src="https://kit.fontawesome.com/b46ba83dad.js" crossorigin="anonymous"></script>
 <div class="hamburger" id="hamburger">&#9776;</div><br><br><br>
