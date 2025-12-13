@@ -13,6 +13,15 @@ $(document).ready(function() {
         const ROUTE   = 'payment/returnStatus';
         let formData  = $(this).serialize();
 
+        Swal.fire({
+            title: 'Processando...',
+            text: 'Aguarde enquanto finalizamos seu cadastro.',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            }
+        });
+
         $.post(WWWROOT + ROUTE, formData, function(response) {
             if(response.status === 'success') {
                 Swal.fire({
@@ -20,12 +29,12 @@ $(document).ready(function() {
                     text : "Seu cadastro foi finalizado",
                     icon : 'success'
                 }).then(() => {
-                    window.location.href=WWWROOT
+                    window.location.href=WWWROOT + 'resetPassword'
                 });
             } else {
                 Swal.fire({
                     title: "Erro",
-                    text : response.error,
+                    text : "Entre em contato com a nossa equipe, para que possamos ajudar!",
                     icon : "error"
                 });
             }
