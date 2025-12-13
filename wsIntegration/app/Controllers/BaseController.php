@@ -54,7 +54,7 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
         
-        $this->wwwroot      = base_url();
+        $this->wwwroot      = getenv('WWWROOT');
         $this->post         = $this->request->getPost();
         $this->getFiles     = $this->request->getFiles();
         $this->verifyAjax   = $this->request->isAJAX();
