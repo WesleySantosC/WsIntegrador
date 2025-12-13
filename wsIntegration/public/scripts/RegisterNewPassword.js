@@ -21,11 +21,11 @@ $(document).ready(function() {
             wwwroot + ROUTE, formSerialize, function(response) {
                 console.log(response);
                 if(response.status === 'success'){
-                    Swal.fire(
-                        'Sucesso', 
-                        response.message, 
-                        'success'
-                    ).then(function() {
+                    Swal.fire({
+                        title: 'Sucesso', 
+                        text : response.message, 
+                        icon :'success'
+                    }).then(function() {
                         window.location.href= wwwroot + "/login";
                     });
                     form[0].reset();
