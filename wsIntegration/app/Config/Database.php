@@ -45,7 +45,7 @@ class Database extends Config
 
         $this->default = [
             'DSN'          => '',
-            'hostname'     => 'db',
+            'hostname'     => env('MYSQL_HOST'),
             'username'     => env('MYSQL_USER'),
             'password'     => env('MYSQL_PASSWORD'),
             'database'     => env('MYSQL_DATABASE'),
